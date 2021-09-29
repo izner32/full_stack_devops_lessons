@@ -1,0 +1,14 @@
+/* mobile styles */
+/* small tablet styles */
+/* large tables & laptop styles */
+/* desktop styles */
+li {
+  list-style-type: none;
+}
+
+body, p, a, ul, li {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+/*# sourceMappingURL=grid-layout.css.map */

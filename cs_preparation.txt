@@ -1,0 +1,482 @@
+PREPARATION
+- get good at leetcoding 
+    - data structure 
+        - array 
+        - stack 
+        - queue 
+        - heaps 
+        - trees
+        - hash tables 
+        - graph 
+    - algorithm
+        - search algorithm 
+        - sorting algorithm 
+- create alot of projects 
+- do opensource work 
+
+TOOLS 
+- interviewbit.com 
+- leetcode.com
+https://jeremyaguilon.me/blog/ranking_interview_questions_by_cram_score
+
+PROBLEMS TO SOLVE 
+- TWO SUMS 
+
+ADVICE 
+- you most likely won't get asked to implement a data structure from scratch, tho there are some exceptions look at your reddit messages 
+- always browse: cscareers.dev, cs majors and cs careers hub in discord 
+- facebook london hires intern 
+
+HOW TO GET HIRED ABROAD 
+    - relocate then apply (not recommended)
+    - stay in a multinational company, get good and ask to be relocated in a 1st world counterpart
+    - apply to companies who sponsors
+    - apply at an agency that connects outsource into foreign countries, they assign a country that would hire you then you get somehow sponsored 
+        - suggested agency: http://www.nityo.com/
+        - according to pinoyCTO: 'di na need ng agency after 2 years para sa visa 
+
+COMPANIES TO LOOK OUT FOR 
+    - list of companies 
+        - atleast 30k 
+            - factset,oracle,amdocs 
+        - atleast 40k 
+            - azeus,infor, novare, yondu, seven, pointwest 
+        - atleast 45K
+            - hipster startups sa pinas, though di sila masyado nagpo-post sa mga job sites like indeed/linkedin. You'll see them via FB groups, like for example I met this dude from salarium (at Makati) who offered 50k
+            - example of hipster startups
+                - salarium
+            - source startups at 
+                - Startup PH: Jobs 
+    - you're a top applicant on one of tesla internship
+    JOBS 
+    - send email at local to medium companies for foreign companies 
+    - look at foreign startups 
+
+
+STANDARDIZED QUESTION TO ASK FOR EACH CODING PROBLEM 
+- i forgot, research more 
+
+THINGS I DONT UNDERSTAND THAT MUCH 
+- big O
+    - define insert, there are multiple meaning for it like inserting at arbitrary index,etc. 
+    - define lookup, is lookup search or access or both 
+- what is random access, what data structure allows it, what really is access in big o 
+
+
+
+
+
+
+
+
+
+// LESSON 1.1 - 
+// gut check 
+    - answer you spend coding as much time as you possible can 
+3 keys to technical interveiws 
+    - technical knowledge 
+    - critical and abstract problem solving 
+    - communication 
+
+// LESSON 27 - GRAPHS 
+directed graphs 
+    - edges has direction 
+    - web pages | e.g. homepage has links to different page and each of that page has link to another page or home page or any other page 
+undirected graphs 
+    - facebook is an example 
+    - edges has no direction 
+weighted graphs 
+    - every edge has costs/weight just like in deep learning 
+unweighted graphs 
+    - no weights 
+
+// LESSON 37 - BIG O 
+
+good code 
+    - readable 
+    - scalable: this is where big o notation is useful 
+        - time complexity: how fast is our code in grand scheme of things 
+        - space complexity: how efficient in terms of memory of the computer is the code 
+
+BIG O NOTATION - determine how scalable the code is 
+O(1) - constant time | time complexity is not dependent on how many the element inside an array is 
+class Main () {
+    public static void main(String[] args){
+        void sampleMethod (int[] arr) {
+            System.out.println(arr[0]); // O(1)
+            System.out.println(arr[1]); // big O is now O(2)
+        }
+    }
+}
+
+O(n) - linear time | time complexity is dependent on how many the element inside an array is 
+class Main () {
+    public static void main(String[] args){
+        void sampleMethod (arr) {
+            for (int i = 0; i < arr.length; i++){ // this for loop would execute dependent on the length of the array thus having O(n)
+                System.out.println("qwerqrasdfas"); // 
+            }
+        }
+    }
+}
+
+O(n^2) - quadratic time | time complexity if there are nested for loop | no. of operations increases dramatically as the number of element increases 
+class Main () {
+    public static void main(String[] args){
+        void sampleMethod (arr,arr1) {
+            for (int i = 0; i < arr.length; i++){ // 
+                for (int j = 0; j < arr1.length; j++){
+                    System.out.println("qwerqrasdfas"); // O(n^2) because O(n * n)
+                }
+            }
+        }
+    }
+}
+
+O(n!) - factorial time, worst of them all | we're adding a nested loop for every input that we have | you're probably never going to see it
+
+O(log N)
+
+level 0: 2^0 = 1;
+level 1: 2^1 = 2;
+level 3: 2^2 = 4;
+level 4: 2^3 = 8;
+
+number of nodes = 2^h - 1 | h for height or level, -1 because root node is only 1 remember that and try counting it to see for yourself 
+
+// explaning log 
+log 100 = 2 | because 10^2 = 100, log has default 10
+
+
+BIG O EXERCISE 
+function funChallenge(input) {
+  let a = 10; // O(1) - constnat because this only needs to be run once | some people doesn't consider assignment but it doesnt matter anyway, since things get simplified in the end anyways 
+  a = 50 + 3; // O(1) - constnat because this only needs to be run once 
+
+  for (let i = 0; i < input.length; i++) { // O(n) time complexity is linearly dependent on the length of the array | again, some people doesn't consider this but some people do, we'll just consider it for consistency 
+    anotherFunction(); // same with here, still O(n)
+    let stranger = true; // O(n)
+    a++; // O(n)
+  }
+  return a; // O(1)
+}
+
+// total Big O is now = 3 + 4n so O(3+4n)
+// simplifying Big O = 
+    4 rules 
+        - worst case 
+            - big o only cares about the worst case 
+            - exiting out of a loop after the answer has been found 
+        - remove constants 
+            - we only care about when the inputs are getting larger and larger, that's why even if it's n/2 or 2n it gets simplified to n, because if n is 100 and we only took the half which is 50 but then added another 100 again, it doesn't really matter since we only care about the grand scheme of things  
+            - if a for loop has a constant assigned and not the length of the array then you could just drop that in the computation of big O | constant could be 100000000 but it doesnt really matter, we'll just be dropping it becuz its constant and no matter how big the constant is there's something much bigger remember we only care about the grand scheme of things 
+            - we dont care how steep the line is from the graph, we only care how the line moves: for O(n) its linear 
+        - different terms for inputs 
+            - let's say there are two arrays, we loop separately with these two arrays, big o notation would be O(n + m) because we don't know how big the 1st array is and 2nd array is 
+        - drop non dominants 
+            - e.g. O(n + n^2) simplify it into O(n^2), because as n increases the size of n^2 is way more important, again we look thigns at a grand scheme of things | we think of n as it approaches to infinity, remember that the purpose of big o notation is to determine whether a code is good for scalability 
+
+space complexity 
+    memory 
+        - stack 
+            - where function calls exists 
+        - heap 
+            - where objects exists, everytime we use new keyword it goes to the heap 
+
+    what increases the space complexity? 
+        - variables 
+        - data structures 
+        - function calls 
+        - allocation 
+
+O(1) - space complexity 
+    function boooo(n){
+        for (let i = 0; i < n.length; i++){
+            console.log(`yeah boi`);
+        }
+    }
+
+    boooo([1,2,3,4]) // space complexity of this function is O(1) since the only variable being created on this function is the i, as for the array we passed it's not being created inside the function 
+
+O(n) - space compleixty 
+    function arrayOfHiNTimes(n){
+        let hiArray = [];
+        for (let i = 0; i < n; i++){
+            hiArray[i] = "hi"; // it adds a new space dependent on the argument being passed on the function 
+        }
+        return hiArray;
+    }
+
+    arrayOfHiNTimes(6); // O(n) because as you can see from the function, the space of the array 'hiArray' is dependent on the 'n' being passed unto the function 
+
+// LESSON 38 - ARRAYS 
+
+access/lookup - O(1) | we know exactly where it is in memory that's why the big o is constant 
+    - strings[2]
+search - O(n)
+insertion - O(n) | elements are getting moved that's why it has a big o notation of n 
+deletion - O(n)
+push/pop - O(1)
+    - strings.push("e");
+    - strings.pop();
+shift/unshift - O(n) | why? because when you're inserting at an array the elements get moved into its right one by one 
+    - strings.unshift("x");
+    - strings.shift()
+splice - O(n) | let's say we wanted to insert at the middle it would have O(n/2) but then again big o only looks at scalability and how things would perform at the grand scheme of things thus simplifying it into O(n)
+    - strings.splice(2,0,"a","b"); // inserting 2 items at index 2 | remember that inserting is O(n) since elements are getting moved 
+
+2 types of array 
+    - static 
+        - definition: fixed in size, need to specify the size of the array 
+    - dynamic - default arrays for languages like python,javascript 
+        - definition: example we insert a new item in an array what happen is we allocate a new array(new memory address) with twice the size of the current full array, we copy the items inside the full array and paste it into the newly doubled allocated array including with the item we inserted, this is kinda bad since there are some extra spaces not getting occupied  
+        - lookup - O(1)
+        - append - O(1) | O(n)
+        - insert - O(n)
+        - delete - O(n)
+
+// LESSON 39 - HASH TABLES 
+different terms
+    - hash maps 
+    - maps | java 
+    - unordered maps 
+    - dictionaries | python 
+    - objects | javascript 
+
+hash tables gets to decide where to put the key value pairs in memory address, hint: they're not a contained in a contigous block of memory like in array
+what happens is we create a property -> hash table uses hash function to generate a random key string based on our key value pair -> this generated hash key from hash function is the basis for the memory address of the property, thus properties in a hash table are randomly distributed across memory 
+we assume hash the routine above when creating a property to be O(1) since it happen very fast 
+visualizing hash table: https://www.cs.usfca.edu/~galles/visualization/OpenHash.html
+
+big o
+    insert - O(1) - constant kasi hindi naman connected ang mga property sa isa't isa 
+    lookup/acess - O(1) | could be O(n) when collision
+    delete - O(1)
+    search - O(1)
+
+hash collision 
+    - when two properties (key value pair) are both assigned to the same memory address, this only occurs if the generated random key string was the same for both properties, this has 40% occuring on a 4 billion item 
+    - since we have to iterate thru all of the elements, this has a O(n/k) where k is the size of hash table but then get simplified into O(n) because big o only talks about scalability it looks at the grand scheme of things 
+
+    dealing with collision 
+        - use linked list 
+        - and there's a ton of other way 
+
+// LESSON 40 - LINKED LIST 
+most common type of linked list 
+    - singly 
+        - pointer only points to the next node
+        - only traverse forward  
+    - doubly 
+        - there are two pointers, one points to the previous node and another points to the next
+        - allows us to traverse backwards 
+    - circular 
+
+structure of linked list: 
+    - memory address is not contigous 
+    - each node points to the memory address of the next node 
+head(node)    node          tail(node)
+element1 ->   element2 ->   element3 -> null
+9312          1231          2391
+
+visualizing linked list: https://visualgo.net/en/list
+the major advantage of linked list over hash table is that it has some sort of order because a node points to the next node 
+
+big o
+    - prepend(add at the front) - O(1)
+    - append - O(1)
+    - lookup - O(n)
+    - insert - O(n) - kasi we have to start searching from the head 
+    - delete - O(n)
+
+linked list 
+    - pros 
+        - fast insertion 
+        - fast deletion 
+        - ordered 
+        - flexible size 
+    - cons 
+        - slow lookup 
+        - more memory (since a pointer in c++ occupies 8 bytes, and for doubly linked list you have to create 2 pointer )
+    
+// LESSON 41 - STACKS AND QUEUES 
+- linear data structure: traverse or go through data elemetns sequentialyl one by one 
+
+stacks 
+    - last in,first out (LIFO)
+    - can only delete from the top 
+    - can only insert from the top 
+    - cannot do random access 
+    - can be build with array 
+        - allows cash locality, which makes accesing items faster in memory becaues they're right next t oeach other vs a linked list 
+    - can be build with linked list  
+        - occupies extra memory since we have to hold on to those pointers :(
+        - has dynamic memory, can add more and more items whereas arrays has fixed sizes(static array), and dynamic array on the other hand doubles the sizes each time which is not that good since alot of extra memory is being wasted  
+
+    big O 
+        - lookup - O(n)
+        - pop(removing the last item) - O(1)
+        - push(inserting item, remember we could only insert at the top) - O(1)
+        - peek(looking at the value at the top) - O(1)
+
+queues
+    - first in, first out 
+    - can only delete from the front (dequeue)
+    - can only insert from the last of the line (enqueue)
+    - cannot do random access 
+    - do not use array to build a queue since it is very inefficient, because remebmer when deleting/inserting an element from array it shifts the other element thus creating an O(n)
+    - can be build with linked list (not array!!!!)
+        - inserting and deleting is O(1) in linked list which makes it efficient 
+    
+    big O 
+        - lookup - O(n)
+        - enqueue(push) - O(1)
+        - dequeue(pop) - O(1)
+        - peek(looking at the first item) - O(1)
+
+conclusion for stacks and queues 
+    pros 
+        - fast operations 
+        - fast peek 
+        - ordered 
+    cons
+        - slow lookup
+
+// LESSON 42 - TREES 
+- data structure that has hieararchical structure 
+- linked list is technically a type of tree but with just one single path 
+
+important terms 
+    - root 
+        - starting node from the top 
+    - parent 
+        - node that has a children 
+    - child 
+        - child of a parent node 
+        - leaf is also a child node 
+    - leaf 
+        - child node that has no child 
+        - very end of tree data structure 
+    - sibling 
+        - sibling of another child node 
+
+binary tree 
+    - each node can only have either zero, one or two child node 
+    - each child can only have one parent 
+
+    perfect binary tree 
+        - no node only has one child, it either have two children or no children  
+        - tree with all leaf nodes at the same depth 
+        - really efficient 
+        - the number of total nodes doubles as we move down the tree 
+        - all the nodes above the current layer we're in is equal + 1 to the sum of all the nodes in our current layer 
+
+        example of perfect binary tree 
+                *            | root node 
+            *       *        | interior node 
+        *   *       *   *    | leaf node 
+
+    full binary tree / proper binary tree 
+        - a node has either zero or two children but never one child 
+
+        example of full binary tree 
+                *
+            *       *
+        *   *
+        *       *
+    
+
+binary search tree 
+    - balancing a bst isn't being done in most interviews since its complex and time consuming 
+    - most common tree data strcutre 
+    - visualize it here 
+        https://visualgo.net/bn/bst?slide=1
+
+    rules 
+        - right child node must be bigger than the parent node 
+        - left child node must be less than the parent node 
+
+    big O 
+        - lookup(search) - O(logN) 
+        - insert - O(logN)
+        - delete - O(logN)
+            - find the smallest node to replace the parent node which is bigger than the right child node and less than the left child node 
+
+    balanced tree 
+        - avl tree 
+        - red black tree 
+    unbalanced tree 
+        - kind of turn like a linked list, most of the items are clustered in one direction 
+        - this is bad since search/lookup can become O(n)
+
+    conclusion: 
+        pros 
+            - better than O(n)
+            - ordered 
+            - flexible size 
+        cons 
+            - No O(1) operations 
+                - arrays have O(1) in some operations 
+
+divide and conquer 
+
+trie(also known as prefix tree)
+    - specialized tree used in searching, most often with text 
+    - used in auto completion 
+    - idont understand that much 
+
+// LESSON 43 - SEARCHING + BFS + DFS 
+traversal - visiting every node 
+
+tree/graph traversal - O(n)
+    - breadt first search (bfs)
+    - depth first search (dfs)
+
+breadth first search (bfs) 
+    - start from the root -> move layer by layer, start from left to right 
+    - uses additional memory because it is necessary to track all child nodes 
+
+    // EXAMPLE 
+            9
+        4       20
+    1   6       15  170
+
+    // this is how it would look like 
+    [9, 4, 20, 1, 6, 15, 170]
+
+depth first search (dfs)
+    - start with left continue going down focusing on the left side until you reach the leaf node 
+    - afte reaching the leaf node, go to the leaf node's parent's node and check if it has another child 
+    - go down again until you reach the leaf node 
+    - if everything on the left side is explored go back to the root 
+    - start exploring down by focusing on the left side of the right side of the root 
+    - go down again until you reach the leaf node 
+    - if everything on the left side of the right side of the root is explored, go to leaf node's parent node and check if it has another child 
+    - stop until everything is explored 
+
+    // EXAMPLE 
+            9
+        4       20
+    1   6       15  170
+
+    // this is how it would look like 
+    [9, 4, 1, 6, 20, 15, 170]
+
+BFS VS. DFS 
+    bfs 
+        - if you have additional information on the location of the target node and you know the node is likely in the upper level of a graph then bfs is better because it will search through the closest node first  
+        pros 
+            - shortest path between a starting point and any other reachable node 
+            - closer nodes 
+        cons 
+            - more memory 
+    dfs 
+        pros 
+            - uses less memory 
+            - good at answering does path exist?
+        cons 
+            - can get slow 
+            - not good for finding the shortest path 
+
+
+// LESSON X.1 - ABSTRACT SYNTAX TREE 

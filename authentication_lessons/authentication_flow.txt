@@ -1,0 +1,358 @@
+AUTHENTICATION: TELLING THE SYSTEM WHO YOU ARE BY PROVIDING USERNAME AND PASSWORD 
+              : JWT IS USED INSTEAD OF A PASSWORD THAT KEEPS YOU LOGGED IN IN A BROWSER, IT'S LIKE A WAY TO TELL THE BROWSER THAT YOU ARE WHO YOU SAY YOU ARE 
+AUTHORIZATION: THINGS YOU CAN DO ACCORDING TO WHO YOU ARE 
+
+HIGH LEVEL FLOW FOR SIGN UP AND LOGIN 
+- create wireframe -> prototype -> mockup for product design in figma
+- do the initial setup
+    - create-next-app 
+        - commit, then push initial setup to github
+    - install typescript
+    - install dependencies and dev dependencies to be used 
+        - dependencies 
+            - express: for creating apis 
+            - jsonwebtoken: for generating jwt 
+            - cors: allowing other url to fetch our api created
+            - dotenv 
+            - bcrypt: for encrypting passwords 
+            - react: front end framework
+            - react-router-dom: 
+            - bootstrap: styling 
+            - mongodb: to be able to connect to database 
+            - mongoose: to be able to connect to cloud database(mongodb)
+            - gh-pages: for deploying website to github 
+                - add these into package.json 
+                    - "homepage": "https://izner32.github.io/frontend-mentor-card-component." // https://izner32.github.io/name-of-repository
+                    - "deploy": "gh-pages -d dist" // -d means directory, dist is for name of directory 
+                    - npm run deploy 
+                    - for react 
+                        - npm run build 
+                        - npm run deploy
+        - dev-dependencies 
+            - nodemon: used to automatically refresh the server so we dont have to keep on rerunning the server on every changes 
+        - create a script on package.json that lets us use this nodemon 
+    - organize the frontend file 
+        - create components directory 
+            - create page directory for each frontend page 
+                - create a file for each of the component to be used inside this page 
+        - create components-for-all directory 
+            - create a file for each of the component to be used across multiple frontend pages 
+        - create pages directory 
+            - create a Route.js file where all of the frontend pages are stored 
+    - organize the backend file 
+        - create config directory 
+            - setup database
+                - setup mongodb atlas
+                    - create different collections 
+                - create a file named db.tsx
+        - create util directory 
+        - create routes directory 
+            - create api directory 
+                - store each individual api into this folder 
+            - create route.tsx, where all of the api are clustered
+- create a private route where authorized or logged in user can only access
+    - create a PrivateRoute.js that would act as a route for these different pages 
+    - only frontend pages that requires authorization shall be placed here | right now we have no way to do this, wait a bit more but still code the true and false below 
+        - true: return route that lets them enter the private rotue (e.g. user info page)
+        - false: redirect them into the login route page 
+- create signup component
+    - frontend
+        - create a signup page 
+            - create a form that lets user enter info including email and password 
+            - create a function that is called whenever the sign up button has been clicked 
+                - fetch put api that lets us add user's email and pass to the database | put because we're updating the database 
+                - use useState to track the value from input field use the state value as content of the body you're sending with fetching
+        - import this page to the frontend route file 
+    - backend 
+        - create signup route 
+            - grab the user's email and password and some additional infos from req.body 
+            - create put api thats lets you add user's email and password to the database 
+                - connect to database 
+                - check if the user exists already
+                - add additional security by salting and peppering the password 
+                - hash the user's password before sending it into the database 
+                - create a verification string 
+                - create a default info of some users that is to be passed along with the password,email,etc.
+                - insert user's email,password,starting info into the database 
+                    - after inserting to the database, grab the id of the user (id is automatically generated when creating a new object in mongodb)
+                - create a jwt by using jwt.sign (jwt is used as a substitute password, to verify that the user is who they say they are) | we would only do this step because we want the user to be logged in after signing up
+                    - insert all of the user's info into this jwt 
+                    - create a new file called .env (for environment variables or values that we don't want anyone else to see)
+                        - store JWT_SECRET inside this .env file 
+                    - pass the JWT_SECRET as an argument in jwt.sign 
+                    - this would produce a signed jwt unique to that user as a response of this api
+- create email verification component 
+    - setup an email provider or service that takes care of sending emails 
+        - create an api key that will allow our backend to send email 
+        - go to .env file and create SENDGRID_API_KEY
+    - create a util that allows us to send the email with sendgrid  
+    - create an email verification landing page that appears after the email verification link has been clicked
+    - add these inside signUpRoute 
+        - import uuid, this is for generating random string 
+        - import the util that sends the email 
+        - generate a random string with uuid called verificationString 
+        - add a verification string when inserting user's info to the database 
+        - use the send email util function, wrap it in a try catch block(these line of code should be added after adding info to the database)
+    - go to updateUserInfoRoute: according to this workflow, this isn't created yet (go back to this step afterwards)
+        - add isVerified, if not verified return an error response 
+    - [OPTIONAL]for frontend, create a verify email page that asks the user to verify their email, a page that appears after the user clicks the sign up button 
+    - create a verify email route (backend) that is being fetched after the user clicks the confirmation link from the email | this api validates whether the verificationString is valid 
+        - grab the verificationString from the req.body
+        - connect to database 
+            - find the user that has the same verificationString we had from the content we receive 
+            - if no match, send an error response 
+            - if yes match, mark the user as verified by updating the isVerified into true 
+        - send token to the one fetching the api (STUDY WHY)
+        - and obviously import the created route into the main route source
+    - create a verification landing page that you redirect the user into after they are verified into whether a successful or failure page 
+        - success:
+            - create a frontend page that states it was a success
+        - fail:
+            - create a frontend page that states it was a failure 
+        - inside the root verification landing page 
+            - import the success and fail frontend pages 
+            - fetch the created api that checks if the verificationString we sent to the user and the one into the database matches 
+            - fetching that api returns a token, use setToken, remember that this useToken allows us to store token into the local storage, whcih then could be used to authorize user into private routes 
+- create login component
+    - frontend
+        - create a login page 
+            - create a form that lets user enter info including email and password 
+            - create a function that is called whenever the log in button has been clicked 
+                - fetch post api that lets us check whether the info sent by the user matches a user's info from our database | we use post because we wanted to be able to send something to the api 
+                - use useState to track the value from input field use the state value as content of the body you're sending with fetching
+        - import this page to the frontend route file 
+    - backend
+        - create a login route 
+            - grab the user's email and password and some additional infos from req.body 
+            - create post api because post let's us send something to the api 
+                - connect to database 
+                - do an initial check if the user exists by checking if its email exists in our database 
+                    - true: grab the other info of the user including password,etc.
+                    - false: return an error response 
+                - compare the user's hashed password from the database to the input field's password 
+                    - hash the input field's password first then start comparing 
+                - password is correct 
+                    - true: 
+                        - create a jwt by using jwt.sign (jwt is used as a substitute password, to verify that the user is who they say they are)
+                        - insert all of the user's info into this jwt 
+                        - create a new file called .env (for environment variables or values that we don't want anyone else to see)
+                            - store JWT_SECRET inside this .env file 
+                        - pass the JWT_SECRET as an argument in jwt.sign 
+                        - this would produce a signed jwt unique to that user as a response of this api
+                    - false:
+                        - return an error response
+- implementing jwt for the frontend 
+    - create your own hook: useToken - returns an array with two element [token,setToken] that grabs and set the jwt token from the local storage 
+    - create your own hook: useUser - returns an array with two elements [payload,setPayload] that grabs and set the payload from the jwt 
+        - import the useToken hook, grab the jwt 
+        - get the payload part of the token since we could already tell if a user is unique usign payload ( we grab the payload from token so we can use it as the value of user in that way we could match token with a specific user)
+        - check if the token has value 
+            - true: set the user as the value of payload from the jwt
+            - false: set the user as null
+        - meaning if the useUser has a value, a jwt has a value too
+- update signup frontend | for adding jwt to the frontend 
+    - import useToken hook
+    - inside the function that executes when the signup button has been clicked 
+        - grab the response token from fetching the api 
+        - use setToken to set the token into the value from the response's token 
+        - redirect into the homepage where authorized people only has access 
+- update login frontend | for adding jwt to the frontend 
+    - import useToken hook
+    - inside the function that executes when the signup button has been clicked 
+        - grab the response token from fetching the api 
+        - use setToken to set the token into the value from the response's token 
+        - redirect into the homepage where authorized people only has access 
+- update private route 
+    - import useUser 
+    - user exists 
+        - true: return route that lets them enter the private rotue (e.g. user info page)
+        - false: redirect them into the login route page 
+- create a page where authorized or logged in user only can enter 
+    - create a user info page 
+        - frontend 
+            - create a user info page 
+                - create a form that lets user update their personal info 
+                - create a function that shows error or fail message 
+                - create a function that is called whenever the update user info button has been clicked 
+                    - fetch put api that lets us modify the info of existing user in the database 
+                    - use useState to track the value from input field use the state value as content of the body you're sending with fetching
+                    - call the function that shows the error or fail message 
+                - import this page to the frontend route file 
+        - backend 
+            - create a updateUserInfo route 
+                - grab the authorization (which is the jwt) (whether the user is allowed or not)
+                - grab the user's id so we can match the user from the database 
+                - grab the updated info from the req.body
+                - create put api that lets us update the user's existsing info from the database 
+                    - check if the user has sent an authorization 
+                        - true: proceed to the code below 
+                        - false: return error response 
+                    - verify if the authorization(token) is valid by using jwt.verify 
+                        - true: 
+                        - false: return error response 
+                    - connect to database 
+                    - find and update the user's info 
+                    - [CONTINUE]
+                    - close connection to database 
+- create a logout functionality 
+    - create a file 
+        - remove the jwt from the local storage 
+        - redirect the user into the login page/landing page 
+- create password reset 
+    - frontend 
+        - create a forgot password page 
+            - create a form that lets user enter their email address 
+    - backend 
+        - create a forgot password route 
+            
+- design front end 
+    - use css framework
+        - true:
+            - bootstrap
+            - tailwindcss 
+        - false:
+            - remember this 6 important concepts of css 
+                - everything is a box (margin,border,padding,height,width,content)
+                - display
+                - position 
+                - typography and text properties
+                - grid,flexbox,float for layout 
+                - animation 
+            - import normalize css so our design would be consistent accross different browsers 
+            - create list of fonts and colors to be used on website, store them in a css variable 
+            - design layout
+                - use grid for the structure of the website
+                - use grid or flex for the layout of grid items 
+                - make it responsive using media queries
+            - design each of the components
+
+
+
+    
+
+
+
+HIGH LEVEL FLOW FOR EMAIL VERIFICATION 
+    - if signup button has been clicked redirect into the email verification page that asks the user to verify their email
+    - this request for email page to be verified then get lost after a few seconds 
+    - server generates a secret verification hash to your email 
+    - if the user click the link that has the secret verification hash they get redirected to another thank you for signing up page 
+    - the landing page parses the verification hash from the url and sends it to the server 
+    - if the verification hash matches, the user is marked as verified 
+
+    1. the user creates a new account with their email and password
+    2. the server add this information to the database 
+    3. the server also generates a secret verification hash that the user cant see - this will be used to prove that the user actually has access to that email address 
+    4. the server sends an email link with this verification hash to provided email address
+    5. if the user really owns the email, they can click this link which sends them to a special landing page in our application 
+    6. the landing page parses the verification hash from the url and sends it to the server 
+    7. if the verification hash matches, the user is marked as "verified"
+
+
+
+//------- FRONTEND ----------------------------
+- building a login page for frontend 
+    - create a new file loginPage.js 
+        - this has a form which has an email and password 
+        - import useState for tracking input fields
+            - use onChange events to change the value of state hooks when the input fields has been changed 
+        - create a function on what would happen when the login button has been clicked 
+        - add a login button 
+            - add a disable attribute that makes the button unclickable when a condition hasn't been met 
+            - use useHistory for redirection when a button has been clicked
+            - use onClick that executes the function created above when the login button has been clicked 
+- building a signup page for frontend 
+    - create a new file signUpPage.js 
+        - this has a form with email,confirm email and password 
+        - at this point copy pretty much the rest of the steps in loginpage 
+- create private routes 
+    - create a new file PrivateRoute.js - this would act like a typical route for frontend pages, except it's private 
+    - inside this PrivateRoute.js it would check if the user is logged in 
+        :true - return route that lets them enter the private route (e.g. user info page)
+        :false - redirect them into the login route page 
+//------- BACKEND ----------------------------
+- adding a signup route to the server for backend (in other words creating an api that is being fetched when the button or trigger has been clicked)
+    - create a signUpRoute.js that has the path,method and handler 
+        - install necessary modules: bcrypt (to encrypt password before going into database) | dotenv (for loading env variables from a file) | jsonwebtoken (for signing and verifying things) - remember that jwt is used for authentication we give this after they logged in and we can use this jwt to verify that they are what they say they are
+        - connect to database 
+            - create a function for this since all routes would be connecting to database and it would be redundant if all of them would have a code written just to connect in database 
+        - check if the user info like email exists in our database by querying to the database on whether an existing email is already at the database 
+        - if all is well, encrypt the password 
+        - create a starting info for new users, example empty value for profile picture, empty string value for bio 
+        - insert the signup info of user into the database with the encrypted password including the starting info 
+        - when inserting a new info into the mongodb, an id is automatically created, grab that 
+            - destructure that id from the info you inserted in mongodb, it'll magically appear even tho you didn't create an id well again that's because id is automatically created after inserted 
+        - generate jwt or create jwt using jwt.sign, insert all of the user's info this jwt and sign it with jwt.sign 
+            - this would produce a signed jwt unique to that user, we can then use this jwt to verify that the user is they are who they say they are 
+            - create a new file called .env (this is where we store environment variables)
+                - store jwt_secret into the environment variable (hide jwt because its somehow a replacement for password, and we're hiding it in an environment variable)
+            - jwt.sign arguments 
+                - 1st argument: the info of the user, 2nd argument: jwt_secret environment variables, 3rd argument: expiration of jwt token, 4th argument: callback function for error handling 
+            - response of this route is the jwt token 
+    - add this route to the main server(where the private route and normal routes are being stored), and now test it with postman or thunder client 
+- adding a login route to the server 
+    - create a loginRoute.js that has the path, method and handler (handler is the callback function where we put on how api works)
+        - import necessary modules: bcrypt (to encrypt password before going into database) | jsonwebtoken (for signing and verifying things) - remember that jwt is used for authentication we give this after they logged in and we can use this jwt to verify that they are what they say they are
+        - grab the email and password from the input field 
+        - connect to database using the function we created from config>db.js that set us up into connecting to the database 
+        - check if the user info like email exists in our database by querying the user to the database 
+        - if all is well grab the other info of the user like id, isVerified, hashed password, etc. 
+        - compare the hashed password from the database to the password sent in the input field 
+            - hash the password first sent into the input field then start comparing the two hashed password if they match 
+        - if password is correct, create a jwt with jwt.sign (you've already created a jwt inside .env in signUp above so no need to do it again here)
+    - export this route to the main route 
+- implementing jwt for the frontend (storing jwt inside the browser, it's like keep me logged in)
+    - create your own hook: useToken - returns an array with two element [token,setToken] that grabs and set the jwt token from the local storage (local storage is how we store data to browser)
+    - create your own another hook: useUser - returns the payload of the token | payload contains the info of the that the token holds | purpose of this is to match the token with a specific user 
+        - inside useUser hook
+            - use the useToken hook you created, grab the jwt token 
+            - get the payload part of the token, since we could already tell if a user is unique usign payload ( we grab the payload from token so we can use it as the value of user in that way we could match token with a specific user)
+            - if there is no token value from the useToken (meaning none is stored in the local storage) then set the user to null 
+                - else set the user with payload so now we can match the token and the user 
+//------- CONNECTING FRONTEND TO BACKEND ----------------------------
+- adding jwt to sign up page 
+    - go back to sign up page in the frontend 
+    - quick recap to what the sign up page has:
+        - has a form with sign up button 
+    - update the function for when the sign up button has been clicked 
+        - inside the function: fetch the api that allows us to add data to the database (signUpRoute we created earlier)
+        - grab the response token gained from fetching this specific api
+        - now use setToken (remember that this function allows us to set a token into the local storage which then keep us logged in as long as it's there and also verify that the user is the one who they say they are)
+        - redirect into the homepage where authorized people only has access or logged in people
+    - go to privateRoute, import useUser (remember that if useUser has a value that means a user is logged in) 
+        - if a user is logged in, privateRoute returns Route that allows us to access authorized pages 
+- adding jwt to log in page 
+    - go back to log in page in the frontend
+    - quick recap to what the login page has: 
+        - has a form with login up button that is when clicked and successful we log in (why am i even explaining this)
+    - update the function for when the login button has been clicked 
+        - inside the function: fetch the api that compares the password we passed in the input field with the hashed password from the database 
+        - grab the response token gained from fetching this specific api 
+        - now use setToken (remember that this function allows us to set a token into the local storage which then keep us logged in as long as it's there and also verify that the user is the one who they say they are)
+        - redirect into the homepage where authorized people only has access or logged in people
+//------- BACKEND AGAIN BUT NOT FOR AUTHENTICATION ANYMORE BUT RATHER FOR A FEATURE OF THE APP ----------------------------
+- creating an update user route (this is inside the userInfoPage, in which logged in user only has an access to) - an api that allows us to update the content of the user 
+    - create a updateUserRoute.js that has the path,method and handler 
+        - we use url parameter for this route path, this url param is unique for each of the user 
+        - grab the authorization to check if the one calling this api is authorized and also grab the user's info from the url parameter 
+        - get the info that the user wants to update by using req.body
+        - check if user is authorized, if he/she is then grab its payload from its jwt (remember that we use payload from jwt as a value of user)
+        - verify jwt if it has been tampered or not by using jwt.verify 
+            - if it was tampered send an error response 
+            - if it wasn't tampered grab the id from the decoded jwt so we could use that id to find that user in the database 
+            - check if the userId passed from the url parameter and the destructured id from decoded jwt matches because user should only be able to update their own data 
+            - connect to database 
+                - query the matching id then update the existing info with the new info sent by the client 
+                - after querying you can now find user's info, grab their email and info 
+            - 
+- adding jwt to the user info - so those who 
+    -
+- adding logout functionality 
+    -
+
+NOTE: blank "-" dash line means there are still some things i need to add 
+NOTE: route can mean front end pages or back end api's
+TODO: 
+
+    - continue private routes and adding a signup route to the server for backend
+    - continue those with blank dashes 

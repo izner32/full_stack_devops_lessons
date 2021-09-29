@@ -1,0 +1,198 @@
+// LESSON 1.1 - INTRO 
+    - used in sql databases 
+    - orm simplifies writing raw sql queries 
+
+// LESSON 1.2 - SETUP 
+
+// LESSON 1.3 - CONNECTING TO THE DB - connecting typeorm to database 
+import { } from "typeorm"
+
+const main = async () => {
+    try {
+        const connection = await createConnection({
+            // hide these informations below in an environment variable so no one could see them 
+            type: "postgres",
+            host: "localhost", // ofc if we're using azure,aws,etc. then we use those instead of localhost 
+            port: 5432,
+            username: "renz",
+            password: "qwerty123",
+            database: "typeorm"
+        })
+        console.log("Connected to postgres");
+    } catch (err) {
+        console.error("Unable to connect to Postgres");
+        throw new Error("Unable to connect to db"); // generates an error message that has this message 
+    } 
+}
+
+main();
+
+// LESSON 1.4 - ENTITIES - entities:table ; typeorm:postgres | a way to create table with orms 
+- create an entities folder inside src 
+    - create Client.tsx 
+    import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"; // entity is a decorator, specified when we wanted to create an entity 
+
+    export enum TransactionTypes{
+        DEPOSIT = "deposit",
+        WITHDRAW = "withdraw"
+    }
+
+    @Entity("client")
+    export class Client extends BaseEntity {
+        // defining columns and all of their associated data types 
+        
+        // creating an id, this is required for all table 
+        @PrimaryGeneratedColumn({
+            type: "uuid"
+        })
+        id: number;
+
+        // using own generated type 
+        @Column({
+            type: enum,
+            enum: TransactionTypes // if we're gonna use enum, what type of enum would we use 
+        })
+        type: string;
+
+        @Column() // adding a decorator for each column 
+        first_name: string; 
+
+        @Column()
+        last_name: string;
+
+        @Column({
+            unique: true
+        })
+        email: string;
+
+        @Column({
+            unique: true, // this is how you add a unique constraint 
+            length: 10 // adding length constraint 
+        })
+        card_number: string;
+
+        @Column({
+            type: "numeric" // we could do this as well for choosing datatype of the column if we do not want to rely on ts datatpyes 
+        })
+        balance: number; 
+
+        @Column({
+            default: true, // adding a default value 
+            name: "active" // this would be the name inside the database, if this isn't specified the default name for the database would be is_active as specified below 
+        })
+        is_active: boolean;
+
+        @Column({
+            type: "simple-json", // datatype of column 
+            nullable: true 
+        })
+        additional_info: { // yes, we could create an object column, but how would this look like in the database?
+            age: number;
+            hair_color: string;
+        }
+
+        @Column({
+            type: "simple-array"
+        })
+        family_members: string[] // yes we could also use string array datatype 
+    
+        @CreateDateColumn()
+        created_at: Date; 
+
+        @UpdateDateColumn()
+        updated_at: Date;
+    }
+
+- now we use this at the connection to database 
+    import { Client } from "../";
+
+    // im not gonna the whole anymore
+    type: "postgres",
+    host: "localhost", 
+    port: 5432,
+    username: "renz",
+    password: "qwerty123",
+    database: "typeorm"
+    entities: [Client], // adding the column we just created 
+    synchronize: true // synchronize all of the entitites 
+
+// LESSON 1.5 - INHERITANCE 
+- create a Bankter.tsx, this would inherit all of the entities/columns inside Client.tsx(first entity we created above)
+    @Entity("client")
+    export class Banker extends Client { // now we could inherit all of the entities/columns inside client | better solution is to create person entity thats common to both client and banker then inherit from person then start creating unique columns for client and banker 
+
+// LESSON 1.6 - RELATIONSHIPS - many-to-one, one-to-many, many-to-many, etc. | this is how we're joining tables in orm 
+// just refer into this youtube video https://www.youtube.com/watch?v=rKgZLVgdvAY
+- linking transaction table to client table 
+    import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"; // entity is a decorator, specified when we wanted to create an entity 
+    import { Client } from "../"
+
+    export enum TransactionTypes{
+        DEPOSIT = "deposit",
+        WITHDRAW = "withdraw"
+    }
+
+    @Entity("transaction")
+    export class Transaction extends BaseEntity {
+        @PrimaryGeneratedColumn({
+            type: "uuid"
+        })
+        id: number;
+
+        // using own generated type 
+        @Column({
+            type: enum,
+            enum: TransactionTypes // if we're gonna use enum, what type of enum would we use 
+        })
+        type: string;
+
+        @ManyToOne{ // we need to add OneToMany on client entity 
+            // just copy these lines 
+            () => Client, // the table we wanted to join with this transaction table 
+            client => client.transactions 
+        }
+
+        @JoinColumn({ // what column or field we wanted to join 
+            name: "client_id" // primary key you're linking from another table which is a foreign key for the new table 
+        })
+    }
+
+- go to client table and add OneToMany to link relationship properly,
+    import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"; // entity is a decorator, specified when we wanted to create an entity 
+    import { Transaction } from "../"
+
+    export enum TransactionTypes{
+        DEPOSIT = "deposit",
+        WITHDRAW = "withdraw"
+    }
+
+    @Entity("client")
+    export class Client extends BaseEntity {
+        @PrimaryGeneratedColumn({
+            type: "uuid"
+        })
+        id: number;
+
+        // using own generated type 
+        @Column({
+            type: enum,
+            enum: TransactionTypes // if we're gonna use enum, what type of enum would we use 
+        })
+        type: string;
+
+        @OneToMany{ 
+            // just copy these shits 
+            () => Transaction, 
+            transaction => transaction.client
+        }
+        transactions: Transaction[] // idon geddit 
+
+    }
+
+// LESSON 1.7 - INSERTING DATA 
+
+// LESSON 1.8 - FORMING RELATIONSHIPS 
+
+// LESSON 1.9 - DELETING DATA 
+
+// LESSON 1.10 - FETCHING DATA 

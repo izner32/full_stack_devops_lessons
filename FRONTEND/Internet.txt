@@ -1,0 +1,3 @@
+Internet - is a wire, given there are two servers, two servers of the computer could communicate thru the wire of the internet
+Client(Computer/Gadget) -> Internet Service Provider( used to connect thru the internet) 
+Every gadget has ip address and they all differ -> they connect to the isp(internet service provider) -> isp connects you to the -> there are multiple routers na dinadaanan ng internet  -> it then connects to ip addresses of different websites -> it sends back now information thru packets and this packet travels backward back to router,isp,then your device

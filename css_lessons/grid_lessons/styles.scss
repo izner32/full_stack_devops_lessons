@@ -1,0 +1,82 @@
+html {
+    box-sizing: border-box; /*content-box is the default, border-box is referring to the height and width of the border of the box; */
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+* {
+    margin:0;
+    padding:0;
+    text-decoration: none;
+}
+
+@mixin flexCenter() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// remove list decorations
+li {
+    list-style-type: none; // remove list decoration
+}
+
+.navbar{
+    margin-bottom: 1rem;
+    &__title{
+        text-align: center;
+        padding:1rem;
+    }
+    &__list{
+        display:grid;
+        grid-template:
+        "portfolio skills contact";
+        margin-top:1rem;
+
+        &__item1{
+            grid-area:portfolio;
+            text-align: center;
+        }
+        &__item2{
+            grid-area:skills;
+            text-align:center;
+        }
+        &__item3{
+            grid-area:contact;
+            text-align:center;
+        }
+    }
+}
+
+.welcome{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    margin:1rem;
+    height:50rem;
+}
+
+
+
+.footer {
+    // text-align: center;
+
+    &__copyright{
+        text-align: center;
+    }
+}
+
+/* small tablet styles */
+@media screen and (max-width: 620px) {
+}
+
+/* large tables & laptop styles */
+@media screen and (min-width: 960px) {
+}
+
+/* desktop styles */
+@media screen and (min-width: 1200px) {
+}

@@ -1,0 +1,110 @@
+// LESSON 1.2 - MONGODB SETUP
+// step 1: go to terminal
+// step 2: type C:\Program Files\MongoDB\Server\4.4\bin 
+// step 3: type mongo 
+// step 4: to exit mongodb, type exit
+
+// importing data
+// step 1: copy the .json file and paste them into .\4.4\bin | download first mongodb tools paste the mongoimport.exe into bin inside mongodbfiles
+// step 2: in terminal type mongoimport.exe --db cooker examples.json| examples.json is one of the json files you've copied
+// step 3: do the same for another json file you copied: mongoimport.exe --db cooker recipes.json | format: mongoimport.exe --db nameOfDatabase fileYoureImporting.json
+
+// LESSON 2.1 - CREATING DOCUMENT IN TERMINAL  
+// step 1: type in terminal the data you wanted to add to the database(db): doc = {"title" : "tacos", "desc" : "Yummie tacos", cook_time:20};
+// step 2: in terminal type, insert the values you wanted to add:  db.tacos.insertOne(doc) | format: db.fromWhereInDatabase.insertOne(objectName) // all content of objectName would be added to tacos
+// step 3: find data you just added: db.tacos.find().pretty()
+
+// LESSON 2.2 - USING find() TO QUERY DOCUMENTS | SELECT : SQL(MySQL), find() : NoSQL(MongoDB)
+// step 1: type first use cooker // cooker is the database we'll be using and we'll be using one of its collection which is recipes
+// step 2: grabbing all the data inside the recipes - db.recipes.find()
+// step 3: grabbing specific item inside recipes - db.recipes.find({"title" : "Tacos"}).pretty() // return everything in tacos where title is equal to tacos
+
+// LESSON 2.4 - COLLECTIONS
+// getting the name of database youre currently in 
+// step 1: in terminal, type: db.getName() 
+
+// creating collection
+// step 1: db.addingCollection.insertOne({}); // we're actually inserting a value here in addingCollection, but since addingCollection does not exist, this one would create that new collection 
+
+// show collections
+// step 1: type: show collections
+
+// LESSON 3.1 - COUNT, SORT, LIMIT, SKIP
+// db.collection.find({}, {"title":1}) // return only the title | if you remove {}, it would return nothing
+// db.collection.find().count(); // count how many rows in this collection
+// db.collection.find().limit(2); // only show the first 2 results
+// db.collection.find().sort({"title" : 1}); // sort by title, 1 means ascending, and -1 means descending
+// db.collection.find().skip(2); // offset: mysql, skip():mongodb | skip(2) means start counting at 2nd row
+
+// LESSON 3.2 - COMPARISON OPERATOR
+// $gt - greater than (>) | db.collection.find({"cook_time" : { $gt:1 }}) | only show cook_time that is >1 
+// $lt - less than (<)
+// $lte - less than or equal to (<=)
+
+// array
+// find everything that matches with all of the given array: db.recipes.find({ "tags" : { $all: ["easy", "quick" ] } }, { "title" : 1, "tags" : 1}) // if only "tags" : ["easy","quick"] it would search for the exact match, with $all it means search everything that has this given array
+// find everything that matches with one of the given array: db.recipes.find({ "tags" : { $in: ["easy", "quick" ] } }, { "title" : 1, "tags" : 1}) 
+
+// using (.)notation to access objects within objects 
+// db.recipes.find({ "ingredients.name" : "egg" }, {"title" : 1}) // you can shorten the syntax by using dot notation
+
+// using find() better
+// db.collection({"docuYouWant":"this"}, {"title":1}) // 1st parameter is the one you wanted to find, 2nd parameter is what do you want the return to display | in this case, it would find everything that matches with docuYouWant:this and only return the title
+
+// LESSON 3.3 - UPDATING DOCUMENT 
+// modify only one: db.examples.updateOne({"title":"Pizza"}, { $set : {"title": "Thin crust pizza"}}) // 1st param: data you wanted to change, 2nd param: property you wanted to change
+
+// removing data
+// step 1: i'm goign to add some data to be removed first, so the original data won't be messed up: db.recipes.updateOne({"title":"Thin crust pizza"}, { $set : {"vegan": false}})
+// step 2: removing: db.recipes.updateOne({"title":"Thin crust pizza"}, { $unset : {"vegan": 1}}) // 1 means true, true that you will unset it 
+
+// incrementing data
+// step 1: db.recipes.updateOne({"title": "Thin crust pizza"}, { $inc { "likes_count": 3}}) // incrementing/adding the value by 3
+
+// LESSON 3.4 - UPDATING ARRAYS
+// step 1: db.recipes.updateOne({"title": "Thin crust pizza"}, { $push {"likes": 60}}); // push is for appending new value in the array
+
+// removing from array
+// step 1: db.recipes.updateOne({"title": "Thin crust pizza"}, { $pull {"likes": 60}}); // pull is for removing the 60 from array likes
+
+// LESSON 3.5 - DELETING DOCUMENTS - deleteOne and deleteMany, deleteOne is the first one that matches the data
+// step 1: db.examples.find({}, {"title":1}); // find first the title you wanted to delete 
+// step 2: db.examples.deleteOne({"title": "Delete Me"}) // not a good idea to use the title to delete, use id of the data so you're sure what you're deleting
+
+// LESSON 4.2 - BASIC INDEXES - index improve the speed of search operations | y does index improve speed? research more on this
+// getting some basic info on what we're getting: db.recipes.find({"cook_time": 10}, {"title":1}).explain("executionStats"); // the only important part after typing this is the executionStats, look at totalDocsExamined, the lesser totalDocsExamined the faster the searching
+
+// how to use find() in the most efficient way, with totalDocsExamined reduced
+// step 1: db.collection.getIndexes(); // look at what field is in there for example it says it uses title as index 
+// step 2 - since title is an index, we could now search efficiently using it: db.recipes.find({"title":"tacos"}, {"title":1}).explain("executionStats"); // look at totalDocsExamined it's reduced since title is an index
+
+// how to convert a regular field into an index
+// step 1: db.recipes.createIndex({"cook_time": -1}); // i'm not sure why the instructor assigned it with -1, but all i know is that the field cook_time is now an index
+
+// removing an index
+// step 1: db.recipes.dropIndex("cook_time_-1"); // as you could see in the db.recipes.getIndexes(), cook_time_-1 is the name of this index
+
+// UNFINISHED - LESSON 4.3 - USING GRIDFS to store and retrieve files that excess bson size limit of 16mb
+
+// UNFINISHED - LESSON 5.2 - CODING WITH MONGODB USING NodeJS - basically we do this to communicate to the database , there are files 1-5 make sure to understand them | instructor's explanation on this 8 min video is obviously not enough, take a crash course in youtube
+// step 1 : go to view->terminal-> type npm install mongodb --save
+// step 2 - go to \Exercise Files\learning-mongodb\lessons\5.2 in terminal then type node 1-test.js , 1-test.js has already codes required to connect to mongodb, look at the file!
+
+// UNFINISHED LESSON 6.1 - MONGODB CONFIG FILE - di ko gets
+
+// UNFINISHED LESSON 6 - SERVER ADMINISTRATION - instructor kept on doing things without fully explaining them, 'di ko na magets
+
+// LESSON X.1 - CREATING DATABASE - cli version - mongodb only creates database when a data has been stored 
+step 1: type- use newDb // we're going to switch into a nonexistent yet database, weird right 
+step 2: insert document - db.collection.insert() - db.myblog.insert({"name":"Renz"}) // collection myblog is also implicitly created when you added a data 
+
+
+// LESSON X.2 - TYPES OF QUERY OPERATOR 
+- comparison 
+- logical 
+- element 
+- evaluation 
+- geospatial 
+- array 
+- bitwise 
+- comments

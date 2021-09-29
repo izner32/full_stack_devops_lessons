@@ -1,0 +1,44 @@
+RELIABLE SOURCES
+- STRAIGHT FROM THE SOURCE: there could be outdated information, information you're looking for might not be here especialyl for rapidly improving framework/libraries like react and wordpress
+- PLATFORM RESOURCES 
+- STATUS REFERENCE SITES: caniuse.com, httparchive.org, web almanac(to know if the stack you're using is up to date, wow so it looks like svelte and alpine is goodshit, and jquery is used by alot of webpages)
+- SPECIFICATIONS VS IMPLEMENTATIONS 
+- COMMUNITY RESOURCE: if you're trying to solve something, someone has probably done it before
+
+// LESSON 2 - MASTERING SEARCH
+
+// LESSON 2.1 - GOOGLE SEARCH 
+example: should i use autoprefixer, google can't understand this and the results are plain old, fix?
+
+// to find an exact match use qoutes
+"error [object object]" gatsby // with this type search we're telling google to look for exact match of error [object object] that is related to gatsby
+
+// filtering search results 
+author gatsby // if this is the only thing we typed, top answer would lead you to the author of "The Great Gatsby" which is something we do not want, what we want is author of gatsby.js
+author gatsby -fitzgerald // now it wouldn't produce any result related to fitzgerald
+// use -"this for multiline filter"
+
+// specifying the result to be mostly about specific site 
+javascript date site:developer.mozilla.org // result would only be published articles by mozilla about dates on javascript
+
+// when you want to search something related to what you want 
+related:reactjs.org // this would return not reactjs.org but related to reactjs
+
+// using logical operator when searching 
+intitle:
+allintitle:
+intext:
+allintext:
+inurl:
+allinurl:
+
+// best practice used by the instructor
+step 1: add the site or technology to the end of a search to narrow it down - typically, "mdn"
+step 2: add entire error messages inside quotation marks to find specific hits 
+step 3: if step 2 doesnt work, specialyl if there's a path that's unique to your local computer, replace some of the quoted error with asterisks to indicate wildcards 
+step 4: type out verbose search string when you're looking or something specific 
+
+// LESSON 2.2 - FILTER BY PUBLISHING DATE - useful when searching for best practices 
+go to tools - past year
+3 years and above is already an old way of doing things in web, make sure to filter your searches into past year 
+- check the date and updated date 

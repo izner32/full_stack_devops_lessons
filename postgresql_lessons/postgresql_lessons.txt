@@ -1,0 +1,878 @@
+// LESSON 1.1 - WHAT IS POSTGRESQL
+- abbreviated as simply postgres 
+- rdbms (relational database management system just like mysql)
+
+// LESSON 1.2 - DOWNLOAD AND INSTALL POSTGRESQL 
+- postgres uses pgAdmin4 which is a gui to manage postgres (like mongodb compass)
+- postgres uses sql shell which is a cli to probably run sql queries or for working with database server (like mongod) 
+
+// LESSON 1.3 - CONNECT TO THE SERVER WITH PSQL 
+- Server [localhost] // if youre on a centralized office environment where the postgres server is running on a centralized server then youll need the ip address of that machine | localhost is the default value indicated 
+- Database [postgres] // it ask which database you wanted to connect to, each postgres server can hold many different database | postgres is the default name of database 
+- Port[5432] 
+- Username 
+- Password
+
+// now we can start sending command to the server 
+SELECT version(); -- finding out the version of postgres | typing out semi colon would execute the command right now  
+SELECT now(); -- finding out the data and time 
+CREATE DATABASE sampleDatabase -- creating a database 
+\l -- to see all of the database in the server | doesn't need a semicolon 
+\c databaseName -- switching into another database 
+
+CREATE TABLE sampleTable -- creating a table named sampleTable, in order to create a table we need to define the different columns that will make up the table, we define this inside the parentheses 
+(ColorID int, -- 1st column, this could only store integers
+ ColorName char(20), -- 2nd column, this could only store of up to 20 characters 
+); -- adding semicolon to execute the code now 
+
+INSERT INTO sampleTable VALUE -- inserting values into the table 
+(1, 'blue'), -- 1st row, 1 is inserted to the first column blue is inserted to the 2nd column 
+(2, 'red');
+
+SELECT * FROM sampleTable -- * means everything, this commans means show everything from the sampleTable
+
+// LESSON 1.4 - CONNECT TO THE SERVER WITH PGADMIN4 (GUI)
+// setup a password 
+// in the left pane click browser -> select database -> enter password 
+// in database collection youre gonna find different databases -> go to schema, inside click tables -> isnide tables you could see columns 
+// to view data inside tables right click the name of the table -> choose View/Edit Data -> All Rows(this implicitly runs a query)
+
+// LESSON 1.5 - CREATE OBJECTS WITH PGADMIN 
+// creating new table and a new database 
+// left pane -> servers -> postgresql + right click -> create -> database -> fillout name, owner  -> click that database -> schema -> public (right click create table) -> add column 
+
+// addign data to the table | there isn't gui way to do this, only sql way 
+// write click on the table name -> scripts -> insert scripts -> now start adding values 
+
+// LESSON 1.6 - CHALLENGE: CREATE A TABLE 
+// create a table using pgadmin and add data 
+// store information about different kinds of berries 
+// table c olumns should include an id number, berry name, and color 
+// fill in a few data rows with info about your favorite berries 
+
+// solution - pgAdmin way 
+// server -> PostgreSQL (right click) -> Create -> Database -> Fill out name (then click save) -> go to database  -> schemas -> public(right click) -> Create -> Table -> Fill out Columns -> Save -> go to tableName(right click) -> Script -> Insert Into -> start typing the values -> RUN
+
+// solution - cli way 
+
+
+// LESSON 2.1 - THE STRUCTURE OF A DATABASE TABLE 
+// table -> columns/fields (best practice is to use underscore e.g. publication_year)
+// id is an example of primary key, used to identify a specific row of value, it has unique values for each row, this id number does not imply any rankings  
+
+// LESSON 2.2 - POSTGRESQL NATIVE DATA TYPES 
+- numeric: one of the most 3 common
+    - whole number 
+        - integer: -2 billion to +2 billion  
+        - smallint 
+        - bigint
+    - decimal
+        - real 
+        - double 
+- monetary
+- binary 
+- boolean 
+- date/time: one of the most 3 common  
+    - date stores dates between 4713 bc and 5874897 ad 
+    - time will store time of day accurate to 1 microsecond 
+    - use timestamp to record bothg time and date in one column 
+    - timestamp with time zone adds time zone awareness 
+- geometric 
+- character: one of the most 3 common 
+    - fixed length strings 
+        - character(n)
+        - char(n)
+    - variable length strings 
+        - character varying(n)
+        - varchar(n)
+- etc.
+
+// LESSON 2.3 - JOIN TABLES TOGETHER WITH RELATIONSHIPS 
+
+// e.g. case how table relationship is useful, when data are being redundant e.g. author_birth, what if there are multiple books created by that author in the database it would be a waste of space if we added author_birth since if there are author who created the multiple books, the author_birth would all redundant for that author 
+
+// e.g. of table relationship, foreign and primary key 
+// books table - the author_id is a foreign key here that links to the author's table
+book_id     title               author_id
+    1       The time machine        101
+    2       Esagdfas                102
+    3       asdgfoaisj              103
+
+// authors table - the author_id is a primary key here that can be used as a foreign key by another tables 
+author_id       author      author_birth 
+    101     Mr. Bean        09,123,4320
+    102     Mr. Sean        09123123,
+    103     Mr. Dean        09,12,2001
+
+// LESSON 3.1 - ORGANIZE TABLES WITH SCHEMAS 
+// schemas are a way to organize and group objects in your database 
+// public is a schema that comes in as a default schema on every postgres database 
+e.g. of schemas 
+- human_resources 
+    - inside are tables:
+    - employees
+    - payroll
+- warehouse
+    - inside are tables: 
+    - current_inventory 
+
+// here are the hierarchy so far: database -> schema -> table -> columns -> data 
+
+// creating schema thru pgadmin
+// cmon seriously do i really need to get into this, just right click and create 
+
+// creating schema thru sql shell 
+CREATE SCHEMA schemaName  AUTHORIZATION postgres; 
+
+// LESSON 3.2 - CREATE A TABLE WITH pgAdmin 
+// create from schema a table, fill these out: name,owner,schema,tablespace(where files of our database get saved into) - leave this blank or choose the default option - both action would have the same result, partitioned table - this would allow to split your table across multiple physical files on your hard drive - use this on files that would be very large 
+// go to the columns, were still inside the create table: clcik plus, specify name,datatype, length, etc. 
+// check constraints 
+
+// UNIFNISHED - LESSON 3.3 - LINK PRIMARY AND FOREIGN KEYS 
+// this is how you link different tables, using primary and foreign key 
+
+// UNFINISHED - LESSON 3.4 - ENFORCE REFERENTIAL INTEGRITY ON RELATED RECORDS 
+
+// LESSON 4.1 - IMPORT DATA FROM A CSV 
+// database -> schema -> table -> import/export -> import -> specify filename 
+
+// LESSON 4.2 - RETRIEVE INFORMATION WITH A SELECT QUERY 
+// tools -> query tool -> 
+SELECT * // * means everything, select every single piece of column | SELECT products.product_id or table.columns 
+FROM  manufacturing.products // schema.table 
+WHERE category_id = 3; // only show where the category_id is equal to 3 | filter | alt. example: WHERE manufacturing_cost < '10' , you need to wrap it in quotation marks if you'll be using comparison operator 
+
+// LESSON 4.3 - JOIN TABLES FOR ADDITIONAL INFORMATION 
+SELECT products.product_id, 
+        products.name AS products_name, // table.column | as is used to create an alias for the name for when the column query result appeared 
+        products.manufacturing_cost, 
+        categories.name AS category_name, // anotherTable.column
+        categories.market
+
+FROM manufacturing.products // schema.table 
+JOIN manufacturing.categories // joining the categories table from products table 
+ON products.category_id = categories.category_id; // specify which columns holds the related value or in other words linking a column that is related to both of the table
+WHERE market = "industrial"; // filtering, only show the value where market is equal to industrial 
+
+// LESSON 4.4 - SAVE QUERY AS A DATABSE VIEW - you could query on the view table too! | useful when you created a query that you dont wanna do it agian but you somehow needs to save but not actually saving it 
+CREATE VIEW manufacturing.product_details AS // after executing this piece of code, you could now go to schema -> view -> and see a shortcut like being created, it's not a duplication it just poitns to the code source you created with this code 
+SELECT /*
+statements 
+*/
+
+// LESSON 5.1 - ADD INDEXED TO A TABLE 
+// indexes point to content in the table 
+// helps the postgresql database engine finds records faster because without an index, postgres performs a full table scan 
+// created on one or more columns in a table 
+
+// creating indx 
+    - definition 
+        - acces method: btree (most usual choise )
+        - add new column | the column you query the most when finding something from a table 
+            - id(most usual choice) 
+        - collation: to determine which index is the most important 
+
+
+
+
+
+
+
+
+
+
+
+
+// LESSON 1.1 - DATABASE 
+    - store 
+    - manipulate 
+    - retrieve 
+
+// LESSON 1.2 - WHAT IS SQL AND RELATIONAL DATABASE 
+postgres - database 
+sql - is the query language | programming language 
+    - manage data held in a relational database 
+table 
+    - columns 
+        - field 
+    - rows 
+        - data 
+relational database - relation between one or more tables 
+    - split tables and have some kind of relationship between them to organize things better 
+
+// LESSON 1.3 - WHAT IS POSTGRESQL AKA POSTRGRES 
+- most advance open source relational databse, used by alot of big companies 
+- object relational database management system 
+
+// LESSON 1.6 - POSTGRESQL GUI CLIENTS VS TERMINAL/CMD CLIETNS 
+- connecting to client
+    - gui client (pgadmin4|postico)
+    - cmd/terminal (psql)
+datagrip - connect to any database 
+
+// LESSON 1.8 - PSQL AND PGADMIN4
+psql setup | this is what we'll be using in the entire course 
+    - server: {press enter}
+    - database: {press enter}
+    - port: {press enter}
+    - username: {press enter}
+    - password: {use the password you used when you configured}
+    - now you're inside the database 
+
+pgadmin4 setup 
+    - click the icon 
+    - browser 
+    - servers 
+    - postgresql 
+    - enter password, same password you used when you configured 
+
+// LESSON 1.9 - HOW TO CREATE DATABASE 
+psql // to use psql 
+\q // quit psql mode 
+\? // help 
+\l // display list of databases 
+
+CREATE DATABASE test; // for obviously creating database named test 
+// add semicolon to execute  
+
+// LESSON 1.10 - HOW TO CONNECT TO DATABASES 
+psql --help // to grab some help on how to connect to database server | we could see that we use -h for connection 
+
+// method 1 on connecting to database 
+psql -h localhost -p {portNumber} -U databaseUsername databaseName // diz is how you connect to database 
+
+// method 2 on connecting to database 
+\q // to quit 
+psql --help // uhmm we look for help first on how to do it 
+\q // quit again 
+psql 
+\l // look for the database we want 
+\c databaseName // ez pz way to connect 
+
+// LESSON 1.11 - DELETING DATABASE 
+DROP DATABASE databaseName; // very dangerous 
+
+// LESSON 1.12 - HOW TO CREATE TABLES (KEYNOTE) 
+// example 
+CREATE TABLE tableName (
+    columnName datatype constraints 
+)
+
+// actual example 
+CREATE TABLE person (
+    id int,
+    first_name VARCHAR(50),
+    lsat_name VARCHAR(50),
+    gender VARCHAR(6)
+    date_of_birth TIMESTAMP,
+)
+
+// LESSON 1.13 - CREATING TABLES WITHOUT CONSTRAINTS 
+\c test // connecting to database 
+CREATE TABLE person ( // CREATE TABLE tableName 
+    id int, // columnName datatype constraint 
+    first_name VARCHAR(50),
+    lsat_name VARCHAR(50),
+    gender VARCHAR(6),
+    date_of_birth DATE,
+); 
+
+\d // show list of all tables in our database 
+\d tableName // show list of all columns 
+
+// LESSON 1.14 - CREATING TABLES WITH CONSTRAINTS 
+// constraints - limitations or restrictions 
+CREATE TABLE person (
+    // bigserial is an autoincrement number, it automatically creates a sequence from when you do \d 
+    id BIGSERIAL NOT NULL PRIMARY KEY, // id is what uniquely identifies a table that why we use primary key to say that this is a primary key 
+    first_name VARCHAR(50) NOT NULL, // not null is to ensure that a given column is never assigned to a null 
+    lsat_name VARCHAR(50) NOT NULL,
+    gender VARCHAR(6) NOT NULL,
+    date_of_birth DATE NOT NULL,
+); 
+
+// dropping table 
+DROP TABLE tableName;
+
+// LESSON 1.15 - INSERT INTO(KEYNOTE) - inserting records into tables 
+INSERT INTO tableName (
+    // we don't need to specify the id anymore since remember we used bigserial for it in which it gets autoincremented 
+    first_name, // from which column 
+    last_name,
+    gender,
+    date_of_birth
+)
+VALUES ("Anne","Smith","Female",DATE "1988-01-09"); // VALUES ({values you'll be entering that corresponds to the columns you specified in insert into})
+// just add comma and another parentheses with values inside to insert multiple values 
+
+// LESSON 1.16 - INSERT INTO 
+\dt // only show table list 
+
+// UNFINISHED - LESSON 1.17 - GENERATE 1000 ROWS WITH MOCKAROO 
+
+// LESSON 1.18 - SELECT FROM - only show the columns specified 
+SELECT * // * means every single column  | only show these columns 
+FROM tableName; 
+
+// or 
+SELECT columnName 
+FROM tableName;
+
+// or 
+SELECT tableName.columnName 
+FROM schemaName.tableName;
+
+// LESSON 1.19 - ORDER BY 
+SELECT * FROM person 
+ORDER BY country_of_birth // default is ASC or ascending | ORDER BY columnName 
+
+// or 
+ORDER BY columnName DESC // or you could also state ASC even tho its the default already 
+
+// LESSON 1.20 - DISTINCT - if you wanted to only see a value once 
+SELECT DISTINCT country_of_birth // show only values once 
+FROM person 
+ORDER BY country_of_birth 
+
+// LESSON 1.21 - WHERE CLAUSE AND AND 
+SELECT * FROM person
+WHERE gender = "female" // for filtering, only show things that matches our criteria 
+
+// adding more condition 
+SELECT * FROM person
+WHERE gender = "female" AND country_of_birth = "Poland" // remember that you need to add quotation marks | you can also use OR 
+
+// adding more and more 
+SELECT * FROM person
+WHERE gender = "female" AND (country_of_birth = "Poland" OR country_of_birth="China")
+
+// LESSON 1.22 - COMAPRISON OPERATORS - returns true or false 
+// computing 
+SELECT 1 = 1; // this woudl return true | there are also: <,<=,>,>=,<>(which means less than or greater than)
+
+// LESSON 1.23 - LIMIT, OFFSET & FETCH 
+// limit 
+SELECT * FROM person 
+LIMIT 10 // only show 10 results 
+
+// offset - start selecting after the specifeid offset number 
+SELECT * FROM person 
+OFFSET 5 // only start showing result at number 6 
+LIMIT 5 
+
+// fetch 
+SELECT * FROM person OFFSET 5
+FETCH FIRST 5 ROW ONLY // only grabbing the first 5 row 
+
+// LESSON 1.24 - IN 
+// instead of writing these, we use in 
+SELECT * FROM person WHERE country_of_birth = "China" OR country_of_birth = "Brazil" OR country_of_birth = "France"
+
+// using in, we're saying show rows that has the country china,france or brazil 
+SELECT * FROM person 
+WHERE country_of_birth IN ("China","Brazil","France");
+
+// LESSON 1.25 - BETWEEN - selecting specific values in a range 
+SELECT * FROM person
+WHERE date_of_birth 
+BETWEEN DATE "2000-01-01" AND "2015-01-01"
+
+// LESSON 1.26 - LIKE AND ILIKE - like is to find values that matches, ilike is to find values that doesn't match 
+SELECT * FROM person 
+WHERE email 
+LIKE "%.com" // only return emails that has .com in their values, dont give attention %
+
+// you could also add % at the end which means we're finding something that is in the middle of, much like regex 
+SELECT * FROM person 
+WHERE email 
+LIKE "%@google.%" // return anything that has google. in its text, % means continuation 
+
+// using ilike, values that doesn't match the value you specified 
+SELECT * FROM person 
+WHERE email 
+ILIKE "p%"
+
+// LESSON 1.27 - GROUP BY - grouping data based on column 
+SELECT country
+DISTINCT country_of_birth // only select the unique values from this column 
+FROM person 
+
+// group by means grouping the data in the columns that has the same values 
+// what's gonna happen in here is count the number of data for each country_of_birth 
+COUNT(*) // count everything, this is required before grouping 
+GROUP BY country_of_birth; // not gonna work by itself 
+
+// LESSON 1.28 - GROUP BY HAVING | having keyword works with count 
+SELECT country
+FROM person 
+GROUP BY country_of_birth; // group the rows that has the same value at the column country_of_birth 
+HAVING COUNT(*) > 40 // display those who has greater than 40 for each country_of_birth | format: HAVING aggregateFunction()
+ORDER BY country_of_birth // having keyword must be placed before order by 
+
+// UNFINISHED - LESSON 1.29 - ADDING NEW TABLE AND DATA USING MOCKAROO 
+
+// LESSON 1.30 - CALCULATING MIN,MAX,AVERAGE & COUNT 
+SELECT MAX(price) FROM car; // return the highest value from price colum from car table 
+SELECT MIN(price) FROM car; // return the lowest value from price colum from car table 
+SELECT AVG(price) FROM car; // return the average value from price colum from car table 
+SELECT ROUND(AVG(price)) FROM car; // round off the result from aggergate function avg 
+SELECT COUNT(*) FROM car; // count the number of rows from table cars 
+
+// LESSON 1.31 - SUM - perform addition over dataset 
+SELECT 
+SUM(price) // sum all of the price from table car 
+FROM car; 
+
+// another example - this query groups the rows that has the same value in column make, you then calculate the sum of each group 
+SELECT make,
+SUM(price) // aggregate function are calculated for each group by
+FROM car
+GROUP BY make; 
+
+// LESSON 1.32 - BASICS OF ARITHMETIC OPERATORS 
+SELECT 10 + 2; // you could see it would return 12, because again, sql is a programming langauge 
+SELECT 10^2; // means 10 squared
+SELECT 10 % 6; // 10 divided by 6 then return the remainder  
+
+// LESSON 1.33 - ARITHMETIC OPERATORS (ROUND)
+SELECT id, make, model, price, 
+price * .10 // show a column of price but multiply it by .10 | you could also do aggregate functions like ROUND(price * .10) 
+FROM car; 
+
+// LESSON 1.34 - ALIAS - changing the name of a column 
+SELECT 
+id AS theAlias
+FROM car; 
+
+// LESSON 1.35 - COALESCE - give default value incase the first one isn't present | returns the first argument that is not null, accepts an unlimited number of arguments | set a default value when the data is null 
+SELECT COALESCE(1); // returns 1 
+SELECT COALESCE(null,1); // returns 1, if 1st param isnt present make the value of it as 1 
+SELECT COALESCE(email, "renz@gmail.com") FROM person; // if the value of email is null, replace it with the default value specfiied, in this case "renz@gmail.com"
+
+// LESSON 1.36 - NULLIF 
+SELECT NULLIF(); // takes two arguments, returns the 1st argument if the 1st argument is not equal to the 2nd argument | if two argumetns are equal it returns null 
+
+// nullif is useful for fixing zero by division error 
+SELECT 10 / NULLIF(2,9); // nullif would return 2 thus this returning 5 overall 
+
+SELECT 10 / NULLIF(0,0); // this would return null not return an error which makes nullif really useful 
+
+// we could pair nullif with coalesce 
+SELECT COALESCE(10 / NULLIF(0,0), 0); // what we're saying here is if it returns null return 0 
+
+// LESSON 1.37 - TIMESTAMPS AND DATES - useful when storing results in table, you want to record some timestamp | e.g. when the record was created, was updated, etc. 
+SELECT NOW(); // returns the actual timestamp - timestamp is combination of date,hour,minute,second,millisecond and actual time zone 
+SELECT NOW()::DATE; // only return the date e.g. 2021-09-10 
+SELECT NOW()::TIME; // only return the time: hour:minute:second:milliseconds 
+
+// LESSON 1.38 - ADDING AND SUBTRACTING WITH DATES 
+SELECT NOW() - INTERVAL '1 YEAR'; // subtracting date 
+SELECT NOW() - INTERVAL '1 MONTH'; // you could also do days 
+
+// LESSON 1.39 - EXTRACTING FIELDS FROM TIMESTAMP 
+SELECT EXTRACT(YEAR FROM NOW()); // since we're creating this from 2021 this would return 2020
+
+// LESSON 1.40 - AGE FUNCTIONS - grabbing the age based on a date datatype column 
+SELECT name, date_of_birth, 
+AGE(NOW(),date_of_birth) // accepts 2 parameters, time you wanted to compare to and the column which has date datatype you'll be comparing 
+AS age 
+FROM person
+
+// LESSON 1.41 - WHAT ARE PRIMARY KEYS 
+- unique value for each of the row of the table
+- this mainly identifies the row and differentiate every row 
+
+// LESSON 1.42 - UNDERSTANDING PRIMARY KEYS 
+- value for primary key is unique for each row as it is a constraint 
+
+// removing the constraint, being a primary key is a constraint 
+ALTER TABLE person DROP CONSTRAINT person_pkey; // person_pkey currently is a primary key but we gonna remove that constraint
+
+// LESSON 1.43 - ADDING PRIMARY KEY - making a column into a primary key 
+ALTER TABLE person ADD PRIMARY KEY (id); // cannot make a column into a primary key if it has duplicated value 
+
+// LESSON 1.44 - UNIQUE CONSTRAINTS - allows us to have unique value for the column specified | like a primary key but in this case unique keys could be multiple columns whereas only one primary key is allowed per table | primary doesnt allow null while unique allows it 
+// let's say we did this 
+SELECT email, count(*) FROM person GROUP BY email HAVING COUNT(*) > 1; // this would return email that has more than 2 counts 
+
+// now we find the person that has that 2 account
+SELECT * FROM person WHERE email = "abeardon0@is.gd" // remember abeardon is a result from the query we made from above
+
+// we only wanted to select the first person, by adding constraint it allows us to have a unique value that we could use to differentiate a row from another row with similar data
+// adding a constraint 
+ALTER TABLE person ADD CONSTRAINT unique_email_address UNIQUE (email);
+
+// the above query would return an error because remember to make a column to have a constraint it must have no duplicated value, to fix this we do this 
+DELETE FROM person WHERE id = 1004; // we remove another row that is making the duplication 
+
+// we now add a constraint 
+ALTER TABLE person ADD CONSTRAINT unique_email_address UNIQUE (email);
+
+// another way of adding constraint, remembere when we say constraint we mean unique key 
+ALERT TABLE person ADD UNIQUE (email); // the only difference with this is that the postgresql is the one automatically assigning the name 
+
+// LESSON 1.45 - CHECK CONSTRAINTS - allows us to add based on a boolean condition | note: check is a constraint, we're not checking the constraint 
+// checking the values of gender 
+SELECT DISTINCT gender FROM person; // lets say this produced 3 values: Male, Hello, Female 
+
+// using the check clause 
+ALTER TABLE person ADD CONSTRAINT gender_constraint 
+CHECK (gender = "Female" OR gender = "Male" );
+
+// above query would produce an error since we only specify if gender is female or male but remember there is athird one which is hello 
+// we remove the row that has the hello gender 
+DELETE FROM person WHERE gender = "Hello";
+
+// we now use the check peacefully 
+ALTER TABLE person ADD CONSTRAINT gender_constraint 
+CHECK (gender = "Female" OR gender = "Male" ); // check constraint ensures that all values in a column satisfy the conditions we have specified, in this case values of gender must either be male or female 
+
+// LESSON 1.46 - HOW TO DELETE RECORDS - record is what we refer as row 
+// when deleting records it is a very good practice to identify them with the primary key as primary key is a unique value for each record 
+DELETE FROM person WHERE id = 1011; // using where clause to find what we wanted to delete 
+
+// deleting those that matches | generally not recommended 
+DELETE FROM person WHERE gender = "Female" AND country_of_birth="England";
+
+// delete everything, never ever ever ever do this 
+DELETE FROM person; // this would delete every single record 
+
+// LESSON 1.47 - HOW TO UPDATE RECORDS 
+// let's say there's a record with a null or blank email value 
+UPDATE person SET email = "onmar@gmail.com" WHERE id = 2011;
+
+// LESSON 1.48 - ON CONFLICT DO NOTHING - dealing with conflict errors or exceptions 
+// let's say there is a record with an id of 2017 
+
+INSERT INTO table (id, columnName)
+VALUES (2017, "adsfasdfasf") // there would be a conflict since it is already known that the id column is a primary key and primary key cant have a duplicated value 
+ON CONFLICT (id) // if there is a conflict on id do below 
+DO NOTHING; // this means return nothing act like the query doesnt existed | this would only work if the column passed to the on conflict has a constraint(constraint or just primary key idk)
+
+// UNFINISHED - LESSON 1.49 - UPSERT - if you wanted to do something if there is a conflict instead of doing nothing | medyo nalilito aq
+INSERT INTO table (id, columnName)
+VALUES (2017, "adsfasdfasf") 
+ON CONFLICT (id) 
+DO UPDATE SET email = EXCLUDED.email 
+
+// LESSON 1.50 - WHAT IS A RELATIONSHIP/FOREIGN KEYS - used specifically in joining 
+relationship - connecting two or more tables 
+foreign keys 
+    - the primary key from a chosen table and that key is being used another table, when it is in another table that primary key would now be a foreign key 
+    - what we use to relate a table to another, like some sort of representation from that table 
+
+// LESSON 1.51 - ADDING RELATIONSHIP BETWEEN TABLES 
+// what we wanted to here is: one person can only have one car and one car can only belong to one person 
+// create two tables we would like to link 
+create table person (
+    id BIGSERIAL NOT NULL PRIMARY KEY, // this is obviously a primary key 
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL, 
+    gender VARCHAR(7) NOT NULL,
+    email VARCHAR(100),
+    date_of_birth DATE NOT NULL,
+    country_of_birth VARCHAR(50) NOT NULL,
+    car_id BIGINT REFERENCES car(id) // we're making the primary key of table car into a foreign key into this table | now we could somehow use this key as a reference into another table 
+);
+
+create table car (
+    id BIGSERIAL NOT NULL PRIMARY KEY, 
+    make VARCHAR(100) NOT NULL,
+    model VARCHAR(100) NOT NULL,
+    price NUMERIC(19,2) NOT NULL 
+);
+
+// example of inserting records or rows 
+INSERT INTO person (first_name, last_name, gender, email, date_of_birth, country_of_birth)
+VALUES ("Fernando", "Beardon", "Female", "asdfasdf@gmail.com", "1952-01-02", "England")
+
+// note we havent assigned car id into any cars yet 
+
+// LESSON 1.52 - UPDATING FOREIGN KEYS COLUMNS - assigning values to foreign keys or in our specific case, assigning a car for each person 
+UPDATE person 
+SET car_id = 2 // set the value of car id column 
+WHERE id = 1; // from the record or row that has the value of id as 1 
+
+// LESSON 1.53 - INNER JOINS - take whatever is common in those two table then convert that into a table 
+SELECT * FROM person 
+// SYNTAX: JOIN table2 ON table1.foreign_key = table2.primary key 
+JOIN car ON person.car_id = car.id; // car_id is a foreign key which is a primary key from car 
+
+// query above would return a table that has the person table columns and car table columns which corresponds to the car id specified 
+
+// selecting a specific column from two tables gained by joining them 
+SELECT person.first_name, car.make , car.model, car.price // return only these column shits 
+FROM person 
+JOIN car ON person.car_id = car.id;
+
+// di ko magets 
+// UNFINISHED - LESSON 1.54 - LEFT OUTER JOINS - combine two table that would produce an inclusion on all columns from the left table  
+
+// LESSON 1.55 - DELETING RECODS WITH FOREIGN KEYS 
+// you cant delete a record from the 2nd table if it's key is linked as a foreign key to the 1st table 
+solution 
+    - delete the record in the 1st table that has the foreign key linked into the record from the 2nd table you wanted to delete 
+    - now delete the record you wanted to delete from the 2nd table 
+
+// LESSON 1.56 - EXPORTING QUERY RESULTS TO CSV 
+// example exporting 
+\copy (SELECT * FROM person LEFT JOIN car ON car.id = person.car_id) TO "./Users/renz/Desktop/fileName.csv" DELIMITER "," CSV HEADER; // note you have to provide a filename 
+
+// LESSON 1.57 - SERIAL AND SEQUENCES 
+// bigserial is a special data types that automatically increments an integer, we assign this datatype into an id 
+// nah not important 
+
+// LESSON 1.58 - EXTENSIONS - functions that can add extra functionality to your database 
+// adding extension 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+// LESONN 1.59 - UNDERSTANDING UUID DATA TYPE - we use uuid so an id of a record cannot easily be guessed, i mean you would never guess it 
+- uuid means universally unique identifier 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp"; // adding uuid extension/function 
+
+SELECT uuid_generate_v4(); // we want v4 since it is randomly generated 
+
+// LESSON 1.60 - UUID AS PRIMARY KEYS 
+create table person (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL
+)
+
+// instead of bigserial we gonna replace it with uuid 
+create table person (
+    id UUID NOT NULL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL
+)
+
+// trying to insert a value into uuid 
+INSERT INTO person (id, first_name)
+VALUES (uuid_generate_v4(), "Renz"); // use the extension
+
+// taena tinatamad nako
+// UNFINISHED- USING clause - useful when both the foreign key and actual primary key have the same name 
+// USING is matched always with JOIN 
+
+
+// LESSON X.0 - POOL VS CLIENT 
+/*
+    client is for one static connection
+        - useful when you dont make queries often  
+    pool is for dynamic list/pool of client objects 
+        - use this if you expect to have multiple concurrent requests 
+        - provide a pool of reusable open client instances
+        - do not call pool.end() when you query completes unlike in static connection(client)
+            - pool.end() disposes all of the open client instances(remember, the point is to keep up to a fixed number of client instances available)
+*/
+
+// LESSON X.0 - BACKSLASH COMMANDS IN POSTGRESQL 
+\? - find facts for you about the psql commands 
+\h {sql_keyword} - shows a topic list for a command based on the keyword you enter 
+\a - shows if data is aligned or unaligned 
+\t - either on or off, if on rows are returned not names of a column 
+\s - history of sql commands used 
+\z - list related schemas,tables in a database,etc. 
+[IMPORTANT] \q - leave psql command line 
+\g - stop or start a postgresql statement | i dont quite get it but it seems to be not important 
+\c {database_name} - make a different database connection 
+\C {table_name} - get the title name of the table | wait, so you need to type the table name to get the table name? am i missing something 
+\d {table_name} - obtain the details of a table in postgres such as the data types and column 
+\d - returns eery sql database table name 
+\dm - return postgres database schema list 
+\dv - view listing 
+[IMPORTANT] \l - view database listing 
+[IMPORTANT] \dt - view database table listing 
+
+
+// LESSON X.1 - MAKIGN A HIGHER ORDER FUNCTION THAT CONNECTS TO DB, QUERY, AND END CONNECTION - for static connections only(client)
+// create a db config file 
+    const { Client } require("pg");
+
+    // open the connection to database 
+    const client = new Client({
+        host: "localhost",
+        port: 5432,
+        user: "postgres",
+        password: "test@123",
+        database: "demo",
+    })
+
+    // wrapping everything in a higher order function 
+    export const connectDB = async (operation,res) => {
+        try {
+            // we do these steps every query 
+            // connecting to database 
+            await client.connect();
+
+            // doing the query 
+            await operation(client);
+
+            // ending the connection 
+            client.end();
+        } catch(err) {
+            res.status(500).json({ message: "error connecting to database"})
+        }
+    }
+
+// creating an api that creates query that uses the higher order function that connects to the database 
+// this is from a separate file 
+app.post("/api/item-list", (req,res) => {
+    connectDB( async (client) => {
+
+        // create a query 
+        const query = await client.query()
+        
+        // return response
+        res.status(200).json(`query succesful`); 
+    
+    }, res);
+});
+
+// LESSON X.2 - MAKIGN A HIGHER ORDER FUNCTION THAT CONNECTS TO DB, QUERY, AND END CONNECTION - for dynamic connections only(pooling approach)
+// create a db config file 
+    const { Pool } require("pg"); 
+
+    // open the connection to database 
+    const pool = new Pool({
+        host: "localhost",
+        port: 5432,
+        user: "postgres",
+        password: "test@123",
+        database: "demo",
+        "max":20, // allow maximum number of connections specified 
+        "connectionTimeoutMillis": 0, // default is zero | how long does pool gives me a connection if all of them were busy, 0 means wait forever 
+        "idleTimeoutMillis": 0 // after establishing the connection, if those connection are not used when do you want me to get rid of it, 0 means it would never get destroyed 
+    })
+
+    // wrapping everything in a higher order function 
+    export const connectDB = async (operation,res) => {
+        try {
+            // pool.connect is not a thing 
+
+            // doing the query 
+            await operation(pool);
+
+            // pool.end is not a thing 
+        } catch(err) {
+            res.status(500).json({ message: "error connecting to database"})
+        }
+    }
+
+// creating an api that creates query that uses the higher order function that connects to the database 
+// this is from a separate file 
+app.post("/api/item-list", (req,res) => {
+    connectDB( async (client) => {
+
+        // create a query 
+        const query = await client.query()
+        
+        // return response
+        res.status(200).json(`query succesful`); 
+    
+    }, res);
+});
+
+// LESSON X.3 - CRUD OPERATIONS FOR POSTGRESQL AND EXPRESS 
+POST(CREATE) 
+    INSERT INTO todo("description")
+    VALUES ("wash car")
+GET(READ)
+    SELECT sample_column 
+    FROM sample_table 
+    WHERE todo_id = 1
+PUT(UPDATE)
+    UPDATE todo 
+    SET description = "wash clothes"
+    WHERE todo_id = 1
+DELETE(DELETE)
+    DELETE FROM todo 
+    WHERE todo_id = 1
+
+// LESSON X.4 - BUILD RESTFUL API WITH POSTGRESQL AND EXPRESS 
+- connect to psql 
+- create an index.js for creating api's 
+- create a database.sql // this is for layouting how we would type this shits into psql 
+    CREATE DATABASE databaseName;
+
+    \c databaseName // to go into the database 
+
+    // inside database create a table 
+    CREATE TABLE tableName{
+        id SERIAL PRIMARY KEY, // adding a primary key constraint 
+        description VARCHAR(255)
+    };
+
+    \dt // check all of the tables in the database 
+- create db.js 
+    const { pool } require("pg"); // importing the correct module 
+
+    const pool = new Pool({
+        host: "localhost",
+        port: 5432,
+        user: "postgres",
+        password: "test@123",
+        database: "databaseName",
+        "max":20, // allow maximum number of connections specified 
+        "connectionTimeoutMillis": 0, // default is zero | how long does pool gives me a connection if all of them were busy, 0 means wait forever 
+        "idleTimeoutMillis": 0 // after establishing the connection, if those connection are not used when do you want me to get rid of it, 0 means it would never get destroyed 
+    })
+- go to index.js 
+    const express = require("express");
+    const app = express();
+    const pool = require("./db"); // database config 
+
+    app.use(express.json())
+
+    // routes 
+    // get all items 
+    app.get("/todos", async(req,res) => {
+        try {
+            const allItems = await poo.query("SELECT * FROM tableName);
+
+            res.json(allItems.rows); // return an array of objects that contain each item 
+        } catch (err) {
+            console.error(err.message);
+        }
+    })
+
+    // get an item 
+    app.get("/todos/:id", async (req,res) => {
+        console.log(req.params); // grabbing the value of params, which is id in this case 
+
+    }) 
+
+    // create an item 
+    app.post("/todos", async (req,res) => {
+        try {
+            console.log(req.body); // req.body means grabbing the content you passed to the array 
+        
+            // you could also destructure 
+            const { description } = req.body;
+            const query = pool.query("INESRT INTO 
+                tableName // table name 
+                (description) // column name inside the table 
+                VALUES 
+                    ($1) // values we wanted to insert | $1 is a variable, this is how you connect javascript into postgres query  
+                RETURNING *", // assign the result of this query into variable query 
+                    [description] // this is the one we received from the one who fetches this api, we're replacing this with [$1]
+                )
+        
+            // response the fetcher would receive 
+            res.json(query.rows[0]); // if we didnt specify .row it would return the whole complete information which is not what we want 
+        } catch (err) {
+            console.error(err.message);
+        }
+    });
+
+    // update an item 
+
+
+    // delete an item 
+
+
+
+    app.listen(5000, ()=> {
+        console.log("server is litening on port 5000");
+    })
+
+NOTE: STOPPED AT 26:24 https://www.youtube.com/watch?v=_Mun4eOOf2Q

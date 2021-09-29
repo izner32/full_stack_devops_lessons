@@ -1,0 +1,695 @@
+/* LESSON 1 - TYPES OF CSS - INTERNAL,EXTERNAL, INLINE 
+INTERNAL - adding <style> </style> inside the html file (NOT RECOMMENDED)
+INLINE - adding style as an attribute: <h1 style = color: red>Hello</h1> (NOT RECOMMENDED)
+EXTERNAL - adding css file as an external file: go to <head> of html file then add css using - <link rel="stylesheet" href="styles.css">
+*/
+
+/* LESSON 2.3 - UNITS
+LENGTH ABSOLUTE - px, cm, mm, pt
+LENGTH RELATIVE - em, rem, vw, vh, percentage | 1rem or 100% is 16px
+UNITLESS VALUES - line-height,...
+FUNCTION VALUES - e.g. transform: rotate(90deg) , width: calc(80% - 20px)
+NOTE: ELEMENTS HAS DEFAULT BROWSER STYLES
+*/
+
+/* LESSON 2.6 - CLASS AND ID | Hierarchy: ID 100 pts, Class 10 pts, Elements 1 pt 
+ID - must be unique for each html file | YOU COULD ASSIGN ANY CLASS OR ID TO ANY ELEMENT IN HTML */
+#sampleID {
+  /* calling an id */
+  color: red;
+}
+.sampleClass {
+  /* calling a class */
+  color: red;
+}
+
+body {
+  /* calling an element */
+  color: red;
+}
+
+/* LESSON 2.13 - PSEUDO-CLASS SELECTORS 
+HTML:
+<a href = "#">This is a link</a> 
+
+CSS: */
+/* unvisited link | you could use all of these on other elements too*/
+a:link {
+  color: red;
+}
+/* visited link */
+a:visited {
+  color: green;
+}
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+/* selected link | while pressing the link */
+a:active {
+  color: blue;
+}
+
+/* LESSON 3.1 - BOX MODEL - MARGIN, BORDER, PADDING, WIDTH, HEIGHT
+TOP, BOTTOM, LEFT, RIGHT - use absolute or relative length unit | e.g. margin-top,border-right,padding-left,... you get what i mean by this
+- MARGIN | if 1 value = 4 sides, else if 2 values = top&bottom and left&right , else if 4 values = top,right,bottom, then left | e.g. margin-right: 20%
+- BORDER | e.g. border: width(10px), style(solid), color(red) 
+- PADDING | 4 values only = top,right,bottom then left | e.g. padding-top: 2rem;
+
+TOP-WIDTH, RIGHT-WIDTH, BOTTOM-WIDTH, LEFT-WIDTH, WIDTH - use absolute or relative length unit or descriptive (solid,thin)| e.g. border-width, border-top-width,... you get what i mean
+- BORDER | e.g. border-top-width: 1em; border-width: thin; 
+- BORDER-WIDTH: if 1 value = all 4 sides, if 4 values = top,right,bottom then left
+
+MAX, MIN - e.g. max-height, min-width
+HEIGHT - as an absolute, a relative, or as auto. | e.g. body { height:15px; } | default is box-sizing:content-box, which refers the height of the content rather than the border, to fix, use border-box
+WIDTH - as an absolute, a relative, or as auto. | e.g. div ( width:50%; }
+*/
+
+/* LESSON 3.2 - DISPLAY PROPERTY - INLINE, BLOCK, INLINE-BLOCK */
+div {
+  display: inline; /* width and height not adjustable, width just occupies the necessary space it needs */
+  display: block; /* width and height adjustable, width is spanning across the whole screen */
+  display: inline-block; /* width and height adjustable, width just occupies the necessary space it needs */
+}
+
+/* LESSON 4 - FONT PROPERTIES - FAMILY, STYLE, VARIANT, WEIGHT, SIZE */
+p {
+  font-family: "Courier New", Courier, monospace; /* type of font */
+  font-style: italic; /* font style, e.g. italic, oblique */
+  font-variant: small-caps; /* font variant */
+  font-weight: 700; /* font weight, e.g. bold */
+  font-size: 1rem; /* font size */
+  font: italic bold 12pt/14pt Times, serif; /* combination of different font properties */
+  color: red; /* font color */
+}
+
+/* LESSON 4.9 - TEXT PROPERTIES - WORD-SPACING, LETTER-SPACING, TEXT-DECORATION, VERTICAL-ALIGN, TEXT-TRANSFORM, TEXT-ALIGN, TEXT-INDENT, LINE-HEIGHT */
+p {
+  word-spacing: 0.4em; /* additional amount of space between words */
+  letter-spacing: 0.1em; /* additional amount of space between letters */
+  text-decoration: none; /* decorate text: underline, overline ,line0-trhough, blink, none */
+  vertical-align: middle; /* modify the vertical positioning of an inline element, relative to its parent element or to the element's line */
+  text-transform: capitalize; /* modify if the words or first letter would be small or capitalized/uppercase */
+  text-align: center; /* justify text applied on parent element*/
+  text-indent: 5em; /* specify the amount of indentation prior to the first line of text */
+  line-height: 200%; /* control spacing between baselines of text */
+}
+
+/* LESSON 5.1 - LAYOUT: FLOAT (NOT RECOMMENDED) - alter the flow of the element by making a specific element float
+HTML
+<body>
+  <figure class = "wrapper">
+    <img src = "qwerty.jpeg">
+    <figcaption>lorem ipsum</figcaption>
+  </figure>
+</body>
+
+CSS */
+img {
+  float: left; /* the figcaption would be moved to the right, filling the empty space, following the flow of the layout */
+}
+figcaption {
+  float: left; /* if we do this, since img is at the left, figcaption would follow it by sitting next to img ( right side of img ) */
+}
+
+/* clear float - push the element below the direction you assigned it into */
+figcaption {
+  clear: left; /* this would make the figcaption below the img */
+}
+
+/* LESSON 5.3 - OVERFLOW CONTENT - when content is overflowing due to insufficient amount of size */
+/* HTML 
+<div>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Quisque egestas diam in arcu cursus. In massa tempor nec feugiat nisl pretium fusce id velit. Sed odio morbi quis commodo. Ultrices in iaculis nunc sed augue lacus viverra vitae. Massa eget egestas purus viverra accumsan in. Morbi blandit cursus risus at ultrices mi tempus. Fringilla est ullamcorper eget nulla facilisi. Facilisi cras fermentum odio eu. Potenti nullam ac tortor vitae purus faucibus ornare. Ut tellus elementum sagittis vitae. Aliquam ut porttitor leo a diam. Rutrum tellus pellentesque eu tincidunt. Mauris sit amet massa vitae. Sit amet nisl purus in mollis. Proin nibh nisl condimentum id. Nec sagittis aliquam malesuada bibendum. Non pulvinar neque laoreet suspendisse interdum consectetur libero. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim lobortis.
+  Egestas integer eget aliquet nibh. Eu ultrices vitae auctor eu augue ut. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Urna molestie at elementum eu facilisis sed odio morbi quis. Sagittis orci a scelerisque purus semper eget duis at. Fermentum leo vel orci porta non pulvinar neque. Mauris pellentesque pulvinar pellentesque habitant morbi. Mattis aliquam faucibus purus in massa tempor nec. Suspendisse ultrices gravida dictum fusce ut. Proin sed libero enim sed faucibus turpis in eu mi. Pharetra magna ac placerat vestibulum lectus mauris ultrices. Quis risus sed vulputate odio ut enim. Facilisis magna etiam tempor orci eu lobortis. Lectus quam id leo in. In eu mi bibendum neque egestas. Lectus sit amet est placerat in. Pharetra sit amet aliquam id diam. Iaculis urna id volutpat lacus. Habitant morbi tristique senectus et netus et malesuada fames.
+  Ut sem nulla pharetra diam sit amet nisl suscipit. Arcu non odio euismod lacinia at. Amet porttitor eget dolor morbi non arcu. Turpis egestas integer eget aliquet nibh. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Hac habitasse platea dictumst quisque. Tellus rutrum tellus pellentesque eu tincidunt tortor. Facilisis magna etiam tempor orci eu. Morbi blandit cursus risus at. Nullam non nisi est sit amet facilisis magna. Tristique risus nec feugiat in. Consectetur lorem donec massa sapien.
+  Gravida quis blandit turpis cursus in hac habitasse platea. Adipiscing commodo elit at imperdiet dui accumsan sit amet. Gravida dictum fusce ut placerat orci. Augue mauris augue neque gravida in fermentum. Elementum nisi quis eleifend quam adipiscing vitae proin. Id cursus metus aliquam eleifend. Habitant morbi tristique senectus et. Volutpat commodo sed egestas egestas. Enim lobortis scelerisque fermentum dui faucibus in ornare quam. Mattis nunc sed blandit libero volutpat sed cras ornare. Risus quis varius quam quisque id diam vel quam. Mattis nunc sed blandit libero. Venenatis tellus in metus vulputate eu.
+  Blandit massa enim nec dui nunc mattis enim. Urna nunc id cursus metus aliquam eleifend mi in. Non odio euismod lacinia at quis risus sed vulputate. Id consectetur purus ut faucibus pulvinar elementum. In fermentum posuere urna nec tincidunt praesent semper feugiat nibh. Velit scelerisque in dictum non. Elementum facilisis leo vel fringilla. Blandit libero volutpat sed cras ornare arcu dui vivamus. Luctus accumsan tortor posuere ac ut consequat. Sit amet nulla facilisi morbi tempus. Non arcu risus quis varius quam. Morbi blandit cursus risus at ultrices mi tempus imperdiet. Id donec ultrices tincidunt arcu non sodales neque.
+  </p>
+</div> */
+
+/* CSS */
+div {
+  width: 50%;
+  height: 100px;
+  overflow: hidden; /* hide the overflowing text */
+  overflow: auto; /* adds scroll bar when there is overflowing content */
+  overflow: scroll; /* there would always be a scroll bar no matter what */
+}
+
+/* IMPORTANT NOTE: PARENT ELEMENT WILL ONLY WRAP AROUND NON-FLOATED ELEMENT | IF ALL THE ELEMENTS INSIDE A PARENT ELEMENT ARE ALL FLOATED, THE HEIGHT OF THE PARENT CONTAINER WILL COLLAPSE TO ZERO
+
+/* FIX FOR IMPORTANT NOTE:
+METHOD 1: use - parent { overflow: hidden; }
+METHOD 2: use - parent { display: flow-root; }
+METHOD 3: add this to the class name of parent element(html) - clearfix, then do this at css .clearfix:after { content: ""; display: table; clear: both; } (RECOMMENDED)
+
+/* LESSON 5.4 - BOX MODEL IN LAYOUT */
+/* if box-sizing:content-box; when altering padding and margin the addition is by adding a specified size outward, to fix these post this snippet at the top of the css */
+html {
+  box-sizing: border-box; /*content-box is the default, border-box is referring to the height and width of the border of the box; */
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* LESSON 5.5 - POSITION - STATIC, RELATIVE, ABSOLUTE, FIXED, STICKY */
+div {
+  position: static; /* default position, follow the normal document flow */
+
+  position: relative; /* moving the element relative to its current position, does not affect the flow of other elements, it is still in the normal flow, it's just that it has been offset */
+  top: 10px; /* moving the element 10px above its current position */
+
+  position: absolute; /* moving the element relative to its nearest wrapper that has position beside static, could possibly affect the flow since it's parent element could be static and if it is, this absolute positioned element would be removed from that static parent */
+  right: 25%;
+
+  position: fixed; /* positioned relative at viewport */
+  top: 0;
+  right: 0;
+
+  position: sticky; /* it stays to its current position until conditions were met, after conditions were met it would remain fixed */
+  top: 10px; /* after reaching 10px after scrolling down, the element would be fixed */
+}
+
+/* 
+change normal document flow + positioning content - absolute, relative, fixed
+normal document flow -> block elements stacking on top of each other 
+position:absolute; -> remove from normal document flow -> width and height of the element is adjusting to take up only as much space as it requires (its somehow becoming like inline-block element) -> positioning with top,left,right,down is relative based on the parent element(parent and above(grandparent,great grandparent,...) element that has property of not static, if there is no parents and above that has no position other than static then the html element) -> default position is 0 margin at top and left of parent element(even if position:static it's okay)
+position:relative; -> not removed from normal document flow -> width and height isnt adjusting to fit like in absolute -> positioning with top,left,down,right relative based on initial position not on any parent element -> default position is at current initial position
+position:fixed; -> removed from normal document flow -> width and height is adjusting just like in absolute -> positioning with top,left,down,right is relative based on viewport (yes, not on parents) ->default position is at initial current position
+*/
+
+/* LESSON 5.6 - Z-INDEX - elements are sometimes getting stacked/overlapped, to show which one should be displayed, use this */
+.block1 {
+  width: 100px;
+  height: 100px;
+  z-index: 100; /* any value will do, since this has higher z-index value than block2, this would appear at the front */
+}
+.block2 {
+  width: 100px;
+  height: 100px;
+  margin: -50px 0 0 50px;
+
+  /* as you can see block2 overlaps block1, to make block1 appear at the front assign a z index for block1 */
+}
+
+/* LESSON 6.2 - LAYOUT: FLEXBOX - arranging elements vertically or horizontally (one direction) | flex-items are children inside flexbox */
+.flex-container {
+  display: flex; /* activate flexbox | values:flex, values:inline-flex; | think of inline-flex as inline and flex as block */
+  flex-direction: column; /* default flex-direction is row, it makes sense tho since default flow is column */
+  justify-content: center; /* position the content */
+  align-items: center; /* position the content */
+  flex-wrap: nowrap; /* if flexwrap is not nowrap, the extra spaces would be cut | default value is nowrap */
+}
+.flex-item {
+  flex-basis: 0rem; /* sets the initial size of the flex-items */
+  flex-grow: inherit; /* determines how items will expand if there is extra space in the container */
+  flex-shrink: inherit; /* determines how items will shrink if there isn't enough space in the container */
+  /* shorthand notation for flex:flex-grow,shrink,basis */
+  flex: 0 1 100px; /* these are applied to flex-items */
+}
+
+/* LESSON 6.8 - LAYOUT: GRID - arranging elements vertically and horizontally (prolly the easiest way to layout) | grid container - parent, grid item - child  | divided in evenly spaced of columns and rows */
+/* grid line - line from the grid */
+/* grid cell - the cell, cmon you know this already */
+/* grid track - stretching in one direction, from start to end */
+/* gutter - space between grid cell */
+
+.grid-container {
+  display: grid; /* activate grid | values:grid, values:inline-grid | think of inline-grid as inline and grid as block */
+}
+
+/* EXPLICIT GRID | grid-template-columns, grid-template-rows | grid layout you specifically typed*/
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* creating 3 columns | you could also set this using fr, e.g. 1fr | fr is fractional on available space  */
+  grid-template-rows: 100px 100px; /* creating 2 rows | could also use repeat(3times, 1 fr) or 50px repeat (2times,1fr) | could also use 1fr minmax(50px, max-content) 1fr - minmax(minimum_width,maximum_width) | minmax is only one column/row*/
+  gap: 10px 20px; /* gutter - rows | columns */
+}
+
+/* IMPLICIT GRID | grid layout that is automatically created for extra elements that don't fit into explicit grid */
+/* e.g. you only give grid-template-columns: repeat(4,1fr) but there are 9 divs, 2nd row and 3rd row has been implicitly created since the column is only divided into 4 and only the column was declared
+
+/* GRID PLACEMENT PROPERTIES */
+/* grid-column = shorthand for (grid-column-start | grid-columnd-end)
+/* grid-row = shorthand for (grid-row-start | grid-row-end)
+
+/* grid-auto-rows/columns */
+/* lets say there are 6 divs */
+.grid-container {
+  grid-template-columns: 50px; /* six divs would be all forming in one column since only one column is specified */
+  grid-auto-rows: 50px; /* size of all the rows would be 50 px */
+  grid-auto-rows: 50px 75px; /* size of 1st row is 50px, 2nd row is 75px, 3rd row is 50px and so on... */
+  /* if grid-template-columns and grid-template-rows was explicitly created and there are some implicit grid cells, you use grid-auto-columns/row to assign values on implicit grid */
+}
+
+/* creating a grid track using grid-column and grid-column-start/end and grid-row, grid-row-start/end */
+/* lets say there are 3 divs */
+.grid-container {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: 50px;
+}
+
+.grid-item {
+  grid-column-start: 1; /* start from grid line 1 */
+  grid-column-end: 3; /* span until grid line 3 */
+  /* shorthand notation for this */
+  grid-column: 1 / 3;
+  /* shorthand notation for grid-column/row-start/end */
+  grid-area: ; /*row-start column-start row-end columnb-end */
+}
+
+/* USE grid-template-areas as a substitute for grid-column/row-start/end | RECOMMENDED */
+.grid-container {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "div1 div1 div2"
+    "div1 div1 div3"
+    "div4 div5 div6"
+    "div7 div7 div7";
+}
+
+.grid-item1 {
+  grid-area: div1; /* assigning name div1 which is to be used for grid-template-areas */
+}
+
+.grid-item2 {
+  grid-area: div2; /* and so on for other grid-items you get the pattern */
+}
+
+/* how i apply grid layout to my coding, an example:*/
+header {
+  height: 50px;
+  border: 1px solid #000000;
+}
+
+.parent {
+  height:800px;
+  border: 1px solid #000000;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr; /* dividing into 3 columns */
+  grid-template-rows: 1fr 1fr; /* dividing into 2 rows */
+  grid-template-areas:
+    "div1 div1 div2"
+    "div1 div1 div3";
+}
+
+.parent .div1 {
+  grid-area:div1;
+  /* assign width and height at child element */
+  width:100%;
+  height:100%;
+  /* have a quick look at their border */
+  border: 1px solid #000000; ;
+}
+
+.parent .div2 {
+  grid-area:div2;
+  /* assign width and height at child element */
+  width:100%;
+  height:100%;
+  /* have a quick look at their border */
+  border: 1px solid #000000; ;
+}
+
+.parent .div3 {
+  grid-area:div3;
+  /* assign width and height at child element */
+  width:100%;
+  height:100%;
+  /* have a quick look at their border */
+  border: 1px solid #000000; ;
+}
+
+.parent2 {
+  height:800px;
+  border: 1px solid #000000;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr; /* dividing into 3 columns */
+  grid-template-rows: 1fr 1fr 1fr; /* dividing into 2 rows */
+  grid-template-areas:
+    "div1 div1 div2"
+    "div1 div1 div3"
+    "div4 div4 div4";
+}
+
+.parent2 .div1 {
+  grid-area:div1;
+  /* assign width and height at child element */
+  width:100%;
+  height:100%;
+  /* have a quick look at their border */
+  border: 1px solid #000000; ;
+}
+
+.parent2 .div2 {
+  grid-area:div2;
+  /* assign width and height at child element */
+  width:100%;
+  height:100%;
+  /* have a quick look at their border */
+  border: 1px solid #000000; ;
+}
+
+.parent2 .div3 {
+  grid-area:div3;
+  /* assign width and height at child element */
+  width:100%;
+  height:100%;
+  /* have a quick look at their border */
+  border: 1px solid #000000; ;
+}
+
+.parent2 .div4 {
+  grid-area:div4;
+  /* assign width and height at child element */
+  width:100%;
+  height:100%;
+  /* have a quick look at their border */
+  border: 1px solid #000000; ;
+}
+
+footer {
+  height: 50px;
+  border: 1px solid #000000;
+}
+
+/* LESSON 9.1 - CSS ANIMATION */
+
+/* LESSON 10.1 - MANIPULATING ELEMENT USING TRANSFORM */
+div {
+  width:100px;
+  height:100px;
+  margin:200px auto;
+  border: 1px solid #000000;
+
+  transform: rotate(45deg); /* rotating element */
+  transform: scale(3); /* scaling the element by 3 | you could also scalex or scaling x-axis*/
+  transform: skew(); /* there is also skewx and skewy() */
+  transform: translate(50px); /* moving the element, kind of like position | there is also translatex and y */
+  /* using multiple transform into one line */
+  transform: matrix([scaleX], [skewY], [skewX], [scaleY], [translateX], [translateY]) /* replace [value] with the value you want */
+}
+
+/* LESSON 10.2 - CSS TRANSITION - this requires a trigger */
+.div1 {
+  width:100px;
+  height:100px;
+  margin:200px auto;
+  border: 1px solid #000000;
+  
+  transition-property:width; /*what property do you want to apply transition | you could use pretty much any property */
+  transition-delay:1s; /* time before transition starts doing */
+  transition-duration:.5s; /* how long the transition is */
+  transition-timing-function: ease-in; /* how transition moves */
+  /* shorthand notation for transition */
+  transition: [property], [duration], [timing-function], [delay]
+  
+}
+
+.div1:hover { /* this is the effect after the trigger */
+  width: 250px; /* width becomes 250px after hovering because you applied transition-property into width */
+}
+
+
+
+/* LESSON X.1 - IMPORTANT WEBSITES AND APPS
+https://www.figma.com | creating wireframes, alternative is sketch, but figma is way better
+https://www.chrome.google.com/webstore/detail/debug-css/igiofjnckcagmjgdoaakafngegecjnkj | DEBUG CSS - important tool to identify the border of each element
+https://www.unsplash.com | free beautiful images
+https://www.randoma11y.com | for creating color combinations with good contrast
+https://www.coolers.co | generating color palette
+https://www.fonts.google.com/ | source of font-family
+https://www.favicon.cc/ | create favicon
+https://www.flaticon.com/ | free vector icons
+https://www.icons8.com/line-awesome | another free vector icons
+https://www.loremipsum.io | random words generator
+https://www.caniuse.com | find if a property is supported by what browser
+https://www.flexboxfroggy.com/ | practice using flexbox
+https://www.undraw.co/illustrations | vector illustrations
+https://www.giphy.com/ | moving photos or gif
+https://www.codegrepper.com/ | instantly find code when you google search for them
+https://www.copilot.github.com/ | auto fill suggestion on your code
+https://www.developers.google.com/web/tools/lighthouse | automated tool for improving the quality of web pages 
+https://www.gist.github.com/jackdomleo7/55659bafe581d19cc341ef775d6a9e6b | global default style for css
+https://www.crossbrowsertesting.com | test your website on multiple browsers
+https://www.litmus.com | testing diferent email platforms
+wave.webaim.org | test the accessibility of your website for visually impaired user
+https://chrome.google.com/webstore/detail/whatfont/jabopobgcpjmedljpbcaablpmlmfcogm?hl=en | chrome extension to identify what font does the website is using
+gruntjs or gulpjs | for minifying files, linting files to verify syntax
+https://www.mockaroo.com | generate mockup data used for backend
+https://www.getpostman.com | test api endpoints
+https://tablericons.com/ | icons 
+https://chrome.google.com/webstore/detail/gridman-css-grid-inspecto/cmplbmppmfboedgkkelpkfgaakabpicn/related?hl=en | grid visualizer chrome extension
+https://github.com/danistefanovic/build-your-own-x#build-your-own-bot // build your own 
+https://devresourc.es/tools-and-utilities/public-apis | list of api resources
+https://markodenic.com/tools/buttons-generator/ | buttons generator 
+
+// personal website to be used as reference
+https://trekhleb.dev/blog/
+https://ryangregory.dev/about
+https://strapi.io/blog/build-a-blog-with-next-react-js-strapi // look at the sample strapi blog here 
+https://kllawingco.netlify.app/
+https://www.vasanthk.com/#/about-me
+https://jomeledodollon.com/
+
+EXTENSIONS:
+live sass compiler | css extension
+live server | spot changes in real time when viewing file
+es7 - for easy rfce template in react, and clg for console log
+bracket pair colorizer
+thunder client - like postman but inside vscode
+html css support
+*/
+
+/* LESSON X.2 - CASCADE AND IMPORTANCE - if you wanted a certain property to not get overriden */
+p {
+  font-size: 12px !important; /* this style will take precedence */
+  font-size: 16px; /* this would normally be more important since it has higher value, but the property above has keyword !important so you would not be able to override it unless you add !important in here too*/
+}
+
+/* LESSON X.3 - CENTERING CONTENT */
+/* REMEMBER: BROWSER HAS DEFAULT CSS STYLE, IF YOU'RE CENTERING TWO ELEMENT INSIDE A CONTAINER, THEY MIGHT HAVE A MARGIN SO REMOVE THAT
+/* centering a block */
+div {
+  /* parent element */
+  text-align: center; /* content inside the block gets centered */
+  margin: 0 auto; /* the inline/block/inline-block gets centered */
+}
+
+/* centering an inline */
+h1 {
+  /* child element */
+  margin: 0 auto;
+}
+
+/* centering a flexbox (RECOMMENDED) | apply to parent */
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* centering a grid | apply to parent */
+div {
+  display: grid;
+
+  justify-content: center;
+  align-items: center;
+
+  /* or */
+  place-items: center;
+}
+
+/* centering using position:absolute/fixed(RECOMMENDED) */
+    position:relative
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+
+/* LESSON X.4 - OOCSS(OBJECT ORIENTED CSS), SMACSS(SCALABLE MODULAR ARCHITECTURE FOR CSS), BEM(BLOCK-ELEMENT-MODIFIER) */
+/* bem is used for naming convention for oocss/smacss
+.{block}__{element}
+.{block__{element}--{modifier}
+.{block}--{modifier}
+
+BLOCK(think of it as section)/(parent) - card, block
+ELEMENT - inside of a block - image, paragraph, desc, item, link
+MODIFIER - use them to change the appearance, state or behavior | can be reused - secondary,primary,active | example use case is button--active, what will happen to the button after clicked
+
+HTML:
+<body>
+  <div class = "card"> <!-- card is a block -- >
+    <img class = "card__picture" src = "#"> <!-- card__picture is an element -->
+    <h3 class = "card__title">Title</h3> <!-- card_title is an element -->
+    <button class = "card__button card__button--active">Click Here</button> <!-- card_button--active is a modifier -->
+    <button class = "card__button">Click Here Too</button> <!-- in here it has no modifier or no applied styles -->
+  </div>
+</body>
+
+BEM MAIN RULE IS NOT TO USE MORE THAN TWO LEVELS OF PARENT AND CHILD 
+
+
+
+CSS:  APPLICATION OF BEM AND SASS | paste this to codepen and it's ugly, but that's not the point, the important thing is we understand the syntax
+.card {
+  box-sizing:border-box;
+  background-color:red;
+  flex:display;
+
+  &__picture {
+    background-color:blue;
+    height:100px;
+    width:100%;
+  }
+
+  &__title {
+    font-size:3em;
+
+  }
+
+  &__button {
+    background-color:green;
+
+    &--active{
+      color:yellow;
+    }
+  }
+} */
+
+/* LESSON X.5 - SCSS
+/* step 1 - download live sass compiler in extensions and live server */
+/* step 2 - create sass file | we would be using scss syntax instead of sass */
+
+/* nesting - best thing in sass */
+.parent {
+  display: flex;
+  flex-direction: column;
+
+  .child {
+    /* .child is identified as .parent .child { */
+    background-color: blue;
+  }
+
+  button {
+    background: yellow;
+    &:hover {
+      /* '&' just means and:  .parent button:hover { */
+    }
+  }
+}
+
+/* using variable  */
+$varName: red; /* can take any value | requires dollar sign */
+.child {
+  color: $varName;
+}
+
+/* dividing css file into multiple file so you could focus on a single file per structure */
+/* at scss main file add:  @import "./header"; | this is the file one structure */
+
+/* combining multiple property:value pair into one like function */
+@mixin flexCenter($direction) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+.parent {
+  @include flexCenter(row); /* it looks like a function */
+}
+
+/* extension - inherit style from a specific scss file */
+@import "./header";
+
+.contact {
+  @extend header;
+  /* to override styles from header, define your own style here */
+  background-color: red;
+}
+
+/* arithmetic operation - kinda making css like a programming language */
+.parent {
+  font-size: 10px - 5px;
+}
+
+/* separating .css and .map.css generated by the scss this is to make the file more organized, add this at package.json */
+/*
+step 1: vs code -> settings -> live sass compiler -> edit in settings.json -> paste this code
+  "liveSassCompile.settings.formats": [
+      {
+        "format": "compressed",
+        "extensionName": ".css",
+        "savePath": "/styles/css", // this is where you want the file to go 
+      }
+  ]
+
+step 2: same method as above but instead go to settings: generate map
+  "liveSassCompile.settings.generateMap": false
+
+
+
+
+
+
+*/
+
+
+
+
+
+/* LESSON X.6 STEP BY STEP BUILDING RESPONSIVE WEBSITE 
+STEP 1: SEPERATE HEADER, BODY(CONTENT), FOOTER
+STEP 2: ALWAYS USE RELATIVE, ONLY EDIT THE WIDTH FOR RESPONSIVE WEBSITE
+
+/* LESSON X.7 - POINTER EVENTS - used to disable elements from being interacted with by the mouse */
+overlay { /* usually used in overlay , clicking any parts become disabled */
+  pointer-events: none;
+}
+
+/* STUDY WEB COMPONENTS */
+
+/
+
+
+/* module styles - what i consider to be a module are the parts inside a section, i consider an image with caption to be a module, iconsider navigation bar as a module, i consider an article to be a module. */
+
+/* LESSON X.8 - STUDY THE PROPER UNIT USED FOR MARGIN AND PADDING, HEIGHT AND WIDTH 
+// IMPORTANT!!!!!!!!!
+https://gist.github.com/basham/2175a16ab7c60ce8e001 
+ALSO, START USING CSS MODULES TO AVOID NAMING PROBLEMS */
+
+/* IMPORTANT NOTES
+h1 and p are block level elements
+a,em,strong,img is an inline
+block level elements has default margin(to remove them use margin:0)
+you treat block level elemetns as an container item 
+always wrap an inline to a block
+
+/* LESSON X.9 - MEDIA QUERIES DEFAUTL STYLES */
+
+/* mobile styles */
+
+/* small tablet styles */
+@media screen and (min-width: 620px){
+
+}
+
+/* large tables & laptop styles */
+@media screen and (min-width: 960px){
+
+}
+
+/* desktop styles */
+@media screen and (min-width: 1200px){
+
+}
+
+/* LESSON X.10 - LIST */
+li {
+  list-style-type: none; /* remove list decoration */
+}

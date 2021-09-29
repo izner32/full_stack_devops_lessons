@@ -1,0 +1,4 @@
+JSON - JAVASCRIPT OBJECT NOTATION 
+- lightweight data-interchange format 
+- often used with ajax ( ajax is like express but with client side )
+- uses double quotes around key and value because everything is a text in json 

@@ -1,0 +1,1059 @@
+NOTE: {-} // dash sign inside brackets means optional, outside the bracket means not  
+
+// LESSON 1.1 - INSTALLING TAILWIND CSS 
+// npm init -y // this is skip assigning names,etc. just use sthe default
+// npm install tailwindcss 
+
+// dependencies you need: postcss, autoprefixer, gulp gulp-postcss browser-sync
+
+// vscode extensions - postcss langauge support, tailwind css intellisense, tailwind docs 
+
+// LESSON 1.2 - WORKING WITH A BUILD TOOL - customizing tailwind a bit 
+// standarad modules 
+    - @base: default for things like the body, anchor tag and box sizing, also includes a reset tool like preflight  
+    - @components: consists mainly of media queries
+    - @utilities: bulk of tailwind styles
+// uses reset tool called preflight 
+    - makes the image block level 
+// to turn off the preflight normalization
+    - go to tailwind.config.js 
+        corePlugs: {
+            preflight: false 
+        }
+// modify styles 
+    - modify what is on the base style and override them 
+        @layer base {
+            h1 {
+                color: #00bff3;
+                @apply text-6xl; // applying this tailwind style to all of h1 
+            }
+        }
+
+// LESSON 1.3 - USING VARIANTS 
+container
+    - container 
+media query variants 
+    - sm: 640px 
+    - md: 768px
+    - lg: 1024px
+    - xl: 1280px
+    - 2xl: 1536px
+    - motion-safe 
+    - motion-reduce
+
+    - it works like this: sm:text-md, when it reaches the small viewport make the text to medium 
+hover variants 
+    - hover 
+    - group-hover: applied to parent  
+    - disable 
+    - active 
+
+    - it works like this: hover:bg-green-500
+other variants 
+    pseudo classes 
+        - first 
+        - last 
+        - odd 
+        - even 
+    form 
+        - checked 
+        - disabled 
+        - focus 
+        - focus-visible 
+        - focus-within 
+        - group-focus 
+    other 
+        - dark 
+        - visited 
+
+// LESSON 1.4 - CONFIGURING VARIATNS - change any file of the tailwind with tailwind.config.json 
+// example: changing media query breakpoints 
+module.exports = {
+    theme: {
+        screens: {
+            "sm":"1020px" // we just changed the value of small breakpoints 
+        }
+    }
+}
+
+// active class is not activated by default, to make it activated by default do 
+variants: {
+    extend: {
+        backgroundColor: ["active"]
+    }
+}
+
+// LESSON 1.5 - EXTRACTING CLASSES - creating your own class 
+// use @layer to extend components 
+// use @apply to create generic button 
+// crate styles for different colors 
+
+@ layer components {
+    .btn { // now we could use btn class with all of these applied 
+        @apply // use your codes here 
+    }
+}
+
+// LESSON 2.1 - FONT DIRECTIVES 
+font family: type of font 
+    - font-{TYP}
+        TYP
+            - sans 
+            - serif 
+            - mono
+
+font sizes: how big 
+    - text-{SIZ}
+
+        SIZ
+            - xs: .75/1
+            - sm: .875/1
+            - base 
+            - lg 
+            - xl 
+            - 2xl 
+            - 3xl - 9xl 
+
+font weight: how thick  
+    - font-{WGT}
+        - thin: 100 
+        - extralight: 200
+        - light: 300
+        - normal: and so on...
+        - medium 
+        - semibold 
+        - bold 
+        - extrabold 
+        - black 
+
+font style 
+    - italic 
+    - not-italic 
+
+font smoothing: i dont understand 
+    - antialiased 
+    - subpixel-antialiased 
+
+font variant numeric: not used alot but here they are anyway 
+    - normal-nums: 42nd
+    - ordinal: 42nd 
+    - slashed-zero: 20,000
+    - lining-nums: 802,701
+    - oldstlye-nums: 299,792,458
+    - proportional-nums: 01-01-1885 | 11-12-1955
+    - tabular-nums: 01-01-1885 | 11-12-1955
+    - diagonal-fractions: 1/2 | note this is differently styled but i just dont know how to do it 
+    - stacked-fractions: 1/2 
+
+// LESSON 2.2 - TEXT DIRECTIVES 
+text colors 
+    - text-{COL}{-STR}
+
+        COL: color 
+            - gray
+            - red 
+            - yellow 
+            - green 
+            - blue 
+            - indigo 
+            - purple 
+            - pink 
+
+        STR: lightness of the color 
+            - 50 to 900
+
+text opacity: applied to the element that contains the text  
+    - text-opacity-{AMT}
+
+        AMT:
+            0,5,10,20,25,30,40,50,60,70,75,80,90,95,100
+
+text alignment 
+    - text-{TYP}
+        
+        TYP 
+            - left 
+            - center 
+            - right 
+            - justify 
+
+text decoration 
+    - underline 
+    - line-through
+    - no-underline 
+
+text transform 
+    - uppercase 
+    - lowercase 
+    - capitalize 
+    - normal-case 
+
+text overflow 
+    - truncate: like overflow:hidden | truncate overflowing text with an ellipsis (...) if needed 
+    - overflow-ellipsis: truncate overflowing text with an ellipsis if needed except its not overflow:hidden 
+    - overflow-clip: truncate overflowing text without an ellipsis, just cut thru them 
+
+// LESSON 2.3 - LIST STYLES: mostly just for the bullet points, or numbering the list item 
+list style type 
+    - list-{TYP}
+
+        TYP 
+            - none: remove styles, remove default bullet points 
+            - disc: create bulleted points 
+            - decimal: create decimal numbers for list nubmerings 
+
+list style position 
+    - list-{TYP}
+
+        TYP 
+            - inside: bullet points are indented inside 
+            - outside: indented outside 
+
+// LESSON 2.4 - SPACING TYPOGRAPHY 
+line height
+    - leading-{TYP}
+
+        TYP: in rem 
+            - 3: .75
+            - 4: 1
+            - 5 up to 10: just increments with 0.25 
+
+        TYP: in relative to parent component
+            - none: 1
+            - tight: 1.25 
+            - snug: 1.375 
+            - normal: 1.5 
+            - relaxed: 1.625
+            - loose: 2
+
+letter spacing 
+    - tracking-{TYP}
+        - tighter: -0.5
+        - tight: -0.25
+        - normal: 0 
+        - wide: 0.25
+        - wider: 0.05 
+        - widest: 0.1
+
+// LESSON 3.1 - BORDERS 
+border width 
+    - border{-SID}-{AMT}
+
+        SID 
+            - t 
+            - r 
+            - b 
+            - l 
+        
+        AMT: how thick the border width 
+            - 0 
+            - 2 
+            - 4
+            - 8 
+
+border opacity 
+    - border-opacity-{AMT}
+
+        AMT 
+            - 0,5,10,20,25,30,40,50,60,70,75,80,90,95,100
+
+border color 
+    - border-{COL}-{STR}
+
+        COL 
+            - gray,red,yellow,green,blue,indigo,purple,pink 
+
+        STR: lightness of the color 
+            - 50 to 900 
+    
+border radius 
+    - rounded{-SID}-{AMT}
+
+        SID 
+            - t: top 
+            - tl: top left 
+            - r 
+            - tr: top right 
+            - b 
+            - br 
+            - l 
+            - bl 
+
+        AMT 
+            - none 
+            - full 
+            - sm 
+            - md 
+            - lg 
+            - xl 
+            - 2xl
+            - 3xl 
+
+border style 
+    - border-{STL}
+
+        STL 
+            - none 
+            - solid 
+            - dashed 
+            - dotted
+            - double: just double border line | you need atleast size 4 of border width to use this 
+
+// LESSON 3.2 - RINGS: almost like borders except they use box shadows instead of html borders 
+ring width 
+    - ring-{AMT}
+
+    AMT 
+        - 0
+        - 1
+        - 2 
+        - 4 
+        - 8 
+        - inset: you need to specify ring-amt before using this | this puts the ring inside the border 
+
+ring opacity 
+    - ring-opacity-{AMT}
+
+    AMT 
+        - cmon im tired typing these, they're pretty much the same with the values of other element opacities 
+
+ring color 
+    - ring-{COL}-{STR}
+
+        COL 
+            - gray,red,yellow,green,blue,indigo,purple,pink 
+
+        STR: lightness of the color 
+            - 50 to 900 
+
+ring offset width: like some sort of border and you're setting how wide the content from the border is idk just try it its easier when you can see it visually 
+    - ring-offset-{WDT}
+
+        WDT 
+            - 0,1,2,4,8
+
+ring offset color 
+    - ring-offset-{COL}-{STR}
+        COL 
+            - gray,red,yellow,green,blue,indigo,purple,pink 
+
+        STR: lightness of the color 
+            - 50 to 900 
+
+// UNFINISHED: LESSON 3.3 - DIVIDE: applied to parent class container that contains different items  
+    border-{DIR}-{AMT}
+
+        DIR 
+            - x: horizontal  
+            - y: vertical 
+
+        AMT 
+            - 0,2,4,8,reverse 
+
+// LESSON 3.4 - BACKGROUNDS: remember it's images, gradient and not just color  
+background color 
+    - bg-{COL}-{STR}
+
+        COL 
+            - gray,red,yellow,green,blue,indigo,purple,pink 
+
+        STR: lightness of the color 
+            - 50 to 900 
+
+background opacity 
+    - bg-opacity-{AMT}
+
+        AMT:
+            - 0,5,10,20,25,30,40,50,60,70,75,80,90,95,100
+
+background image: this is how you build gradients not how you insert backgroudn images 
+    - bg{-none}|{-gradient-to}{-dir}
+    - above needs to be supplemented with: e.g. from-red-600 to-blue-600 | {from|via|to}{-COL}{-AMT}
+        - via is a gradient color inserted to the middle 
+    DIR 
+        - t: top 
+        - tl: top left 
+        - r 
+        - tr: top right 
+        - b 
+        - br 
+        - l 
+        - bl 
+
+    COL 
+        - gray,red,yellow,green,blue,indigo,purple,pink 
+    
+    AMT 
+        - 50 to 900
+
+background size: add an image to layout, it is weird  
+    - bg{-SIZ}
+
+        SIZ
+            - auto: occupy the 100% of width and height 
+            - cover: tries to proportionally fit the image 
+            - contain: dont try to adjust, make the image  fit
+
+background repeat: repeating the background image   
+    - bg{-REP}
+
+        REP
+            - repeat 
+            - no-repeat 
+            - repeat-x: repeat images in horizontal direction 
+            - repeat-y 
+            - repeat-round 
+            - repeat-space 
+
+background position: positioning the background image 
+    - bg{-POS}
+
+        POS 
+            - bottom,center,left,left-bottom,left-top,right,right-bottom,right-top,top 
+        
+// LESSON 3.5 - BOX SHADOWS 
+    - shadow{-AMT}
+
+        AMT 
+            - none 
+            - inner 
+            - sm 
+            - md 
+            - lg 
+            - xl 
+            - 2xl 
+
+// LESSON 4.1 - WIDTH AND HEIGHT 
+width 
+    - w-{SIZ}
+        SIZ 
+            - omy there's a lot jsut look at the documentation 
+            - importants
+                - 4: 1 rem 
+                - there are fractions like 1/2 
+                - named ones: auto, px, full, screen, min, max 
+height 
+    - h-{SIZ}
+         SIZ 
+            - omy there's a lot jsut look at the documentation 
+            - importants
+                - 4: 1 rem 
+                - there are fractions like 1/2 
+                - named ones: auto, px, full, screen, min, max 
+min width 
+    - min-w-{SIZ}
+        SIZ
+            - 0
+            - full 
+            - min 
+            - max 
+max width
+    - max-w-{SIZ}
+        SIZ 
+            - there's a lot of option, look at the documentation 
+min height 
+    - min-h-{SIZ}
+        SIZ 
+            - 0
+            - full 
+            - screen    
+max height 
+    - max-h-{SIZ}
+        SIZ 
+            - there's a lot, look at documentation 
+
+// LESSON 4.2 - PADDING AND MARGIN 
+padding 
+    - p{-DIR}{-SIZ}
+        DIR
+            - x: horizontal
+            - y: vertical 
+            - t 
+            - r 
+            - b 
+            - l 
+        SIZ 
+            - 0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96,px
+margin 
+    - {-}m{DIR}{-SIZ}
+        DIR
+            - x: horizontal
+            - y: vertical 
+            - t 
+            - r 
+            - b 
+            - l 
+        SIZ: you could also do negative 
+            - 0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96,px
+box sizing 
+    - box-border: this is the default 
+    - box-content 
+
+// LESSON 4.3 - DISPLAY AND POSITION 
+display 
+    - block: default width occupies the whole space 
+    - inline-block: default occupies the only necessary content but has the feature of block like you could change its width and height 
+    - inline: only occupies necessary space, cannot modify width and height 
+    - flex: default flex items are like inline block 
+    - inline-flex: flex items are inline 
+    - flow-root: tailwind version of clearfix 
+    - grid: default grid items are like div 
+    - inline-grid: grid items are inline 
+    - contents: 
+    - hidden: hide element 
+    - table: nvm these, no one uses table anymore 
+    - table-caption 
+    - table-cell 
+    - table-column 
+    - table-column-group 
+    - table-footer-group 
+    - table-header-group 
+    - table-row-group 
+    - table-row 
+position
+    - static: default; normal document flow 
+    - fixed: remove from normal document flow, position is based on viewport 
+    - absolute: remove from normal document flow, if move it would be based on the nearest ancestor with a position that's not static  
+    - sticky: like some sort of fixed, position starts to get fixed once it reaches a certain point specified  
+    - relative: not removed from normal document flow, move relative to its current position 
+
+    move position 
+        {-}{SID}{-DIR}{-SIZ}
+            SID
+                - top 
+                - right 
+                - bottom 
+                - left 
+                - inset: affects both x and y movement, move diagonally 
+            DIR 
+                - x 
+                - y 
+            SIZ 
+                - it's a lot just look at the documentation 
+
+// LESSON 4.4 - OBJECT FLOATING AND CONTAINMENT 
+float 
+    - float-{SID}
+        SID 
+            - none 
+            - left 
+            - right 
+clear 
+    - clear-{SID}
+        SID 
+            - none 
+            - left 
+            - right 
+            - both 
+object fit: applied to images, how the images would look like 
+    - object-{SID}
+        SID 
+            - contain: fit the object 
+            - cover 
+            - fill: stretch the image as you stretch the viewport 
+            - none: not doing anything to the image 
+            - scale-down: retain original size but shrink it down if necessary
+object position: applied to background images, used how to position the image 
+    - object-{POS}
+        POS     
+            - left-top 
+            - top 
+            - right-top 
+            - left 
+            - center 
+            - right 
+            - left-bottom 
+            - bottom 
+            - right-bottom
+
+// LESSON 4.5 - OTHER PROPERTIES
+z-index: can only be used with position that's not static, used to specify on which element should appear on top 
+    - z-{AMT}
+        AMT 
+            - 0 
+            - 10 
+            - 20
+            - 30
+            - 40 
+            - 50 
+            - auto
+visibility: hide an element but not the same as display:none, the element is still there it's just hidden 
+    - visible 
+    - invisible 
+overflow: determine if an element would have a scrollbar,
+    - overflow{-DIR}{-TYP}
+        DIR
+            - x 
+            - y 
+        TYP 
+            - auto 
+            - hidden 
+            - visible 
+            - scroll 
+overscroll: idk what this does probably not important 
+    - overscroll{-DIR}{-TYP}
+        DIR 
+            - x 
+            - y 
+        TYP 
+            - auto 
+            - contain 
+            - none 
+
+// LESSON 5.1 - FLEXBOX 
+flex direction: applied to parent flex 
+    - flex{-TYP}{-DIR}
+        TYP 
+            - row: align horizontally, default 
+            - col: align vertically duh 
+        DIR 
+            - reverse: reverse the order of the flex items 
+flex wrap
+    - flex-wrap: kind of like a float, when the viewport is minimized and the flex is about to be overflowed, the excess grid items goes below, assuming this is a flex row 
+    - flex-wrap-reverse: like wrap but instead of the excess flex item going down, it goes up 
+    - flex-nowrap 
+flex item: applied to flex parent
+    - flex-1: grow and shrink an item as needed 
+    - flex-auto: grow an item as needed but does not shrink from its initial size; think of it as width:100%;
+    - flex-initial: shrink as needed but does not grow from its initial size 
+    - flex-none: prevent an item to grow or shrink 
+flex grow: control whether an item is going to grow to fit the space | applied to flex items 
+    - flex-grow-0: prevents an item from growing 
+    - flex-grow: allowing item to grow as needed 
+flex shrink 
+    - flex-shrink-0
+    - flex-shrink 
+order: reframe how items are ordered, applied to flex items 
+    - order{-ORD}
+        ORD 
+            - 1 to 12 
+            - first 
+            - last 
+            - none 
+
+// LESSON 5.2 - GRID 
+grid tempalte columns 
+    - grid-cols{-AMT}: applied to parent grid 
+        AMT 
+            - 1 to 12 
+            - none 
+    - example application 
+        grid grid-cols-3 md:grid-cols-4 - default columns is 3, when it reaches a min width of medium the columns turn into 4 
+gap 
+    - gap{-DIR}{-SIZ}
+        DIR 
+            - x 
+            - y 
+        SIZ 
+            - 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96, px
+grid template columns 
+    - col{-TYP}{-AMT}: applied to grid item, used for grid spanning, somehow the equivalent of grid tempalte areas except you're assigning the position at grid item not at grid parent 
+        TYP 
+            - auto 
+            - span 
+            - start 
+            - end 
+        AMT 
+            - 1 to 12
+            - full 
+grid template rows 
+    - grid-rows{-AMT}
+        AMT 
+            - 1 to 6 
+            - none 
+grid row start/end: idk what this is for 
+    - col{-TYP}{-AMT}
+        TYP 
+            - auto 
+            - start 
+            - end 
+            - span 
+        AMT 
+            - 1 to 7
+            - full 
+grid auto flow 
+    - grid-flow-row: make the flow of the grid horizontally 
+    - grid-flow-col 
+    - grid-flow-row-dense: still make the flow of the grid horizontally but if there's an extra space it would be occupied 
+    - grid-flow-col-dense 
+grid auto columns: i dont understand, but it doesnt seem important tho | applied to parent grid  
+    - auto-cols-auto 
+    - auto-cols-min 
+    - auto-cols-max
+    - auto-cols-fr: make all of the columns to have the same spaces
+grid auto rows 
+    - auto-rows-auto: auto only occupies the necessary space  
+    - auto-rows-min 
+    - auto-rows-max 
+    - auto-rows-fr 
+
+
+// LESSON 5.3 - BOX ALIGNMENT : control items inside grid and flexbox on how those would fit inside the layouts
+space between: applied to parent flex or grid, space between the items 
+    - space{-DIR}{-AMT}
+        DIR 
+            - x, y 
+        AMT 
+             - 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96, px, reverse 
+justify content: means where stuff fits on the current grid horizontally | aligns the whole grid 
+    - justify{-DIR}
+        DIR 
+            - start: put all of the stuff at the beginning 
+            - end: put all of the stuff at the end  
+            - center: put all of the stuff at the center 
+            - between: equal space between them but no space for start and end 
+            - around: equal space between them but not for the start and end 
+            - evenly: equal space between them and space at the start and end 
+justify items: controls how items are placed within the axes | aligns the items in the grid 
+    - justify-items{-DIR}
+        DIR 
+            - auto: just like stretch  
+            - start 
+            - end 
+            - center
+            - stretch: stretch to make the items fit  
+justify self: applied to grid/flex items 
+    - justify-self{-DIR}
+        DIR 
+            - auto 
+            - start 
+            - end 
+            - center 
+            - stretch 
+align content: applied to parent | align vertically | aligns the grid as a whole 
+    - content{-DIR}
+        DIR 
+            - center 
+            - start 
+            - end 
+            - between 
+            - around 
+            - evenly 
+align items: control individual items | aligns the item grid 
+    - items{-DIR}
+        DIR 
+            - center 
+            - start 
+            - end 
+            - baseline 
+            - stretch
+align self: applied to item 
+    - items{-DIR}
+        DIR 
+            - center 
+            - start 
+            - end 
+            - auto
+            - stretch 
+place content: justifying and aligning at the same time 
+    - place-content{-DIR}
+        DIR 
+            - center 
+            - start 
+            - end 
+            - between 
+            - around 
+            - evenly 
+            - stretch 
+place items: does the same thing, but for items 
+    - place-items{-DIR}
+        DIR 
+            - auto 
+            - start 
+            - end 
+            - center 
+            - stretch 
+place self: control individual items 
+    - place-items{-DIR}
+        DIR 
+            - auto 
+            - start 
+            - end 
+            - center 
+            - stretch 
+
+
+// LESSON 6.1 - TRANSFORMATIONS: mostly used in images  
+transform
+    - transform: use this to be able to rotate the element 
+    - transform-gpu 
+    - transform-none 
+rotate: this is a helper class to the the transform/-gpu/-none
+    - rotate
+    {-}rotate{-DEG}
+        DEG 
+            - 0,1,2,3,6,12,45,90,180
+scale: this is a helper class to the the transform/-gpu/-none
+    - scale{-DIR}{-SIZ}
+        DIR 
+            - x 
+            - y 
+        SIZ 
+            - 0,50,75,90,95,100,105,110,125,150
+skew: tilt 
+    - {-}skew{-DIR}{-DEG}
+        DIR 
+            - x 
+            - y 
+        DEG 
+            - 0,1,2,3,6,12 
+translate: how we move things with css | kind of like position but this property is preffered compared to position when used with effects, remember to only use position for layouts
+    - {-}translate{-DIR}{-AMT}
+        DIR 
+            - x 
+            - y
+        AMT 
+            - there's alot just look at the documentation 
+transform origin: this is weird just dont use this 
+    - origin{-DIR}
+        DIR 
+            - center 
+            - top 
+            - top-right 
+            - right 
+            - bottom-right 
+            - bottom 
+            - bottom-left 
+            - left 
+            - top-left
+
+// LESSON 6.2 - TRANSITIONS: for simple animations 
+transition 
+    transition{-TYP}
+        TYP 
+            - none 
+            - all 
+            - colors 
+            - opacity: only change the opacity 
+            - shadow 
+            - transform: transform into the one specified | e.g. transition-transform transform hover:scale-125, this would scale into 125 when you hover into it 
+transition duration: how long the transition would occur 
+    duration{-AMT}
+        AMT 
+            - 75,100,150,200,300,500,700,1000
+transition delay 
+    delay{-AMT}
+        AMT 
+            - 75,100,150,200,300,500,700,1000
+transition timing function: controls the acceleration of the transitions 
+    - ease{-TYP}: think of ease as slow 
+        TYP 
+            - linear 
+            - in: think of in as beginning 
+            - out: think of out as end 
+            - in-out
+
+// LESSON 6.3 - ANIMATE 
+animations 
+    - animate{-TYP}
+        TYP
+            - none 
+            - spin 
+            - ping 
+            - pulse: opactiy changes over time 
+            - bounce 
+
+// LESSON 7.1 - FORMS - options are limtied compared to bootstrap 
+placeholder colors 
+    - placeholder-{COL}{-STR}
+        COL: color 
+            - gray
+            - red 
+            - yellow 
+            - green 
+            - blue 
+            - indigo 
+            - purple 
+            - pink 
+
+        STR: lightness of the color 
+            - 50 to 900
+placeholder opacity 
+    - placeholder-opacity-{AMT}
+        AMT 
+            - nah no need to specify anymore, it's not like im gonna use this anyways 
+
+// LESSON 7.2 - TABLES - again options are limited compared to bootstrap :(
+table layout 
+    - table-auto 
+    - table-fixed 
+border collapse 
+    - border-collapse 
+    - border-separate 
+
+// LESSON 7.3 - SVG 
+stroke 
+    - stroke-current: modify the stroke of the svg verey quickly 
+    - use text for changing the color of the outline, e.g. text-purple-600 
+fill 
+    - fill-current 
+    - use text again, you could also use pseudoclasses for these 
+
+// LESSON 7.4 - SCREEN READERS: 
+    - sr-only: means it would only show up on the screen readesr and not on the browser 
+    - not-sr-only 
+
+// LESSON 7.5 - INTERACTIVE 
+user select: highlighting 
+    - select-{TYP}
+        TYP 
+            - auto 
+            - text 
+            - none: cannot be selected 
+            - all: it automatically highlights everything when user attempts to do it  
+cursors 
+    - cursor-{TYP}
+        TYP 
+            - auto 
+            - default 
+            - pointer 
+            - wait 
+            - text 
+            - move 
+            - not-allowed 
+
+// LESSON JIT.1 - INTRODUCTION 
+// tailwind is extremely huge, which coudl cause for it to be laggy 
+
+// LESSON JIT.2 - USING JIT COMPILER 
+
+// LESSON JIT.3 - EXTRA VARIANTS 
+
+
+
+// LESSON X.1 - QUICK CHEATSHEET 
+VARIANTS 
+    - CONTAINER 
+        - container 
+    - MEDIA QUERY VARIANTS 
+        - sm,md,lg,xl,2xl,motion-safe,motion-reduce
+    - HOVER VARIANTS 
+        - hover,group-hover,disable,active 
+    - OTHERS 
+        - PSEUDO CLASSES 
+            - first,last,odd,even
+        - FORM 
+            - checked,disabled,focus,focus-visible,focus-within,group-focus
+        - OTHERS 
+            - dark,visited 
+FONTS 
+    - FONT FAMILY 
+        - font-{TYP} | font-sans 
+    - FONT SIZES 
+        - text-{SIZ} | font-xs
+    - FONT WEIGHT 
+        - font-{WGT} | font-thin
+    - FONT STYLE 
+        - italic, not-italic 
+    - FONT SMOOTHING 
+        - antialiased, subpixel-antialiased 
+    - FONT VARIANT NUMERIC 
+        - normal-nums,ordinal,slashed-zero,lining-nums,oldstyle-nums,proportional-nums,tabular-nums,diagonal-fractions,stacked-fractions
+TEXT DIRECTIVES 
+    - TEXT COLORS 
+        - text-{COL}{-STR} | text-gray-500
+    - TEXT OPACITY 
+        - text-opacity-{AMT} | text-opacity-50
+    - TEXT ALIGNMENT 
+        - text-{TYP} | text-center 
+    - TEXT DECORATION 
+        - underline,line-through,no-underline
+    - TEXT TRANSFORM 
+        - uppercase,lowercase,capitalize,normal-case 
+    - TEXT OVERFLOW 
+        - truncate,overflow-ellipsis,overflow-clip 
+    - LINE HEIGHT 
+        - leading-{TYP} | leading-5
+    - LETTER SPACING 
+        - tracking-normal 
+LIST STYLES 
+    - LIST STYLE TYPE 
+        - list-{TYP} | list-none 
+    - LIST STYLE POSITION 
+        - list-{TYP} | list-outside
+RINGS 
+    - RING WIDTH 
+        - ring-{AMT} | ring-1
+    - RING OPACITY 
+        - ring-opacity-{AMT} | ring-opacity-50
+    - RING COLOR 
+        - ring-{COL}{-STR} | ring-gray-500
+    - RING OFFSET WIDTH 
+        - ring-offset-{WDT} | ring-offset-8
+    - RING OFFSET COLOR 
+        - ring-offset-{COL}{-STR} | ring-offset-gray-500
+DIVIDE 
+BACKGROUNDS 
+    - BACKGROUND COLOR 
+        - bg-{COL}{-STR} | bg-gray-500
+    - BACKGROUND OPACITY 
+        - bg-opacity-{AMT} | bg-opacity-50
+    - BACKGROUND GRADIENT
+        - bg{-none}|{-gradient-to}{-dir} | bg-gradient-to 
+        - {from|via|to}{-COL}{-AMT} | from-red-600 to-blue-600
+    - BACKGROUND IMAGE 
+        - bg{-SIZ} | bg-cover
+    - BACKGROUND REPEAT 
+        - bg{-REP} | bg-no-repeat
+    - BACKGROUND POSITION 
+        - bg{-POS} | bg-center 
+BOX SHADOWS 
+    - SHADOWS
+        - shadow{-AMT} | shadow-inner 
+BOX PROPERTY 
+    - WIDTH 
+        - w-{SIZ} | w-4
+        - MIN-WIDTH
+            - min-w-{SIZ} | min-w-0
+        - MAX-WIDTH
+            - max-w-{SIZ} | max-w-0
+    - HEIGHT 
+        - h-{SIZ} | h-4
+        - MIN-HEIGHT 
+            - min-h-{SIZ} | min-h-0
+        - MAX-HEIGHT 
+            - max-h-{SIZ} | max-h-0
+    - PADDING 
+        - p{-DIR}{-SIZ} | p-x-4
+    - MARGIN 
+        - {-}m{-DIR}{-SIZ} | m-x-4
+    - BORDER 
+        - BORDER WIDTH 
+            - border{-SID}-{AMT} | border-t-2
+        - BORDER OPACITY 
+            - border-opacity-{AMT} | border-opacity-50
+        - BORDER COLOR 
+            - border-{COL}{-STR} | border-gray-500
+        - BORDER RADIUS 
+            - rounder{-SID}-{AMT} | rounded-tl-sm
+        - BORDER STYLE 
+            - border-{STL} | border-solid 
+    - BOX SIZING 
+        - box-border,box-content 
+DISPLAY 
+    - block,inline-block,inline,flex,inline-flex,grid,inline-grid,contents,flow-root,hidden,there's alot more for tables 
+POSITION 
+    - static,fixed,absolute,sticky,relative 
+    - MOVE 
+        - {-}{SID}{-DIR}{-SIZ} | top-x-5
+OBJECT FLOATING AND CONTAINMENT 
+    - FLOAT 
+        - float-{SID} | float-left 
+    - CLEAR 
+        - clear-{SID} | float-left 
+    - OBJECT FIT 
+        - object-{SID} | object-cover 
+    - OBJECT POSITION 
+        - object-{POS} | object-left-top 
+OTHER PROPERTIES 
+    - Z-INDEX 
+    - VISIBILITY 
+    - OVERFLOW 
+    - OVERSCROLL 
+LAYOUT 
+    - FLEX 
+    - GRID 
+
+
+
+

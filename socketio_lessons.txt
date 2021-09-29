@@ -1,0 +1,141 @@
+// LESSON 1.1 - STARTING CODE - just some boilerplate code 
+const joinRoomButton = document.getElementById("room-button")
+const messageInput = document.getElementById("message-input")
+const roomInput = document.getElementById("room-input")
+const form = document.getElementById("form")
+
+form.addEventListener("submit", e => {
+    e.preventDefault();
+    const message = messageInput.value;
+    const room = roomInput.value ;
+
+    if (message === "") return
+    displayMessage(message);
+
+    messageInput.value = "";
+})
+
+joinRoomButton.addEventListener("click", () => {
+    const room = roomInput.value 
+});
+
+function displayMessage(message) {
+    const div = document.createElement("div")
+    div.textContent = message;
+    document.getElementById("message-container").append(div);
+}
+
+// required dependency - snowpack, nodemon(optional but definitely good)
+
+// LESSON 1.2 - HOW SOCKET.IO WORKS 
+// normal flow - if you want to fetch 10 times you gonna do this 10 times which is hassle
+fetch api -> server does its thing -> display to client 
+
+// socketio flow 
+websocket connects to server -> server does its thing -> display to client 
+
+// flow
+
+// LESSON 1.3 - BASIC SETUP 
+// npm i socket.io 
+// inside server.js
+const io = require("socket.io")(3000,{ // socket.io is actually a function that returns an object 
+    cors: { // using cors to allow a specific url to fetch api 
+        origin: ["http://localhost:8080"], // pass whatever where the client lives so he can access this api which is io.on 
+    },
+});
+
+// everytime there's a new connection it connects into this connection 
+io.on("connection", socket => { // this is a function that runs everytime a client connects to the server 
+    console.log(socket.id)
+})
+
+// npm i socket.io-client 
+// add this into the script (the boilercode above)
+import { io } from "socket.io-client" 
+
+const socket = io("https://localhost:3000"); // passing the url of the server | this would connect us to the server | somehow this is like the fetch 
+socket.on("connect", () => { // everytime a client connects do this 
+    displayMessage(`You connected with id: ${socket.id}`)
+})
+
+// LESSON 1.4 - SEND EVENTS TO THE SERVER 
+// still inside the client 
+socket.emit("custom-event", 10, "Hi, { a: 'a'}); // used for creating custom events | 2nd,3rd...and so on parameters would be the parameter when using this custom event 
+
+// we can call this custom event inside the server 
+io.on("connection", socket => {
+    console.log(socket.id);
+    socket.on("custom-event", (number, string, object) => {
+        console.log(number);
+    })
+})
+
+}) // take any event that you want and send it to the server
+
+// LESSON 1.5 - SENDING EVENTS TO THE CLIENT 
+io.on("connection", socket => {
+    console.log(socket.id);
+    socket.on("custom-event", (number, string, object) => {
+        io.emit("receive-message", message); // 1st param is anything you want, 2nd param is what you want to send to all different clients 
+        console.log(number);
+    })
+})
+
+// LESSON 1.6 - ROOMS 
+
+
+// LESSON 1.7 - EMIT CALLBACK 
+
+
+// LESSON 1.8 - ADMIN DASHBOARD 
+
+
+// LESSON 1.9 - NAMESPACES 
+
+
+// LESSON 1.10 - MIDDLEWARE
+
+
+// LESSON 1.11 - OFFLINE MODE 
+
+// LESSON X.1 - CORS - this happens when you fetch an api but it's not allowing you because of some cors error
+- server is telling our client that these are the allowed urls that can fetch this api, by default the only allowed url is the same origin that you come from  
+- to allow other urls to access or fetch the api in our server, we do this using cors module
+
+// npm i cors -installing cors library 
+
+// inside the express server 
+const express = require("express");
+const app = express();
+app.use(cors({ // this cors would allow us to fetch external apis using the url specified
+    origin: "http://localhost:5500", // allowing this url to be able to fetch our api 
+}));
+
+// cors work perfectly when fetching get api 
+app.get("/data", (req,res) => {
+    res.json({ name: "Renz", age: 20 });
+});
+
+app.listen(3000); // without cors we could only fetch this api if coming from same origin or port 3000, to allow other to fetch our get api above use cors
+
+//--------------------------
+// problem arises when fetching like put api, to fix this or to specifiy the only http method you can do, do this 
+app.use(cors({ // this cors would allow us to fetch external apis using the url specified
+    origin: "http://localhost:5500", // allowing this url to be able to fetch our api 
+    methods: ["GET","POST"], // do this 
+}));
+
+//----------------------------
+// another problem arises when we send credentials in a fetch 
+fetch("http://localhost:3000/data", { method:
+"PUT", credentials: "include" })
+    .then(res => res.json())
+    .then(data => console.log(data))
+
+// to fix this do this in cors 
+app.use(cors({ // this cors would allow us to fetch external apis using the url specified
+    origin: "http://localhost:5500", // allowing this url to be able to fetch our api 
+    methods: ["GET","POST"], // do this 
+    credentials: true,
+}));

@@ -1,0 +1,34 @@
+// LESSON 1.1 - MEDIA QUERIES - used for creating responsvie website 
+
+// LESSON 1.2 - MEDIA RULE
+@media screen, (max-width: 768px) and (min-width:768px){ //@media condition | use and if two conditions
+    // styles here
+}
+
+// LESSON 1.3 - MAX-WIDTH - set styles inside the set boundary
+@media screen, (max-width: 500px){
+
+}
+
+// LESSON 1.4 - MIN-WIDTH - set styles outside the set boundary
+@media screen, (min-width:500px) {
+
+}
+
+// LESSON 1.5 - STANDARD BREAK POINTS
+/*
+MOBILE - 576PX
+TABLET - 768PX
+LAPTOP - 992PX (OPTIONAL)
+DESKTOP - 1200PX
+*/ 
+
+// LESSON X.1 - SHOWING WIDTH OF SCREEN
+window.onresize = screen; 
+window.onload = screen; 
+
+function screen(){
+    width = window.innerWidth;
+
+    document.getElementById('').innerHTML = "width:" + width;
+}

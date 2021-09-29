@@ -1,0 +1,111 @@
+// LESSON 1.3 - SERVER SETUP WITH LATEST ECMASCRIPT
+
+// step 1: npm init (package.json would now be installed) -> npm install --save-dev babel-cli babel-preset-env babel-preset-stage-0
+// step 2: npm install express express-graphql graphql nodemon // nodemon is like live server, it automatically refresh
+// step 3: create a new fiel: index.js and .babelrc (this could be hidden make sure it's not hidden)
+// step 4: under script create "start":"nodemon ./index.js --exec babel-node -e js" // this would automatically run nodemon by saying npm run start 
+// step 5: inside .babelrc: 
+    {
+        "presets": [
+            "env",
+            "stage-0"
+        ]
+    }
+// step 6: inside index.js 
+    const express = require("express");
+    const app = express();
+
+    app.get("/", (req,res) => {
+        res.send("Graphql is amazing");
+    }); 
+
+    app.listen(8000, () => {
+        console.log("Running on server port localhost:8000/graphql)
+    });
+// step 7: npm run start 
+
+// LESSON 1.4 - INITIAL GRAPHQL SETUP - for now we would hardcode the response 
+// step 1: create file - schema.js, inside type this 
+    import { buildSchema } from "graphql";
+
+    const schema = buildSchema(`
+        type Query {
+            hello: String 
+        }
+    `)
+
+    export default schema 
+// step 2: inside index.js 
+    import schema from "./schema";
+    import { graphqlHTTP } from "express-graphql"; // this is from the dependency we installed earlier 
+
+    // under app.get 
+    const root = { hello: ()=> "Hi, i'm renz" };
+
+    app.use("/graphql", graphqlHTTP ({
+        schema: schema, 
+        rootValue: root, 
+        graphiql: true, // a user interface that we can use to test whatever we want inside of our graphql server 
+
+    }))
+// step 3: now go to localhost:8000/graphql and see some magic (inside you can create queries)
+    query {
+        hello
+    }
+// step 4: run and see the result from query above 
+
+// LESSON 1.5 - BASIC GRAPHQL SCHEMA 
+// step 1: inside schema.js 
+    import { buildSchema } from "graphql" // just destructuring 
+
+    const schema = buildSchema(`
+        type Friend {
+            id: ID 
+            firstName: String 
+            lastName: String 
+            gender: String 
+            email: String
+        }
+        
+        type Query {
+            friend: Friend 
+        }
+    `)
+
+// step 2: inside index.js 
+    //change value of root - hardcoding data 
+    const root = { friend: () => {
+        return {
+            "id": 12321321312,
+            "firstName": "Renz",
+            "lastName": "Carillo",
+            "gender": "Male",
+            "email": "renz@renz.com"
+        }
+    }}
+
+// LESSON 2.1 - OBJECT TYPES AND FIELDS 
+const schema = buildSchema(`
+    // everything 
+
+`)
+
+
+// LESSON X.1 - REST VS GRAPHQL 
+/*
+ENDPOINTS
+restapi - embraces the concept of having multiple endpoints (e.g. GET/user, POST/product, PUT/user,etc.)
+graphql - one endpoint only (e.g. POST/graphql)
+
+JSON DATA IS EXCHANGED | SERVER SIDE LANGUAGE, ANY FRONTEND FRAMEWORK | BOTH ARE STATELESS 
+restapi 
+graphql 
+
+COMMUNICATION WAY 
+restapi - httpVerb/path { /* insert content here */ }  e.g. POST/user { name:"Max"} | multiple http verb, multiple path 
+graphqlapi - httpVerb/path { query: "query" } e.g. POST/graphql { query: "query" } | one http verb, one path 
+
+// LESSON X.2 - SCHEMA - i think this is just like an interface in typescript, it is a representation on how a structure must look like (this is just my guess)
+
+
+

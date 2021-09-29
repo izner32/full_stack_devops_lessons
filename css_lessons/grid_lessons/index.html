@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    
+    <title>Document</title>
+</head>
+<body>
+    <!-- creating a navbar -->
+
+    <nav class = "navbar">
+        <h1 class= "navbar__title">Navigation</h1>
+        <ul class="navbar__list">
+            <li class="navbar__list__item1"><a href="#portfolio">Portfolio</a></li> <!-- href in anchor for this one just scrolls to the element that has this id -->
+            <li class="navbar__list__item2"><a href="#skills">Skills</a></li>
+            <li class="navbar__list__item3"><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id= "welcome" class="welcome">
+        <div class="welcome__intro">
+            <h2 class="welcome__intro__header">Space Enthusiast <br> & Javascript Developer</h2>
+            <p class="welcome__intro__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, doloremque autem sint sapiente inventore consectetur nisi omnis reprehenderit voluptatibus esse, exercitationem pariatur quia repellendus minus nulla vel! Id, voluptatibus atque.</p>
+            <p class ="welcome__intro__work"><a class="welcome__intro__work--link">View my work</a><p>
+        </div>
+        <div class ="welcome__img">
+            <img>
+        </div>
+    </section>
+
+    <section id= "portfolio">
+        <h3 class = "portfolio__header">Some of my Projects</h3>
+        <div class="portfolio__projects">
+            <a>
+                <img>
+                <h4></h4>
+            </a>
+            <a>
+                <img>
+                <h4></h4>
+            </a>
+            <a>
+                <img>
+                <h4></h4>
+            </a>
+        </div>
+    </section>
+
+    <section id = "skills">
+        <h3>Things i can do</h3>
+        <ul>
+            <li>
+                <img src="assets/comet_1.svg" alt="comet">
+                <h4>JavaScript</h4>
+            </li>
+            <li>
+                <img src="assets/comet_2.svg" alt="comet">
+                <h4>React</h4>
+            </li>
+            <li>
+                <img src="assets/comet_3.svg" alt="comet">
+                <h4>Firebase</h4>
+            </li>
+            <li>
+                <img src="assets/comet_4.svg" alt="comet">
+                <h4>Flutter</h4>
+            </li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h3 class = "contact__header">Get In Touch</h3>
+        <form class="contact__form">
+            <input type="text" placeholder='NAME'>
+            <input type="email" placeholder='EMAIL'>
+            <textarea placeholder='YOUR MESSAGE'></textarea>
+            <button class="button">Send Flare</button>
+        </form>
+    </section>
+
+    <footer id ="footer">
+        <div class="footer">
+            <p class="footer__copyright">Copyright 2020 Cosmo Junkie</p>
+            <ul class="footer__social">
+                <li class="footer__social__list"><a href="#"><img src="assets/icon_fb.svg" alt="facebook"></a></li>
+                <li class ="footer__social__list"><a href="#"><img src="assets/icon_tw.svg" alt="twitter"></a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

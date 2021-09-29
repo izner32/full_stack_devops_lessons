@@ -1,0 +1,387 @@
+<!-- LESSON 2.2 - PARAGRAPHS -->
+<p>creating a paragraph</p>
+
+<!-- LESSON 2.3 - HEADLINES -->
+<h1>this ranges from h1-h6</h1>
+
+<!-- LESSON 2.4 - ITALICS AND BOLD -->
+<i>visual only italics</i>
+<em>emphasis italics</em>
+
+<b>visual only bold</b>
+<strong>emphasis bold</strong>
+
+<!-- LESSON 2.5 - LIST -->
+<!-- unordered list -->
+<ul>
+    <lh>Unordered List Title</lh>
+    <li>List Item 1</li>
+    <li>List Item 2</li>
+</ul>
+
+<!-- ordered list -->
+<ol>
+    <lh>Ordered List Title</lh>
+    <li>List Item 1</li>
+    <li>List Item 2</li>
+</ol>
+
+<!-- list with key-value pair | definition list -->
+<dl>
+    <dt>definition title</dt>
+    <dd>definition description | Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi porro eius neque alias, earum deleniti. Et, similique? Cum qui, impedit repellat, magni reiciendis, nobis atque maxime non cupiditate explicabo assumenda.</dd>
+</dl>
+
+<!-- LESSON 2.6 - QUOTES -->
+<!-- block quote-->
+<blockquote>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat odio vitae dolor nesciunt reiciendis quidem praesentium minus provident, numquam iste sint veritatis magni rem alias consequuntur neque voluptatum possimus inventore!</p>
+    <cite> - Renz</cite>
+</blockquote>
+
+<!-- inline quote -->
+<p>Renz said,
+    <q>automatically adding quotemarks, and italicizing it like a real quote</q> <!-- adding quotemarks and making this a quote -->
+</p>
+
+<!-- LESSON 2.7 - DATES AND TIMES -->
+<time>May 8 2025</time>
+<time datetime = "2025-05-8">May 8, 2025</time> <!-- adding datetime attribute that lets the computer know what date it is-->
+<time datetime = "14:15:00">adding time</time> <!-- adding time -->
+<time datetime = "2020-11-04 19:00-0500">qwerty</time> <!-- mergin time and date -->
+
+<!-- LESSON 2.8 - CODES,PRE AND BR -->
+<p>
+    We can write this
+    <code>if (x == 0){</code> <!-- adding inline code-->
+    or <br> <!-- adding line break, for adding space on elements -->
+    this but...
+</p>
+
+<p>
+    <pre> <!-- adding pre so html would notice the spaces, line breaks and everything-->
+    We can write this
+                           look how many space <!-- without pre, all of these would be inline and these white spaces wouldn't be noticed -->
+    or  
+    this but...
+    </pre>
+</p>
+
+<!-- LESSON 2.9 - SUPERSCRIPTS, SUBSCRIPTS, AND SMALL TEXT -->
+<p>adding subscript for this element: H
+    <sub>2</sub> <!-- adding subscript -->
+    0
+    <br>
+    and adding superscript for this squaring: 5
+    <sup>2</sup> = 25 <!-- adding superscript -->
+</p>
+
+<!-- marking text that has little importance -->
+<small>© Renz Carillo 2021</small> <!-- adding small text -->
+
+<!-- LESSON 3.2 - ATTRIBUTE -->
+<!-- some of the most common attributes, some attributes are global and some are local to specific elements -->
+
+<!-- four most important global attributes -->
+<h1 class = "text-h1">Hello World</h1> <!-- class and id are used to identify this specific element which is to be used in css/javascript -->
+<h2 id = "text-id">Hello World</h2> <!-- id must be unique -->
+<html lang = "en">Hello World</h3> <!-- used to identify the language of the text -->
+<h4 dir = "rtl">Hello World</h4> <!-- dir means direction of the text is from right-to-left-->
+
+<!-- LESSON 3.3 - ARIA ROLE - an attribute used to provide information to people with disabilities -->
+<h1 aria-label = "Hello World">Hello World</h1>
+
+<!-- LESSON 3.5 - HTML ENTITITES - weird characters, to add symbol or signs -->
+<!-- there are tons of them and i'm only gonna provide a single example -->
+<p>Find out more on LinkedIn&nbsp;Learning.</p> <!-- &nbsp; means linkedin learning cannot be seperated from each other -->
+
+<!-- LESSON 4.1 - LINKS -->
+<a href = "https://www.google.com">Contact Me</a> <!-- adding anchor(link) | adding https:// is important -->
+
+<!-- LESSON 4.3 - CREATING A NAVIGATION -->
+<nav role="navigation" aria-label="main menu"> <!-- adding role means you're saying to the browser that this is the role of this element -->
+    <ul class = "navbar">
+        <li><a href = "about/home">Home</a></li>
+        <li><a href = "about/projects">Projects</a></li>
+    </ul>
+</nav>
+
+<!-- LESSON 5.1 - IMAGES -->
+<img src = "images/image.jpg" alt = "black dog" width = "400" height = "300"> <!-- primary attributes for an image, width and height are talking about screen size(how many px), ofc you could remove width and height then just modify it using css -->
+
+<!-- LESSON 5.2 - RESPONSIVE IMAGE - choosing images based on different screen resolutions -->
+<img src = "images/image.jpg" alt = "black dog" width = "480" height = "360"
+     srcset = "https://image.com 2x, 
+               https://image2.com 3x"> <!-- each screen resolution here has different copy of images being shown -->
+
+<!-- LESSON 5.3 - RESPONSIVE WIDTH - choosing image based on viewport width not screen resolution -->
+<img src = "images/image.jpg" alt = "black dog" width = "480" height = "360"
+     srcset = "https://image.com 480w, 
+               https://image2.com 960w"
+     sizes = "(max-width: 480px) 240px,
+              (max-width: 960px) 480px"> <!-- sizes is to know which size images to use at which media query | while srcset allows you to choose which images to use at different media query or screen resolution -->
+
+<!-- LESSON 5.4 - RESPONSIVE PICTURE - changing image based on different viewport width -->
+<picture>
+    <source media = "(min-width:600px)" 
+    srcset = "https://1stimage.com/about/dog123.jpg">
+    <source srcset = "https://2ndimage.com/about/dog123.jpg"> <!-- if the minimum width is not 600px then this loads-->
+    <img src = "images/image.jpg" alt = "black dog" width = "480" height = "360">
+</picture>
+
+<!-- LESSON 5.5 - FIGURE AND FIGCAPTION -->
+<figure> <!-- altho using div is good enough, using the proper semantics is much better -->
+    <img src = "images/image.jpg" alt = "black dog" width = "480" height = "360">
+    <figcaption>This is the caption for the image</figcaption>
+</figure>
+
+<!-- LESSON 6.1 - AUDIO -->
+<audio>
+    <source src = "https://listentothisaudiofile.com" type = "audio/ogg">
+    <source src = "https://listentothisaudiofile.com" type = "audio/mpeg">
+    Sorry your browser doesn't support this audio. :(
+</audio> 
+
+<!-- LESSON 6.2 - VIDEO -->
+<video src = "https://playvideofile.com" controls></video> <!-- plain controls attribute means controls is true and add it -->
+
+<video controls>
+    <source src = "https://playvideofile.com" type = "video/webm">
+    <source src = "https://playvideofile.com" type = "video/mp4">
+    <!-- for images we could use different resolutions depending on factors but we can't do it in videos :( except if we use adaptive bitrate streaming in which hbo,netflix uses -->
+</video>
+
+<!-- LESSON 6.3 - CAPTIONS AND SUBTITLES -->
+<video controls>
+    <source src = "https://playvideofile.com" type = "video/webm">
+    <source src = "https://playvideofile.com" type = "video/mp4">
+    <track src = "subtitles/about/moonwalk.vtt" 
+            kind="captions"
+            label = "english"
+            srclang = "en"
+            default> <!-- vtt file is a file for captions -->
+    <p>This mesasge would appear if the video isn't playing that means ur browser isn't supported</p>
+</video>
+
+<!-- LESSON 6.4 - EMBEDDING OTHER MEDIA THRU IFRAMES -->
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XA2YEHn-A8Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<!-- LESSON 7.1 - SUPPORTING LANGUAGES -->
+<html lang ="en-US"> <!-- example of using different language -->
+    <p lang = "es-mx"> En 1918, hizo la siguiente</p>
+    <p lang = "ar" dir = "rtl">asdfasdfdasfdas</p> <!-- dir means direction, read from right to left -->
+</html>
+
+<!-- LESSON 7.2 - GENERIC ELEMENTS - DIV AND SPAN - used for dividing structures -->
+<!-- to wrap elements in a block use div -->
+<div>
+    <h1>Hello</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium vitae, non molestias quia sit eligendi excepturi aperiam, sapiente velit cum, facere perspiciatis ex. Ducimus fuga sed odio earum, vero inventore.</p>
+</div>
+
+<!-- to wrap elements in an inline use span -->
+<p>Lorem ipsum dolor <span>sit amet consectetur adipisicing</span> elit. Quis, blanditiis a. Similique at doloribus nulla voluptatibus a officia fugiat quis temporibus dignissimos odio? Deleniti ab molestiae quo et unde tenetur?</p>
+
+<!-- Lesson 8.1 - HTML PAGE -->
+<!DOCTYPE html>
+<html lang="en">
+<head> <!-- everything that would not be displayed on the page,place where you download necessary files -->
+    <meta charset="UTF-8"> <!-- meta conveys metadata about the page, this element is only used in head -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name = "description" content="this is used for seo"> <!-- name="description" is used for when seasrching at google and ur webpage appear the content would be the value of content  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="main.css" rel="stylesheet"> <!-- linking css file -->
+    <link href="favicon.ico" rel="icon"> <!-- adding favicon, u could also add font using link -->
+    <script src = "my-javascript.js"></script> <!-- adding javascript file -->
+    <title>Document</title> <!-- title for the webpage tab -->
+</head>
+<body> <!-- contains the information and content of the page -->
+    
+</body>
+</html>
+
+<!-- LESSON 8.2 - HTML STRUCTURES -->
+<main></main> <!-- wraps around the main content of the page -->
+<header></header> <!-- header for the content -->
+<footer></footer> <!-- footer for the content -->
+<article></article> <!-- wrap on article/blogpost -->
+<section></section> <!-- wrap around section of content -->
+<aside></aside> <!-- marks content that is off to the side or not the main attraction -->
+
+<header> <!-- header -->
+    <div>Something on the Header</div>
+    <nav>
+        <ul>
+            <li>Home</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+</header>
+<main> <!-- main -->
+    <h1>Here are some articles</h2>
+        <article> <!-- article -->
+            <h3>Article One</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit voluptatum ratione sapiente tenetur enim ad quos perspiciatis odio nobis, repudiandae quas rerum molestiae consequatur in provident praesentium ipsa! Aspernatur, neque.</p>
+        </article>
+        <article>
+            <h3>Article Two</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni nulla molestiae rerum aut, veniam voluptas vero tempore sed delectus nemo commodi accusantium doloremque, perferendis nihil! Officia rerum fuga asperiores voluptates.</p>
+        </article>
+</main>
+<section> <!-- section -->
+    <h1>Here are some articles</h2>
+    <article> <!-- article -->
+        <h3>Article One</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit voluptatum ratione sapiente tenetur enim ad quos perspiciatis odio nobis, repudiandae quas rerum molestiae consequatur in provident praesentium ipsa! Aspernatur, neque.</p>
+    </article>
+    <article>
+        <h3>Article Two</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni nulla molestiae rerum aut, veniam voluptas vero tempore sed delectus nemo commodi accusantium doloremque, perferendis nihil! Officia rerum fuga asperiores voluptates.</p>
+    </article>
+</section>
+<aside> <!-- aside/sidebar (mostly optional) -->
+    <p>Here are some news, this is located at the side</p>
+    <ol>
+        <lh>Here you go</lh>
+        <li>News 1</li>
+        <li>News 2</li>
+    </ol>
+</aside>
+<footer> <!-- footer -->
+    <ul>
+        <li><a href = "">LinkedIn</a></li>
+        <li><a href = "">Twitter</a></li>
+    </ul>
+</footer>
+
+<!-- LESSON 9.1 - FORMS -->
+<form>
+    <label>Name</label> <!-- title for each input -->
+    <input type = "text" 
+            required
+            placeholder = "name"> <!-- input area -->
+    <br> <!-- adding space to make it look nice -->
+
+    <label>Email</label>
+    <input type = "email" 
+            required 
+            placeholder = "me@example.com">
+    <button type="submit" onclick = "">Sign Up!</button> <!-- onclick is what will happen when you click the button, it's usual value is a function that does something, atleast in jsx -->
+    <br>
+
+    <label>Text Area</label>
+    <textarea></textarea> <!-- this is kinda different, we're using textarea instead of input for this -->
+    <br>
+
+    <label>Date</label>
+    <input type = "date" 
+            required 
+            placeholder = "mm-dd-yy">
+    <br>
+
+    <label>Color</label>
+    <input type = "color" 
+            required 
+            placeholder = "me@example.com">
+    <br>
+
+    <label>File</label>
+    <input type = "file" 
+            required 
+            placeholder = "me@example.com"
+            accept = "image/*"
+            multiple> <!-- this says ,yes allow multiple image files -->
+    <br>
+
+    <label>Checkbox</label>
+    <input type = "checkbox" 
+            checked
+            placeholder = "me@example.com">
+    <br>
+
+    <label>Dropdown</label>
+    <select>
+        <option>First Option</option>
+        <option>Second Option</option>
+    </select>
+    <br>
+
+    <fieldset> <!-- adding checkboxes that is in a field -->
+        <legend>Checkbox in a fieldset</legend> 
+        <label>This</label>
+        <input name = "checkboxlist" 
+                type = "checkbox"
+                value = "This"
+                checked> <!-- checked means this is initially checked -->
+        <label>And/Or</label>
+        <input name = "checkboxlist" 
+                type = "checkbox"
+                value = "And/Or">
+    </fieldset>    
+</form>
+
+<!-- LESSON 10.1 TABLE -->
+<!-- tables are not used for email, but that's all we got | main purpose of table is for tabular data -->
+<table>
+    <thead> <!-- table header -->
+        <th>First Value</th> <!-- table heading | column 1 -->
+        <th>Second Value</th> <!-- table heading | column 2 -->
+    </thead>
+    <tbody> <!-- table body -->
+    <tr> <!-- row 1 -->
+        <td>Value 1</td> <!-- column 1 -->
+        <td>Value 2</td> <!-- column 2 -->
+    </tr>
+    <tr> <!-- row 2 -->
+        <td>Value 3</td> <!-- column 1 -->
+        <td>Value 4</td> <!-- column 2 -->
+    </tr>
+    </tbody>
+    <tfooter> <!-- table footer -->
+    </tfooter>
+</table>
+
+<!-- LESSON X.1 - INLINE AND BLOCK ELEMENTS -->
+<!-- q,strong,b,i,em | cannont adjust the width of these elements, their height and width only occupies those that are needed | unless you change the display value -->
+<!-- blockquote,p,ul | can adjust the width, their width occupies the whole span of the screen unless you adjust it, these elements each start on a new block unlike inline -->
+
+<!-- LESSON X.2 - ATTRIBUTE -->
+<!-- some attribute work on most elements and some works only on a specific element, check attribute on elements you'll be using on documentation(devdocs.io) -->
+
+<!-- LESSON X.3 - HTML ENTITIES - to add symbol or signs -->
+<!-- EXAMPLE: &lt; = LESS THAN SIGN | &gt; = GREATER THAN SIGN -->
+
+<!-- LESSON X.4 - MATHML -->
+<!-- if adding equations, use this instead of html, this is a markup langauge for math -->
+
+<!-- LESSON X.5 - DEBUGGIN HTML/CSS -->
+<h1 style="border: 1px solid black">a</h1> <!-- you could use this to get the box model -->
+<!-- you could download debug css in chrome webstore to identify the box model | hold ctrl while using this to know the class name of the element -->
+<!-- check console for error -->
+
+<!-- LESSON X.6 - HTML BOILERPLATE - just type html:5 and this would all appear -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<!-- LESSON X.7 - MAKING SHORCUT ELEMENT + CLASS NAME DECLARATION -->
+<!-- creating div fast, type div.user then a div element with user as a classname would automatically appear -->
+<div class="user">
+    
+</div>
+
+<!-- LESSON X.8 - LOREM ABBREVIATION -->
+<!-- specify how many words by typing loremNo. e.g. lorem80 or 80 words -->
+
+<!-- LESSON X.9 - DATA ATTRIBUTES - adding your own attribute that starts with 'data-' -->
+<h1 data-title-id = "1"></h1>
+<h2 data-title-id = "2"></h2>

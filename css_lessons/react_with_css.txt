@@ -1,0 +1,29 @@
+// FULL OF ERRORS - LESSON 1.1 - REACT WITH CSS MODULES WITHOUT EJECTING - create react app with css modules 
+step 1: go to correct directory path 
+step 2: in terminal type: npm install 
+step 3: in terminal type: npm run start 
+step 4: npm install -g create-react-app 
+step 4.1(needed in windows): run powershell as administrator (powershell Start-Process powershell -Verb runAs) -> set-executionpolicy remotesigned
+step 5: npx create-react-app css_module --scripts-version custom-react-scripts
+
+// LESSON 2.1 - INTRODUCTION TO CSS MODULES - everything we've been doing is just for a single page 
+- each module has its own css style (you could think of this as each element has its own css style, omy)
+- e.g. 
+    background has its own css - background.js/background.css
+    title has its own css - titles.js/title.css 
+    grid has its own css - grid.js/grid.css 
+        grid item has its own css gridItem.js/gridItem.css 
+    rocket has its own css - rocket.js/rocket.css 
+
+
+// LESSON 2.2 - INITIAL DIRECTORY STRUCTURE - .js are the react component, where you code jsx 
+step 1: in src -> create folders "background", "title", "grid" and "rocket"
+step 2: create background.js, title.js, (grid.js, gridItem.js), rocket.js in their respective directories 
+step 3: create .css for each corresponding .js files (ex. background.css)
+step 4: copy the default template of App.js into each of the component 
+
+// LESSON 2.3 - ADD COMPONENTS TO THE APP 
+step 1: paste these into public/index.html 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">

@@ -1,0 +1,240 @@
+// LESSON 1.3 - ENVIRONMENT SETUP
+// install prettier, es7, node, git
+
+// to use emmet into react go to settings -> type prettier -> edit in settings.json add "emmet.includeLanguages": { "javascript": "javascriptreact" },
+
+// LESSON 2.5 - MONGODB ATLAS SETUP 
+// we use this so we could deploy it in heroku 
+
+// LESSON 2 ARE ALL ABOUT SETUPS - i won't write the workflow anymore since you already have the video as basis 
+
+// mongoose - used to access cloud database 
+
+// SETUP OVERVIEW
+// setup mongodb atlas 
+// install dependencies and basic express setup 
+// connecting to mongodb with mongoose 
+// route files with express router
+
+// LESSON 2.6 - INSTALL DEPENDENCIES AND BASIC EXPRESS SETUP
+
+// install regular dependencies: npm init , description: social network, entry point: server.js, npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose request 
+// now we install dev dependencies: npm i -D nodemon concurrently // concurrently is to run express and react server in one command
+// create server.js file  
+// in package.json, replace test with "start": "node server", "server": "nodemon server"
+// npm run server to run nodemon 
+
+// inside server.js file - we must create a boilerplate for this 
+const express = require("express"); // importing express 
+const app = express(); // assigning express to app variable 
+const PORT = process.env.PORT || 5000; // if process.env.PORT has an erorr, connect to port 5000 instead 
+app.listen(PORT, () => { 
+    console.log(`you're listening to PORT ${PORT} `);
+})
+
+// sample endpoint creation 
+app.get("/", (req,res) => { // passing a callback function 
+    res.send(`API Running`); // sending this message to the browser 
+})
+
+// LESSON 2.7 - CONNECTING TO MONGODB WITH MONGOOSE 
+step 0: copy link from mongodb, go to database -> connect -> connect to application -> copy the link that appears in the modal
+step 1: create config directory -> inside create default.json -> inside default.json, { "mongoURI": "{link you copied from mongoDB}" } | purpose of this step is to connect to the database, i mean the purpose of whole config is for database
+step 2: create another file from config named db.js -> 
+    const mongoose = require ("mongoose"); // equivalent to writing import mongoose from "./mongoose";
+    const config = require ("config"); // config is a node module | used to enter a connection string so you can connect to database, this is what we did by creating the config directory and setting it up (step 1)
+    const db = config.get("mongoURI");
+
+    const connectDB = async () => { // we always use try catch block when using async await as a way to replace then and catch of promises 
+        try {
+            await mongoose.connect(db, // remember we always add await to the async code 
+            { userNewUrlParser: true // this is required to us, without this it would show a deprecation error 
+            }); 
+            console.log("MongoDB Connected..."); // equivalent of then 
+        } catch (err) {
+            console.error(err.message);
+            process.exit(1); // exit process if failure 
+        }
+    }
+
+    module.exports = connectDB; // equivalent to writing export default connectDB
+
+step 3: go to server.js file, import the newly created module used for connecting to cloud database 
+    import connectDB from "./config/db"; // or const connectDB = require("./config/db")
+    connectDB();
+step 4: npm run server 
+
+// LESSON 2.8 - ROUTE FILES WITH EXPRESS ROUTER 
+step 1: create a folder called routes -> inside create folder named api -> inside api folder, create files: profile.js, auth.js, users.js, posts.js
+step 2: inside users.js 
+    const express = require("express"); // again this is just syntactical sugar for import 
+    const router = express.Router(); // router is used when you want to break the api requests into a module or into a different file (each file has its own api, useful for when the api request is massive) then use them or import them in a file 
+
+    // @route  GET api/user
+    // @desc   Test route
+    // @access Public
+    router.get("/", (req,res) => ( res.send("user router")));
+
+    // it seems that if we create our own function then export it we use export default func but if we try to export node module we use module.exports
+    module.exports router; // it seems like we cant export by putting it in a function then export that function, idk i may be wrong, this is what the instructor did he probably had good reason
+step 3: go to the other files under api directory and copy paste the code you create for user above, if at auth, replace 'user' with 'auth'
+step 4: now this is how we make use of the different api's we created on the different file and use them on a single main file, inside server.js
+// Define Routes 
+app.use("/api/users", require("./routes/api/users")); // app.use is used to somehow make the the content of this method as a middleware to the endpoint specified(1st param)
+app.use("/api/auth", require("./routes/api/auth")); // if on app.use path(1st param) wasn't specified, we would apply this middleware everytime there is an http request 
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/posts", require("./routes/api/posts")); 
+
+step 5: test these endpoints in postman, create a collection named Users & Auth 
+
+// LESSON 3.9 - CREATING THE USER MODEL 
+step 1: create directory: models, inside create users.js // models represents collections in MongoDB, user model to represent a collection of users 
+step 2: create a schema or database for users 
+step 3: inside users.js 
+    const mongoose = require("mongoose");
+
+    // we could also do 
+    const schema = mongoose.Schema;
+    const userSchema = new schema({})
+    // creating a collection for users, type is datatype (wow, so date is a datatype,weird), required means required, unique is unique, default is the default value xD
+    const UserSchema = new mongoose.Schema({
+        name: {
+            type: String,
+            required: true // if we made it as an array [true. "Name filed is required"] | name field is required would appear if this required form doesnt have an input
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true
+        },
+        password: {
+            type: String,
+            required: true,
+        },
+        avatar: {
+            type: String
+        },
+        data: {
+            type: Date,
+            default: Date.now 
+        }
+    });
+
+    module.exports = User = mongoose.model("user",UserSchema); // grabbing the data from collections user, and taking specifically the UseSchema
+    // schemas define the structure of our data objects, schema is the one we created above 
+
+// LESSON 3.10 - REQUEST AND BODY VALIDATION 
+step 1: create a post api request inside users.js 
+    const express = require("express"); 
+    const router = express.Router(); 
+    const { check, validationResult } = require("express-validator/check") // adding validator
+
+    // @route  POST api/user
+    // @desc   Test route
+    // @access Public
+    router.post("/", 
+    // check if the post is empty
+    [
+        check("name", "Name is required").not().isEmpty(),
+        check("email", "Please include a valid email").isEmail(),
+        check("password", "Please enter a password with 6 or more characters").isLength({ min: 6 })
+    ],
+    (req,res) => {
+        const errors = validationResult(req) // if this is not empty that means there is some error 
+        if(!errors.isEmpty()) { 
+            return res.status(400).json({ errors: errors.array() }); // return this error message 
+        }
+
+        console.log(req.body); // to get the data, add a middleware in server.js 
+        res.send("User route");
+    }
+
+module.exports router;
+
+step 2: inside server.js 
+    // init middleware 
+    app.use(express.json( {extended: false })); // remember that app.use is automatically a middleware for every http request | this should allow us to get data from request.body 
+
+step 3: send request to api in postman, headers (Content-Type, application/json) ->  body (raw) then type this { "name": "Renz" } // we're sending raw json 
+step 4: we could see that the response would be User route that is because that's the response when api request has been successful for this specific api, but you could seee in the console.log or in terminal the raw json we sent 
+step 5: add a validation checker that sends an error message if the post request is incomplete 
+step 6: save as -> save in users & auth collection 
+step 7: now whenever we register user, we call this api we just created 
+
+// LESSON 3.11 - USER REGISTRATION 
+step 1: inside user.js, inside 3rd parameter of post request 
+    async (req,res) => { // convert this into async 
+            const errors = validationResult(req) // if this is not empty that means there is some error 
+            if(!errors.isEmpty()) { 
+                return res.status(400).json({ errors: errors.array() }); // return this error message 
+            }
+
+            const { name, email, password }= req.body; //req.body is the one we're passing to the api right, now we destructure and just take out the name,email and password 
+
+            try {
+            // see if user exists 
+            let user = await User.findOne({ email });
+
+            if(user) {
+                return res.status(400).json({ errors: [{ msg: "User already exists"}] });
+            }
+
+            // get users gravatar - idk the purpose of this 
+            const avatar = gravatar.url(email, {
+                s: "200",
+                r: "pg",
+                d: "mm"
+            })
+
+            user = new User({
+                name,
+                email,
+                avatar,
+                password 
+            });
+
+            // encrypt password 
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+            await user.save();
+
+            // return jsonwebtoken 
+            console.log(req.body); // to get the data, add a middleware in server.js 
+            res.send("User registered");
+
+            } catch (err) {
+                console.error(err.message);
+                res.status(500).send("Server error");
+            }
+
+        }
+    
+step 2: add this code inside under validation import 
+    const User = require("../../models/User"); // models is the database for users, we're getting the data inside here 
+    const gravatar = require("gravatar"); // check in package.json if you have it just install it if you dont have it 
+step 3: inside config -> db.js -> add useCreateIndex:true beside useNewUrlParser to remove deprecation error 
+step 4: encrypt password with bcrypt 
+step 5: go to database -> collections -> users -> 
+
+// LESSON 3.12 - JWT IMPLEMENTATION - used for authorization, return json web token and used that token to authenticate and access protected routes 
+
+// LESSON X.1 - SOCIAL MEDIA WORKFLOW 
+1 - INITIAL SETUP (BACKEND(EXPRESS & NODE) AND DATABASE)
+    1.1 - CREATE CLOUD DATABASE 
+    1.2 - SETUP EXPRESS, INSTALL DEPENDENCIES 
+    1.3 - CONNECT TO THE CLOUD DATABASE WITH MONGOOSE ( MONGOOSE ALLOWS US TO CREATE OUR MODELS AND SCHEMAS EASILY )
+    1.4 - CREATE DIFFERENT EXPRESS ROUTER - place each api request in their own separate file | facade pattern
+    1.5 - CREATE API THAT CONNECTS TO MONGODB 
+2 - USER API ROUTES & JWT AUTHENTICATION 
+    1.1 - CREATE A SCHEMA FOR USERS 
+    1.2 - CREATE A VALIDATION CHECKER WITH EXPRESS FOR POST REQUEST 
+
+// CONCLUSION WORKFLOW 
+1 - SETUP DATABASE (CREATE API THAT CONNECTS TO MONGODB)
+2 - CREATE MODELS IN WHICH DATA WOULD BE STORED 
+3 - CREATE EACH SEPARATED API ROUTES (CRUD)
+
+
+// LESSON X.2 - IMPORTANT MVP CONCENTS 
+config - database 
+models - 

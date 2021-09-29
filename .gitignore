@@ -1,0 +1,7 @@
+**/node_modules
+
+**/first_git_project
+
+**/*.yaml
+
+**/*.json

@@ -1,0 +1,8 @@
+TWO SUMS - find the indices in an array that if you add those 2 elements the result would be our target value 
+    problem example: 
+        nums = [1,2,3,4] | target = 3 | answer is index 0 and index 1 
+    brute force: 
+        - loop thru each of the array 
+        - create a loop again inside to loop thru each of the array 
+        - if you add num1 from loop 1 and num2 from loop 2 and they match the target, return their index 
+    best answer: 

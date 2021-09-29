@@ -1,0 +1,32 @@
+// LESSON 1.1 - INLINE ELEMENTS 
+// most common inline elements are: a,em,strong,span - inline only occupies what it needs, you cannot adjust it's width and height
+strong {
+    margin:1rem; // margin on inline elements would only apply to left and right
+    padding:1rem; // padding would apply to up,left,down,right in an inline element but would overlap other elements
+}
+
+// LESSON 1.2 - BLOCK ELEMENTS
+// most common block elements are: p,h1,footer,ul,li,div - border spans accross the whole screen
+p {
+    margin:1rem; // margin-bottom (1st p) and margin-top (2nd p) would collapse and instead of producing 2rem in total, it would only be 1 rem
+}
+
+// LESSON 1.3 - PROPER NESTING OF BLOCK AND INLINE ELEMENTS
+/*
+LEGAL:
+block in block <div><p></p></div>
+inline in block <p><span></span></p>
+inline in inline <a><span></span></a>
+
+ILLEGAL: 
+block in inline <a><p></p></a>
+*/
+
+// LESSON 1.4 - display:none and visibility:hidden
+strong {
+    display:none; // this owuld make the strong looked like it vanished into existence
+}
+
+strong{
+    visibility:hidden; // it's still there, it's just hidden
+}

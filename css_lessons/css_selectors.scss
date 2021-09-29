@@ -1,0 +1,260 @@
+// LESSON 1.2 - SIMPLE SELECTORS: ELEMENTS, CLASSES, AND IDS
+/* SPECIFICITY - if an element has the same specificity, the latest one would be the one that's gonna get acknowledged
+ELEMENT - 1 PT
+CLASSES - 1O PT
+PSEUDO CLASSES - 10 PT
+ID - 100 PT */
+
+// LESSON 1.25 - DESCENDANT SELECTORS - parent -> add space -> main target 
+/* html
+<div class = "container">
+  Yello
+  <div class = "item">Hello</div>
+</div>
+*/ 
+
+// select every .item that has .container as a descendant
+.container .item { // specifically selecting the item, this would have 20 pts specificity | seperated by space 
+    background-color:red;
+}
+
+// LESSON 1.3 - GROUP SELECTORS - design are getting applied to both of the classes specified
+.sample, .anotherSample {
+    color:red; 
+}
+
+// its a common mistake to make it .sample a:link, a:visited | if format is like this a:visited it would apply to all anchor elements
+.sample a:link, .sample a:visited{
+    color:red;
+}
+
+// LESSON 1.4 - COMPOUND SELECTOR - to increase specificity when selecting an element | selecting element + classname combination
+/* html 
+<p class="myclass">Lorem ipsum</p>
+*/
+
+// we select the element and class this is 11 points 
+p.myclass {
+    color:red; 
+}
+
+// LESSON 2.3 - PARENT-CHILD SELECTORS - selecting specific child, 'di katulad ng descendant na lahat ng magmatch 
+article > p { // select only the paragraph that is a children of article 
+    color:red;
+}
+
+// LESSON 2.4 - ADJACENT AND GENERAL SIBLING SELECTORS 
+h1 + p { // this would only select the p that is next to h1 | adjacent sibling 
+    color: red;
+}
+
+h1 ~ p { // this would select all of the p sibling of h1 | general sibling
+    color:red;
+}
+
+// LESSON 3.1 - ATTRIBUTE SELECTOR 
+/* html
+<p><a href = "#" title = "back to the top">a</a></p>
+*/
+
+[title] { // select every element that has an attribute of title
+    color:red;
+}
+
+// you could also select a specific element
+a[title] {
+    color:red;
+}
+
+// LESSON 3.2 - EXACT AND PARTIAL ATTRIBUTE VALUE SELECTORS 
+[title= "first"] { // look for an element that has attribute title with the value as first
+    color:red;
+}
+
+[title~="friend"]{ // select an element that has an attribute of title that has a value that has the exact value of friend as a word
+    
+}
+
+// LESSON 3.3 - BEGINNING,ENDING AND ARBITRARY SUBSTRING ATTRIBUTE VALUE SELECTORS 
+[title^="fi"]{ // select an element that has an attribute of title that has a value that starts with fi
+    color:red;
+}
+
+[title$="th"]{ // select an element that has an attribute of title that has a value that ends with fi
+    color:red;
+}
+
+[title*="fi"]{ // select an element that has an attribute of title that has a value of fi
+    color:red;
+}
+
+// LESSON 4.1 - PSEUDO CLASSES - LiVe HApFy (Link,Visited,Hover,Active,Focus)
+// unvisited links 
+a:link {
+    color:red;
+}
+
+// visited links
+a:visited{
+    color:red;
+}
+
+// mouse is hovering at the element 
+a:hover{
+    color:red;
+}
+
+// while the element is being clicked 
+a:active{
+    color:red;
+}
+
+// when the user selects the element with the keyboard's tab and acts like an active
+a:focus{
+    color:red;
+}
+
+// LESSON 4.2 - ONLY SELECTORS, :only-child, :only-of-type | CHILD SELECTORS
+/* html
+<div>
+    <div>only child</div>
+<div>
+<div>
+    <h2>only-of-type</h2>
+    <p>lorem</p>
+</div>
+*/
+
+// only-child
+div:only-child { // select all divs that are only child, if it has siblings don't select it
+    color:red;
+}
+
+// only-of-type - since h2 is the only type of h2 child element, select that
+h2:only-of-type{
+    color:red;
+}
+
+// LESSON 4.3 - FIRST AND LAST SELECTOR, :first-child, :first-of-type, :last-child, :last-of-type 
+li:first-child { // select the first li child 
+    color:red;
+}
+
+li:last-child { // select the last li child 
+    color:red;
+}
+
+p:first-of-type{ // select a child p element, first p, this means this would select only 1 element
+    color:red;
+}
+
+p:last-of-type{ // select a child p element, last p, this means this would select only 1 element
+    color:red;
+}
+
+// LESSON 4.4 - NTH SELECTORS, :nth-child, :nth-of-type, :nth-last-child, :nth-last-of-type 
+li:nth-child(even) { // select all li child even element (2nd,4th,..) | of course you could change to odd, and a specific number
+    color:red; 
+}
+
+// weird use of nth-child, pfft does anyone even use nth-child 
+li:nth-child(3n + 6){ // start with the 6th item then every 3rd child (up to down)
+    color:red;
+}
+
+// start from last child then go from down to above
+li:nth-last-child(3n + 6){ // start with the 6th item then every 3rd child (down to up)
+    color:red;
+}
+
+// LESSON 4.5 - PSEUDO CLASSES MOSTLY FOR FORMS - :required, :checked, :optional, :disabled, :enabled 
+/* html
+<form>
+    <div>
+        <label for="name1">
+        <input id="name1" type="text" required>
+    </div>
+    <div>
+        <label for="name2">
+        <input id="name2" type="text" checked>
+    </div>
+    <div>
+        <label for="name3">
+        <input id="name3" type="text" optional>
+    </div>
+    <div>
+        <label for="name4">
+        <input id="name4" type="text" disabled>
+    </div>
+    <div>
+        <label for="name5">
+        <input id="name5" type="text" enabled>
+    </div>
+</form>
+*/ 
+
+:required { // select the input element with required | same format goes to checked,optional,enabled, and disabled 
+    color:red; 
+}
+
+// selecting specific attribute with a specific value that has an attribute of checked
+[type="checkbox"]:checked {
+    color:red;
+}
+
+// LESSON 4.6 - IN PAGE NAVIGATION, :target - it refers to what part from the navigation has been clicked
+/* html
+<ul>
+    <li><a href="#part1">part 1</a></li> <!-- when we click part 1 it would scroll the the element with an id of part 1 right?!?!?!?!? -->
+    <li>part 2</li>
+</ul>
+
+<div id="part1">
+    <h2>Heading</h2>
+    <p>Lorem ipsum</p>
+</div>
+*/
+
+:target{ // if we click the element part 1 from the navigation, the element div with an id of part1 would turn into red 
+    color:red;
+}
+
+// LESSON 4.7 - :not 
+/* html
+<img src="#" alt="kitties">
+<img src="#">
+
+<p class = "notdemo">1</p>
+<p>2</p>
+*/
+img:not([alt]){ // select all elements that no alt attribute
+    color:red; 
+}
+
+// you could also have a class,id,etc. as an argument for not
+p:not(.notdemo){
+    color:red;
+}
+
+// LESSON 4.8 - :root and :empty | :root is just referring to the <html>, remember that pseudo classes has 10 pts in specificity, it's more specific than just choosing body { }
+:root { // common in variables 
+    --standard-size:1rem; 
+    --ff-primary:Arial,Helvetica;
+}
+
+.container {
+    grid-gap: var(--standard-size);
+}
+
+div:empty { //select all divs that contains no content
+    color:red;
+    // example of div with no content, <div></div>
+}
+
+// LESSON 4.9 - PSEUDO-ELEMENTS (NOT PSEUDO CLASSES), ::before, ::after, ::first-line, ::first-letter, can also be written with single colon
+
+// LESSON 4.10 - * UNIVERSAL SELECTOR - selecting everything 
+// common use of universal selector 
+.container > * { // selecting every element inside the container 
+    background-color:red;
+}

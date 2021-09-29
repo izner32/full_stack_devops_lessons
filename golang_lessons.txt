@@ -1,0 +1,16 @@
+// LESSON 1.1 - ANATOMY OF A GO PROGRAM 
+package main 
+
+import ("fmt") // doesn't end with a semicolon just like in c++,java,mql4/mql5 
+
+func main () {
+    fmt.Println("hello world")
+}
+
+// LESSON 1.2 - GO TOOLS 
+go run firstFile.go // execute this in cmd 
+
+// LESON 2.1 - NUMBERS AND ASSIGNMENTS 
+package main 
+
+import ("fmt") // this package 

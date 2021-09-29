@@ -1,0 +1,10 @@
+// LESSON 1.1 - INSTALLING BOOTSTRAP AND REACT-BOOTSTRAP 
+step 1: npm add bootstrap react-bootstrap
+
+// LESSON 1.2 - REACT BOOTSTRAP BUTTON 
+import { Button, Alert }  from 'react-bootstrap' // place this on where you would use button 
+import "bootstrap/dist/css/bootstrap.min.css" // using bootstrap | place this in index.js, main app file where spa is located
+
+inside function component
+<Alert variant="primary">This is a button</Alert>
+<Button>Test Button</Button>

@@ -1,0 +1,19 @@
+// LESSON 1.1 - WHAT IS WEBPACK - build tool that allows us to take all of our assets and turn them into production ready bundle 
+/* 
+benefits of web pack
+    require assets, loaded when needed
+    code splitting 
+    transformations
+*/
+
+// LESSON 1.2 - INSTALL WEBPACK AND WEBPACK-CLI 
+step 1: check node version - node -v 
+step 2: go to proper path 
+step 3: npm init //install node module
+step 4: npm install webpack@4.28.4 --save-dev // installing specific version then saving webpack to our dev dependencies
+step 5: npm insall webpack-cli@3.2.1 --save-dev
+step 6: vi package.json // you could now see the dev dependenceis and those two are now installed 
+
+// LESSON 1.3 - RUN WEBPACK
+step 1: npm install 
+step 2: create src and dist(for production) , inside src create index.js

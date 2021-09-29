@@ -1,0 +1,54 @@
+LESSON 1.1 - FINDING OUT THE VERSION OF NPM
+at terminal 
+    type node -v, to find out the version
+
+LESSON 2.1 - INITIALIZING A package.json. FILE
+1st step - go to vscode->view->terminal->then type npm init
+2nd step - type the necessary information, it's good idea to only fill information on package name,description,and author
+3rd step - enjoy package.json file
+
+LESSON 2.2 - ADDING NODE PACKAGES
+again, do this at terminal just like initializing - do this inside the package.json
+1st step - type: npm install express // npm install nameOfPackage
+
+// example of adding dependency // must add --save-dev at the end when installing dev dependency 
+npm install babel-cli babel-preset-stage-0 babel-preset=es2015 --save-dev 
+
+LESSON 2.3 - MANAGING GLOBAL DIRECTORY - installing globally, if you install without -g option, the package will be copied only to the node_modules folder inside your project directory 
+// if a node module is a global, we can use the package anywhere in local computer
+// example, we installed mongoose globally with npm install mongoose -g 
+// now when we want to import that module with: const mongoose = require("mongoose"); | we can import it anywhere in our local computer 
+%AppData%\npm\node_modules
+-g or -global 
+step 1: npm install -g create-react-app // installing react module 
+
+LESSON 2.4 - UPDATING A PACKAGE OR INSTALLING A SPECIFIC VERSION 
+at package.json, install/update specific version globally 
+step 1: type: sudo npm install eslint@5.2.0 -g | using @ to specify a version, if you remove @... it would work just fine
+step 1.5: to update to latest version you do the same thing with installing, npm install eslint -g 
+// check if you have outdated npm module 
+npm outdated -g 
+
+LESSON 2.5 - REMOVING A PACKAGE (COLLECTION OF MODULE) | PACKAGE IS THE EQUIVALENT OF LIBRARY 
+step 1: npm uninstall babel-preset-es2015 // removing a package, in this case it's a dev dependency 
+
+UNFINISHED - LESSON 2.6 - SEMANTIC VERSIONING 
+
+LESSON 2.7 - package-lock.json 
+
+
+
+// LESSON X.1 - DEPENDENCIES - there are diffeerent types such as dev,peer,etc. 
+// dev dependency 
+it just means they arent used in your production bill, but used throughout development 
+when you compile your production bill these packages won't be included 
+
+// LESSON X.2 - CONFIGURING PACKAGE.JSON - e.g. we wanted to set a default value for package.json 
+npm config set init.license MIT // this would make the MIT as a default value for license inside package.json 
+npm config set init.author.name "Renz Carillo" // setting the default value for author
+
+// script - used to run something, e.g. there is a value of test under scripts inside package.json -> we type npm run test to run the value of test
+// you could create your own script!!!!! e.g. "estarabusbuspapao" = "node jsFile.js" | if we type npm run estarabusbuspapao it would run the jsFile.js 
+
+// LESSON X.3 - --save AND --save-dev OPTION FOR NPM INSTALL 
+// it adds the package to the dependencies or devdependencies if --save-dev | this is done by default so if you just typed npm install whateverPackage it would automatically store them into the dependencies under package.json just like when you type npm install --save whateverPackage 

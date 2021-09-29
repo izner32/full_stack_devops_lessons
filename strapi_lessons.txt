@@ -1,0 +1,58 @@
+// LESSON 1.1 - INSTALL STRAPI 
+step 1: npx create-strapi-app . --quickstart // . is on what folder you wanted to create, . means current folder 
+step 2: click on the localhost link after the strapi finished downloadig in the terminal
+
+// LESSON 1.2 - CREATING AN ACCOUNT AND ADDING COLLECTION
+create an account from the localhost:1337/...
+
+// create new collection type 
+content-type builder -> create new collection -> specify then continue -> select a field, inside advanced settings click required and unique,  name is title, type is short text -> add another field, name is description, type is long text -> add another field, name is price -> add another field, name is qty -> click save   
+
+
+// LESSON 1.3 - CREATING CATEGORY 
+categories -> add new category -> fill name with mobile phones -> save -> add another category, repeat that 
+
+// LESSON 1.4 - USING POSTMAN 
+step 1: make a get request to http://localhost:1337/products from the product data we just created 
+step 2: it would be 403 forbidden , go back to strapi -> roles and permissions -> public -> check the permissions you want 
+step 3: make the request again, mess with querying parameters, study it 
+
+// LESSON 1.5 - CREATING A POST 
+step 1: modify the permission 
+step 2: create a user at strapi that could add content to the database 
+
+// UNFINISHED - LESSON 1.6 - OVERRIDE 
+
+// LESSON 1.7 - 
+
+// LESSON 1.8 -
+
+// LESSON 1.9 - 
+
+
+
+
+
+// LESSON X.1 - TRADITIONAL CMS VS HEADLESS CMS VS DXP
+/*
+traditional cms - wordpress, wix, squarespace | tightly coupled to a single website
+    pros: 
+        -quick to get started, ots of pre built themes and plugins 
+    cons:
+        -website gets slower over time 
+        -security concerns 
+        -often need to rebuild everything 
+headless cms - agility cms, contentful, prismic | content first, content as a service, content is separate from the output , api driven, cloud based, saas 
+    pros:
+        omni channel output 
+        easy onboarding 
+        launch quicker 
+    cons:
+        developers required
+dxp - adobe aem, sitecore, episerver, crownpeak | digital experience platform
+    pros:
+        tons of features, including commerce, personalization, marketing automation, etc. 
+    cons:
+        expensive, steep learning curve, slow onboarding 
+        vendor lock-in
+*/

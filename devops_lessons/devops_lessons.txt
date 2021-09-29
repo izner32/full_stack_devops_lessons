@@ -1,0 +1,149 @@
+// LESSON 1.1 - 00:00 Introduction
+MODULES 
+    1 - DevOps Overview
+            Why DevOps 
+            What is DevOps 
+            DevOps Stages 
+            DevOps Tools 
+            DevOps Use-Case 
+    2 - Version Control using Git & Github 
+    3 - Continous Integration using Jenkins
+    4 - Containerization using Docker 
+    5 - Kubernetes Installation
+    6 - What is Kubernetes 
+    7 - Ansible: trending 
+    8 - Puppet: more mature, it's been there since 2005  
+    9 - Continous Monitoring using Nagios 
+
+// LESSON 1.1 - 2:06 Waterfall Model/Methodology
+- it would only go to the next stage once the previous development is complete, it cannot go back just like in waterfall
+TRADITIONAL WATERFALL MODEL 
+    Requirement and Gathering Analysis 
+    Design 
+    Implement 
+    Test 
+    Deploy 
+    Maintenance 
+
+// LESSON 1.2 - 3:35 Limitations of Waterfall Model
+- Once an application is in the testing stage, it is very difficult to go back and change something that was not well-thought out in the concept stage 
+- No working software is produced until late during the life cycle 
+- High amounts of risk and uncertainty 
+    - if there is bug in runtime, then you have to go through the entire source code of the application again 
+- Not a good model for complex and object-oriented projects 
+- Not suitable for the projects where requirements are at a moderate to high risk of changing 
+
+// LESSON 1.3 - 6:39 Agile Methodology
+- each project is broken up into several iterations 
+- all iterations should be of the same time duration (between 2 to 8 weeks)
+- at the end of each iteration, a working product should be delivered 
+
+cycle of agile  
+discover -> develop -> design -> discover -> develop -> design -> discover -> develop -> design 
+
+// LESSON 1.4 - 7:32 Waterfall vs Agile
+waterfall method: one part must be completed first before going into the next part 
+    analyze -> plan -> design -> build -> test -> deploy 
+agile method: repeated iteration, at each iteration there must be a working product 
+    analyze -> plan -> (discover -> develop -> design | do this for 3 times) -> deploy 
+
+
+// LESSON 1.5 - 8:20 Limitation of Agile Methodology
+// LESSON 1.6 - 11:21 What is DevOps?
+// LESSON 1.7 - 13:06 DevOps Stages
+// LESSON 1.8 - 17:02 Source Code Management
+// LESSON 1.9 - 21:40 Introduction to Git
+// LESSON 1.10 - 23:50 Basic Git Commands
+// LESSON 1.11 - 28:50 Continuous Integration
+// LESSON 1.12- 30:19 Continuous Delivery
+// LESSON 1.13 - 31:33 Continuous Deployment
+// LESSON 1.14 - 34:06 Jenkins Demo
+// LESSON 1.15 - 35:44 Configuration Management
+// LESSON 1.16 - 41:56 Containerization
+// LESSON 1.17 - 45:15 Docker Demo
+// LESSON 1.18 - 47:38 Continuous Monitoring
+// LESSON 1.19 - 49:28 Introduction to Nagios
+// LESSON 1.20 - 51:53 DevOps Use-Case
+// LESSON 2.1 - 1:00:27 Git & GitHub
+// LESSON 2.2 - 1:01:21 Version Control System
+// LESSON 2.3 - 1:03:43 Why Version Control?
+// LESSON 2.3.2 - 1:04:08 Collaboration
+// LESSON 2.3.4 - 1:05:56 Storing Versions
+// LESSON 2.3.6 - 1:08:06 Backup
+// LESSON 2.3.8 - 1:09:57 Analyze
+// LESSON 2.4 - 1:10:54 Version Control Tools
+// LESSON 2.5 - 1:13:04 Git & GitHub
+// LESSON 2.6 - 1:17:06 GitHub Case Study
+// LESSON 2.7 - 1:20:33 What is Git?
+// LESSON 2.8 - 1:21:33 Features of Git
+// LESSON 2.9 - 1:32:42 What is a Repository?
+// LESSON 2.10 - 1:33:26 Central & Local Repository
+// LESSON 2.11 - 1:35:15 Git Operations & Commands
+// LESSON 2.12 - 1:36:00 Creating Repositories
+// LESSON 2.13 - 1:43:32 Syncing Repositories
+// LESSON 2.14 - 1:47:22 Making Changes
+// LESSON 3.1 - 1:56:12 Parallel Development
+// LESSON 3.2 - 1:56:25 Branching
+// LESSON 3.3 - 2:01:00 Merging
+// LESSON 3.4 - 2:06:35 Rebasing
+// LESSON 3.5 - 2:20:36 Git Flow
+// LESSON 4.1 - 2:27:04 Continuous Integration using Jenkins
+// LESSON 4.2 - 2:27:44 Process Before Continuous Integration
+// LESSON 4.3 - 2:28:29 Problem Before Continuous Integration
+// LESSON 4.4 - 2:33:27 What is Continuous Integration?
+// LESSON 4.5 - 2:34:09 Continuous Integration Case Study
+// LESSON 4.6 - 2:36:48 What is Jenkins?
+// LESSON 4.7 - 2:36:58 Jenkins Plugins
+// LESSON 4.8 - 2:39:52 Jenkins Example
+// LESSON 4.9 - 2:52:39 Shortcomings of Single Jenkins Server
+// LESSON 4.10 - 2:53:19 Jenkins Distributed Architecture
+// LESSON 5.1 - 2:56:50 Introduction to Docker
+// LESSON 5.2 - 2:57:39 Why we need Docker
+// LESSON 5.3 - 3:01:39 What is Docker?
+// LESSON 5.4 - 3:05:30 Docker Case Study
+// LESSON 5.5 - 3:08:50 Docker Registry
+// LESSON 5.6 - 3:10:22 Docker Image & Containers
+// LESSON 5.7 - 3:14:33 Docker Compose
+// LESSON 6.1 - 3:21:14 Kubernetes
+// LESSON 6.2 - 3:21:14 Kubernetes Installation
+// LESSON 6.3 - 3:48:35 Introduction to Kubernetes
+// LESSON 6.4 - 3:55:20 Kubernetes: Container Management Tool
+// LESSON 6.5 - 3:57:44 Kubernetes Features
+// LESSON 6.6 - 4:01:40 Uncovering Myths About Kubernetes
+// LESSON 6.7 - 4:07:06 Kubernetes vs Docker Swarm
+// LESSON 6.8 - 4:12:09 Kubernetes Use-Case: Pokemon Go
+// LESSON 6.9 - 4:18:42 Kubernetes Architecture
+// LESSON 6.10 - 4:20:15 Working of Kubernetes
+// LESSON 6.11 - 4:21:40 Kubernetes Hands-on
+// LESSON 7.12 - 4:52:06 Ansible
+// LESSON 7.13 - 4:53:03 Configuration Management
+// LESSON 7.14 - 4:54:42 Why Configuration Management
+// LESSON 7.15 - 5:03:30 Configuration Management Tools
+// LESSON 7.16 - 5:04:17 What is Ansible?
+// LESSON 7.17 - 5:04:48 Features of Ansible
+// LESSON 7.18 - 5:06:32 Ansible Case Study: NASA
+// LESSON 7.19 - 5:13:32 Ansible Architecture
+// LESSON 7.20 - 5:17:05 Writing a Playbook
+// LESSON 7.21 - 5:18:37 Ansible Playbook Example
+// LESSON 7.22 - 5:20:12 How to use Ansible?
+// LESSON 7.23 - 5:28:53 Ansible Hands-on
+// LESSON 8.1 - 5:48:23 Introduction to Puppet
+// LESSON 8.2 - 5:49:07 Why Configuration Management?
+// LESSON 8.3 - 5:53:06 What is Configuration Management?
+// LESSON 8.4 - 5:55:22 Configuration Management Components
+// LESSON 8.5 - 5:56:39 Configuration Management Tools
+// LESSON 8.6 - 5:57:07 What is Puppet?
+// LESSON 8.7 - 5:57:55 Puppet Master-Slave Architecture
+// LESSON 8.8 - 5:59:33 Puppet Master Slave Connection
+// LESSON 8.9 - 6:03:46 Puppet Use-Case
+// LESSON 8.10 - 6:05:20 Resources, Classes, Manifests & Modules
+// LESSON 9.1 - 6:21:01 Continuous Monitoring using Nagios
+// LESSON 9.2 - 6:21:36 Why Continuous Monitoring?
+// LESSON 9.3 - 6:25:36 What is Continuous Monitoring?
+// LESSON 9.4 - 6:29:35 Continuous Monitoring Tools
+// LESSON 9.5 - 6:30:07 What is Nagios?
+// LESSON 9.6 - 6:31:43 Nagios Features
+// LESSON 9.7 - 6:32:26 Nagios Architecture
+// LESSON 9.8 - 6:35:24 Monitoring Remote Linux Hosts
+// LESSON 9.9 - 6:37:15 Nagios Case Study
+// LESSON 9.10 - 6:33:26 Nagios Demo

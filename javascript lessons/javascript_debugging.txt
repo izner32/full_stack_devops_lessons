@@ -1,0 +1,8 @@
+// LESSON 1.5 - WHY DEBUGGING AJAX CAN BE TRICKY 
+- fix is to disable web security in chrome, idk just watch it again, i'm just writing this incase i use ajax in the future 
+
+
+
+LESSON X.1 - DEFINITIONS/JARGONS
+breakpoint - where our code stop executing 
+watch - watching a specific piece of code over and over, e.g. is loop

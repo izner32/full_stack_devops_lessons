@@ -1,0 +1,27 @@
+// LESSON B.3 - MOBILE FIRST APPROACH
+/* mobile styles */
+// nothing specified because this is where we'll start
+
+/* small tablet styles */
+@media screen and (min-width: 620px) {
+}
+
+/* large tables & laptop styles */
+@media screen and (min-width: 960px) {
+}
+
+/* desktop styles */
+@media screen and (min-width: 1200px) {
+}
+
+// LESSON B.4 - BASE STYLES 
+li {
+    list-style-type: none; // remove list decoration
+}
+
+// reset
+body,p,a,ul,li{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+}

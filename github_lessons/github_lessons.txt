@@ -1,0 +1,515 @@
+// LESSON 2.4 - GIT CONFIGURATION - you type this at bash
+// configuring system
+git config --system // followed by a modifier
+
+// configuring user
+git config --global
+// example: git config --global user.name "Renz Carillo" | to view this individually, type: git config user.name
+// example: git config --global user.email "renzcarillo32@gmail.com"
+// make your ui colorful: git config --global color.ui true
+// use vscode as core editor: git config --global core.editor "code --wait" | to active this at vscode, type git config --global -e
+
+// project
+git config 
+
+// show list
+git config --list
+
+// LESSON 2.5 - GIT AUT-COMPLETION 
+https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+step 1: click raw -> then save as 
+step 2: move git-completion.bash.txt .git-completion.bash
+step 3: okay wtf am i doing, im using windows and auto completion is already there 
+
+// LESSON 2.6 - GIT HELP - uesful tool on how to use git
+git help
+
+// LESSON 3.1 - INITIALIZE A REPOSITORY
+step 1: go to the project/folder first using cd
+step 2: git init // initialize a project to use git, do this only once
+step 3: ls -la // see the list 
+
+// LESSON 3.3 - YOUR FIRST COMMIT - commit changes to the repository (github)
+// step 1: create changes, what i did is create a file using echo "text" > text1.txt
+// step 2: git add . // commit at the folder where you did git init not at the file where you edit
+// step 3: git commit -m "Initial Commit" // -m is for message, make the message short, keep each line to less than 72 characters, write them in present tense, not paste tense (ex. fixes a bug not fixed a bug | or better yet just use: 'bugFix:' so we could search it easily)
+
+// LESSON 3.5 - VIEW THE COMMIT LOG
+git log // view those who committed
+git help log 
+git log -n 5 // only show the last 5 commits
+git log --since=2021-07-15 // show commits sicne this date, you could also use --until and --author
+git log --grep="Init" // grep means globally search for regular expression, in this specific example: it returns any commit that matches "Init"
+
+// LESSON 4.1 - THREE TREES
+// repository -> staging index -> working | this is top down
+
+// workflow: you have a file.txt(working) -> you do git add . (staging index) -> you do git commit (repository)
+
+// LESSON 5.1 - ADD FILES
+git status // it'll let us know the status of things, if we needed to commit anything or if there are untracked files which isn't at the indexing stage yet
+echo "content of text" file2.txt , to move this into idnexing stage specifically this file, type git add file2.txt
+// if you have untracked files according to git status, any changes made to that file would not be tracked by the git
+// to transfer from indexing stage to repository do git commit 
+
+
+// LESSON 5.2 - EDIT FILES
+// do a git status after editing files, then you could see that changes not staged for commit , this means we need to do a git add on it again, think of git add as the save
+
+// LESSON 5.3 - VIEW CHANGES WITH git diff - only used to know the changes in working directory
+// with git status we can know if there is changes in a tracked file, how to know the changes in this file? we use git diff  
+
+// LESSON 5.4 - VIEW ONLY STAGED CHANGES - used to know changes that is in the indexing stage
+// to do this type git diff --staged
+
+// LESSON 5.5 - DELETE FILES
+// if at working directory 
+rm fileName
+
+// if a tracked file (indexing stage)
+rm fileName // equivalent to changes
+git rm fileName // moving it into indexing stage after changes
+git commit -m "" // committing these changes into repository
+
+// LESSON 5.6 - MOVE AND RENAME FILES - these are synonymous 
+// working directory 
+step 1: rename files - git mv fileName newFileName // if you do git status it would be seperating the rename into two: deleted and added 
+step 2: git rm and git add the renamed file to move them into indexing stage 
+
+// tracked file (indexing stage)
+step 1: rename files - git mv fileName newFileName
+
+// moving file 
+git mv fileName folder/fileName
+
+// USING GIT
+step 1: initialize a git with the folder/project you wanted to make a repository from: git init | then git add . to start tracking all of the content with that project
+step 2: make some edit like remove,modify,add then stage them with: git rm, git mv, etc. | to know the status if a file is in working or stage, use git status 
+step 3(optional) : look at edits or changes, if it's in working directory git diff, if it's in stage git diff --staged
+step 4: commit and transfer them from indexing stage to repository: git commit 
+step 5: view commits with: git log 
+
+// LESSON 6.4 - STAGE AND COMMIT SHORTCUT - staging and committing in one command 
+git commit -am "staging and committing in one go"
+
+// LESSON 6.5 - VIEW A COMMIT 
+// viewing a diff, like git diff but with specific commit no.
+git show 1c1xasdf912 // this 1c1xa... is the commit no., you could get this in git log
+
+// using color words instead of - and + for looking at the changes 
+git show 1c1xas --color-words // this is much better choice if the changes you're looking for is an inline, you coudl also use this in git diff 
+
+// LESSON 6.6 - COMPARING COMMITS 
+git diff 1c16945..9dcff // 1c16945 is the first commit and i want to compare its changes with 9dcff
+git diff 1c16945..HEAD // comparing 1c16945 with the latest commit 
+
+// LESSON 6.7 - MULTILINE COMMIT MESSAGES
+git commit -a // do not add m then click enter, bash would automatically open to your code editor where you could enter multiline comment 
+
+// LESSON 6.8 - MAKE ATOMIC COMMITS - small commits | BEST PRACTICE - ALWAYS DO THIS, COMMIT ON EACH TASK YOU CREATE, EX. OF TASK TO MAKE THIS CLEAR: 1. REMOVE PARAGRAPH FROM GREEN WIDGET, 2. ADD PHOTO IN YELLOW WIDGETM 3. UPDATE PRICES ON GREEN WIDGET
+// for example you have a lot files that is for commit, first two file is related to each other and the remaining files is not related, if you'd commit them all together in one it would be weird and confusing when someone came back to this version
+// fix for problem above is through atomic commits, first is you only indexed stage those who are related files then commit them afterwards, then move on to the another set of file, index and commit them 
+
+// LESSON 7.1 - UNDO CHANGES ON WORKING DIRECTORY 
+git checkout -- fileName.html
+
+// LESSON 7.2 - UNSTAGE FILES, convert them back to working directory 
+git reset HEAD fileName.html
+
+// LESSON 7.3 - AMEND COMMITS - only for most recent commit 
+// after you have commited but you forgot something that you want to add in that commit / RECOMMIT, GENERATING NEW SHA
+git commit --amend -m "amend commit" // you could also change the message with this, but remember only with latest commit
+
+// lesson 7.4 - RETRIEVE OLD VERSION - WAY TO UNDO COMMITS, RETRIEVE THE OLD VERSION THEN MAKE NEW COMMIT (NOT SUGGESTED)
+// step 1: git log, this is to know the SHA
+// step 2: git show dfasd12, this is like the git diff for commits, look at the changes in that commit 
+// step 3: git checkout dfasdfas123 -- explorers.html // retrieving commit with sha dfasd... on the current branch | -- means current branch | this would convert things into staging directory | if you're looking for a specific things , retirieve the sha before it, sha is created after commit
+// step 4: you are now at the file before your specific change(one youre looking for) occurs
+
+// LESSON 7.5 - REVERT A COMMIT - UNDO A COMMIT (BEST/ BETTERE VERSION COMPARED ABOVE)
+git revert dfasdfas123 // better and easier way compared above | IT IS VERY EASY TO DO ESPECIALLY WHEN YOU DID ATOMIC COMMITS SO MAKE SURE TO DO THAT
+
+// LESSON 7.6 - REMOVE UNTRACKED FILES (FILES THAT HAS NEVER EXPERIENCED GIT ADD. ATLEAST ONCE OR THOSE THAT WAS UNDO FROM WORKING DIRECTORY )
+// we can remove it by hand tho but we do everything at command line becuz using mouse is for noobs 
+git clean -n // this would just provide warnings on what file would it remove, this does nothing else 
+git clean -f // actually removing the untracked file 
+
+// removign file when it's already in indexing stage 
+step 1: git reset HEAD fileName.html 
+step 2: git clean -f
+
+// LESSON 8.1 - USING .GITIGNORE FILES 
+// pattern matching(regex): * ? [aeiou] [0-9]
+// negative expressions: *.php // ignore all files that end with .php
+// ignore all files in a directory with a trailing slash: assets/videos/
+
+// step 1: create .gitignore file then the content would be the files you'd like to ignore
+// step 1 method 2: in bash type touch .gitignore
+// example content for .gitignore
+.DS_Store
+*.zip // everything that ends with .zip
+*.gz
+assets/photoshop/
+assets/videos/
+!assets/videos/tour_*.mp4 // ! means except these files, do not ignore these 
+
+// LESSON 8.2 - WHAT TO IGNORE 
+- COMPILED SOURCE CODE 
+- PACKAGES AND COMPRESSED FILES 
+- LOGS AND DATABASES 
+- OPERATING SYSTEM GENERATED FILES 
+- USER UPLOADED ASSETS (IMAGES, PDFS, VIDEOS)
+- try looking at github.com/github/gitignore to get more idea on what to ignore 
+
+// LESSON 8.3 - GLOBALLY IGNORE FILES
+git config --global core.excludesfile ~/.gitignore_global
+
+// LESSON 8.4 - IGNORE TRACKED FILES - case where you just recently added to gitignore a file that you have been tracking 
+step 1 : git rm --cached fileName.txt // this is the tracked file | cached wil remove it from repository while keeping the local copy safe 
+step 2 : git add .gitignore 
+step 3: git commit - m "Stop track changes"
+
+// LESSON 9.1 - REFERENCE COMMITS 
+tree-ish - directory containing files, or a commit, or a reference 
+
+// show HEAD
+git show HEAD
+
+// access ancestor - or the one before it 
+git show HEAD^ // access the parent | you could also use master^ , de14621^ or the SHA 
+git show HEAD^^ // access the grandparent
+
+// tree listing 
+git help ls-tree to read the documentation 
+git ls-tree HEAD // blob are files, trees are directory | this is to know what the files and folder there are during this commit 
+git ls-tree HEAD assets // show every directory or file that has the word assets 
+git ls-tree HEAD assets/ // show every file inside assets 
+
+// LESSON 9.4 - FILTER THE COMMIT LOG 
+git log -3 // only return the 3 recent commits 
+git log --since=2021-07-16 // return commits starting 07 16
+git log --until=2019-07-16 // return commits before 07-16 starts 
+git log --author"Renz" // return where author is Renz 
+git log --grep="Initial" // use regular expression or pattern matching, return anything that has Initial 
+git log b44740..HEAD // start from commit with b44740 sha up to the head or most recent commit 
+
+// LESSON 9.5 - FORMAT THE COMMIT LOG 
+git log --stat // stats on changes on each commit 
+git log --format=medium // medium is default, there is also short which provides less info,and also oneline,etc.
+git log --oneline // reduce the size of SHA (i'm starting to like this one)
+
+// LESSON 10.1 - BRANCHING 
+- this is where you try new ideas, instead of doing it in master branch and if there's wrong you have to undo it 
+- if good ideas came from branch then you can merge it into master branch (think of master branch as the original branch where everything is working fine)
+- HEAD pointer always points the current commit you're in whether it be on master branch or just branch
+- you could create a branch from a branch
+
+// LESSON 10.2 - CREATING BRANCHES
+git branch // see branch 
+git branch new_feature // creating branch 
+cat .git/HEAD // know where head poitns to 
+git log --oneline // you could also do this to know where head points to 
+
+// LESSON 10.3 - SWITCHING BRANCHES 
+step 1: git checkout branch_name 
+git branch // try and see that it's now pointing to different branch 
+
+// LESSON 10.4 - CREATE AND SWITCH BRANCHES AT THE SAME TIME 
+step 1: figure out first the branches: git branch 
+step 2: git log --oneline to figure out where you're at 
+step 3: go to the branch where'd you'd like to create a branch: git checkout brancName
+step 4: git checkout -b newNew_branch // created and switched 
+
+// LESSON 10.5 - SWITCH BRANCHES WITH UNCOMMITTED CHANGES 
+// cannot swithc if changes in working directory conflict with another branch 
+// can switch if changes in working directory could be applied without conflict, even though this is fine it is still not a good idea
+
+// solution
+1. commit changes to the current branch 
+2. remove the changes, checkout the file again 
+3. stash the changes 
+
+// LESSON 10.6 - COMPARE BRANCHES - you could also compare remote branch and local branch 
+git diff master..newBranch // compare differences with master branch with different branch 
+git diff master..newBranch^ // compare master branch with the parent commit of the newBranch 
+
+// find out which branch has been merged 
+git branch --merged // it shows all of the commits in current branch is also in another branch
+git branch --no-merged // opposite
+
+// LESSON 10.7 - RENAME BRANCHES 
+step 1: go to current branch : git checkout branch_name 
+step 2: git branch -m new_title_of_branch 
+
+// LESSON 10.8 - DELETE BRANCHES 
+git branch -d branch_to_delete
+
+// if there is commit that you're going to lose in a branch because it wasn't merged 
+git branch -D branch_to_delete
+
+// LESSON 10.9 - CONFIGURE COMMAND PROMPT
+// ours is already configured since we could see what branch are we 
+
+// LESSON 11.1 - RESET BRANCH: RESET TYPES - it's like undoing commits 
+// make my project look like it did back then, move head pointer to a specific commit 
+soft - moves head pointer, does not change staging index and working directory , git reset --soft <tree-ish>
+mixed - moves head pointer, changes staging index to match repository, does not chagne working directory, git reset --mixed <tree-ish> | default choice 
+hard - moves head pointer, changes staging to match repository, changes workign directory to match repository, git reset --hard <tree-ish>
+
+Given: - A - B - C (master)
+git reset --soft A and you will see B and C's stuff in green (staged and ready to commit) | changes it commits b and c would be left at indexing stage ready to be commited and if you commit it, it owuld be like merging a,b, and c
+git reset --mixed A (or git reset A) and you will see B and C's stuff in red (unstaged and ready to be staged (green) and then committed) | almost the same with --soft except it's left in workign directory 
+git reset --hard A and you will no longer see B and C's changes anywhere (will be as if they never existed) | 
+
+// LESSON 11.2 - SOFT RESET 
+- returns to an old state and leave code changes staged 
+- useful for merging one or more commits
+- similar to git commit --amend 
+- previpous commits will be discarded 
+
+step 1: git checkout -b reset_branch // create a reset branch
+step 2: create some edit on some of the files and commit it into the reset_branch
+step 3: edit some file again on some of the files and commit again into the reset_branch
+step 4(optional): copy the sha of the most recent commit from: git log -2 --oneline
+step 5: git reset --soft HEAD^ // reset back to the parent of head, but changes made in most recent commit(head) would not be removed, they would be at the indexing stage 
+step 6(optional): git reset --soft e110a2f // this sha is for the most recent commit, if we do this, we just moved the head back to the most recent commit
+step 7: after step 5, recommit and it would be like combining 2 commits squashed into one 
+
+// LESSON 11.3 - MIXED RESET
+- returns to an old state and leave code changes in working directory
+- useful for reorganizing commits 
+- previous commits will be discarded 
+
+step 1: git checkout branch_to_work // go to the specific branch youll be working on 
+step 2: edit some file and commit changes 
+step 3: edit some files again and commit changes again 
+step 3: git reset --mixed HEAD^ // changes made in most recent commit would be at the working directory and head would be pointing at head^, the only diff with soft is that here it is left in working directory 
+
+// LESSON 11.4 - HARD RESET - instead of leaving the changes made in working directory/indexing stage, you completely remove them 
+- returns to an old stage and leave code changes 
+- permanently undo commits 
+- previously commits and all changes would be discarded 
+
+step 1: git checkout branch_to_work // go to the specific branch youll be working on 
+step 2: edit some file and commit changes 
+step 3: edit some files again and commit changes again 
+step 3: git reset --hard HEAD^ // most recent commit or head would be completely deleted :(
+
+// LESSON 12.1 - MERGE CODE 
+- when everything you've been working on a branch seems all good, you now merge it into master branch (main/original branch)
+
+step 1: git checkout master // go to branch where you want it to merge  
+step 2: git merge --no-ff new_branch // merge new_branch into the current branch you're in 
+step 3: git log --graph --all --oneline --decorate // you could now see that both new_branch and master points to the same commit 
+step 4: git branch -d new_branch // since this new_branch is already merged, it's a good idea to delete them 
+
+// LESSON 12.2 - FAST FORWARD MERGE VS TRUE MERGE 
+true merge - merge has been made but the merged branch is still there | --no-ff
+fast forward merge - everything has been merged into one line | this is the default, git merge , lesson 12.1 | i think this would cause headaches in the long run since you can't track if a feature has been added by this branch or not 
+
+// undo merge: 
+step 1: go to the branch you want 
+git reset --hard HEAD^, example you merge it into master, you do this command at master not at any other branch
+
+
+// LESSON 12.3 - MERGE CONFLICTS 
+// merge occurs when there are two changes in the same line or set of lines in two different commits 
+ex. 
+step 1: branch 1 has: <span> git is great </span>  | note that these are already committed into these branches 
+step 2: branch 2 has: <em> git is great </em>
+step 3: now you merge them - but it produces error, name would be branch[merging], you could also see something weird on the file you've been merging where conflict occured and these are called conflict markers
+
+3 ways to resolve merge 
+1. abort merge 
+2. resolve the conflict manually
+3. use a merge tool 
+
+1. git merge --abort // stop merging 
+2. choose only from 1 branch which one you'll choose | if during merging, type this: git show --color-words to identify the differences between the merging conflict, make sure to remove the markers 
+3. the instructor doesn't know how to do this since he do changes manually or he used gui tool
+
+// LESSON 12.4 - STRATEGIES TO REDUCE CONFLICTS 
+- keep liens short
+- keep commits small and focused (make atomic commits)
+- you must have the same preferences with collaborator : spaces,tabs,line returns 
+- merge often also called as tracking, this is to reduce merge conflicts ? 
+
+// LESSON 13.1 - SAVE CHANGES IN THE STASH - by default untracked files isn't included in stashes, altho you could include them just search on youtube 
+stash is not part of the three trees, it's a special 4th area of git separate from others | think of it as a temporary save 
+
+// example use case: you're modifying something in a specific branch and you're not ready to commit yet but then you wanted to visit to another branch, git will stop you because you haven't committed yet, what the solution? stash those uncommited edits
+// stash
+git stash save "string string string" // the one you're editing is now saved into string string string. now you can switch branches 
+
+// LESSON 13.2 - VIEW STASHED CHANGES - stashed are uncommited edits 
+git stash list // view stashes 
+git stash show stash@{0} // view the first stash
+git stash show -p stash@{0} // show changes like diff 
+note: you could be at any branch and you could still view the stash list 
+
+// LESSON 13.3 - RETRIEVE STASHED CHANGES 
+step 1: figure out what branch you're gonna use it, git checkout branch 
+step 2: git stash pop,, this would remove a single stash and apply it to the working directory of curent branch
+step 2(method 2):  git stash pop stash@{0}, removing a single stash but you wanted something specific 
+step 2(method 3): git stash apply, the stash wouldnt be removed but it would still be in working directory, this is useful if you wanted to apply same stash to multiple branches 
+
+// LESSON 13.4 - DELETE STASHED CHANGES 
+git stash drop stash@{0} // delete specific stash
+git stash clear // delete every stash 
+
+// LESSON 14.1 - LOCAL AND REMOTE REPOSITORIES 
+// master (local master) -> origin/master (remote, master branch)
+// putting local repository into remote repo is called push 
+// master -> origin/master copies it (tracking branch for remote) -> push to remote server (still called master)
+// fetch - when changes has been made on remote server but not on local repo and now we want to put those changes in local server/repo, it goes to origin/master but not on master, note that origin/master(think of diz is a branch) is diff from master 
+
+// LESSON 14.2 - GITHUB 
+// it is good practice to have the same name for local project and remote repository, github is the remote repository 
+
+// LESSON 14.3 - ADD A REMOTE REPOSITORY 
+// push an existing local repository from the command line 
+git remote add origin https.github.com/easdfas // this command line can be seen when you create new repo in github, just find it | origin is name of the repo 
+
+git remote // it tells you what remote repo you have, add -v to get more information with this remote 
+
+// delete a remote repo 
+git remote rm origin // origin is name of the repo 
+
+// LESSON 14.3 - CREATEA A REMOTE BRANCH - putting your work into github, remember to do the step above first before doing this 
+git push -u origin master // push to origin remote, master branch
+// github mostly asks for email and password which is cumbersome if this owuld be done every single time, so just search on youtbe the fix for this  
+
+// show remote branch 
+git branch -r 
+
+// show all branch including local and remote 
+git branch -a 
+
+// LESSON 14.4 - CLONE A REMOTE REPOSITORY 
+// go to github, find the clone or download in the repo then copy the link given 
+git clone https.github.com/easdfas // just one version is created, creating exact copy of the original file 
+git clone https.github.com/easdfas renz_version // this owuld create two files, the file we cloned which contains all of the orignal files and directory and the renz_version which contains only the master branch 
+
+// UNFINISHED - LESSON 14.5 - TRACKIGN REMOTE BRANCH 
+
+// LESSON 15.1 - PUSH CHANGES TO A REMOTE REPOSITORY 
+step 1: create some changes yet into local copy | note than origin/master is the tracking branch for the remote branch, it's not the real remote branch 
+step 2: git push // you don't need to specify origin master anymore since you have tracking branch, you just need git push  
+step 2: git push origin master // this means push to origin(remote repo) the changes made from the master(local repo)
+
+// LESSON 15.2 - FETCH CHANGES FROM A REMOTE REPOSITORY 
+git fetch origin // fetch from origin(remote repo)
+// note that we still have to merge this fetch into the local repo or master branch if you want | fetch just give you the newly added commits from remote repo, it doesnt merge it automaticalyl to your master branch 
+
+// using fetch - to get information, there's no harm in doing this since it doesn't merge into anything 
+fetch before start your day
+fetch before you push 
+fetch before you go offline 
+fetch often 
+
+// LESSON 15.3 - MERGE IN FETCHED CHANGES 
+// after git fetch 
+git merge origin/master // this is a fast forward merge 
+
+// one command for git fetch + git merge 
+git pull // use this cautiously, always remember that this is a two step process combination, git fetch is very useful so don't forget that 
+
+// LESSON 15.4 - CHECKOUT REMOTE BRANCHES 
+git branch -r // check only remote branches 
+git branch -a // check local and remote branches 
+
+// we can't checkout remote branches, but we can make a branch out of that remote branch, make edits on that new branch and then push it to remote afterwards 
+step 1: git branch branch origin/branch // creating the same name of the branch 
+step 2: git checkout branch // now make your edits in here 
+
+// LESSON 15.5 - PUSH TO AN UPDATED REMOTE BRANCH
+step 1: perform a fetch then merge into it 
+step 2: push 
+
+// LESSON 15.6 - DELETE A REMOTE BANCH 
+- useful when a feature branch is complete and merged 
+git push origin :branch // 1st way to delete the remote branch "branch"
+git push origin --delete branch // 2nd way 
+
+// LESSON 15.7 - ENABLE COLLABORATION 
+1st - add collaborators to your projects
+    - go to github website, settings -> collaborators -> add name of collaborator | diff from open source project 
+
+2nd - join an open source project 
+    - on a repo, click fork 
+    - look at issues, pull request, make sure someone isn't working on the change you're thinking in mind 
+
+// LESSON 15.8 - COLLABORATION WORKFLOW 
+// ongoing project , repo has been set upped, and we'll start working on a feature
+- git checkout master 
+- git fetch 
+- git merge origin/master // merging on your master branch 
+- git checkout -b newBranch // create newbranch then switch into it 
+- create some edits 
+- git add file.html 
+- git commit -m "message"
+- git fetch // maybe there has been commits that has been made
+- git push -u origin newBranch  
+
+// i sent an email to other people, my work is done and now it's her turn, given that she already has the repo set up, this would be her routine: 
+- git checkout master
+- git fetch 
+- git merge origin/master // her master branch is now up to date 
+- git checkout -b branch origin/branch // creating a branch out of remote branch, this is tracking the branch that i pushed so she can do some edits on the feature branch i created 
+- git log // now she's looking at the changes i made 
+- git show 832asdf // 832 is a sha, looking at each commits 
+- she made some edits 
+- git commit -am " add tour selector on this branch"
+- git fetch // she does this to make sure no new edits have been done on new repo 
+- git push // everything's good, she pushed her edits 
+
+// my work 
+- git fetch 
+- git log -p branch..origin/branch // like doing a diff in 2 branch, i wanted to see her edits and compare them to my edit 
+- git merge origin/branch // after everythings good i now merge her creation with mine 
+- git checkout master // since she already pushed her edits in the remote repo, i'll now pull what she have done into my local repo 
+- git fetch // check if anything has come new
+- git merge origin/master // i'll only do this if there are something new i got from fetch  
+- git merge branch // since everything's already good ill now merge my feature branch into master
+- git push // now the new feature is on the remote server 
+// now the new feature is on the remote server 
+
+
+// LESSON X.1 - BASIC COMMAND LINE
+ls - list of file and directories
+dir - list of directories/folder
+cd - change directory
+cd .. - change directory backwards
+mkdir projectName - create folder
+echo "See ya later alligator" > file1.txt - create content with echo then create file
+rm - delete file
+touch - create file 
+
+// LESSON X.3 - GIT UNINIT
+rm -rf .git
+
+// LESSON X.4 - CREATING ALIAS 
+git config --global alias.st "status" // now instead of typing status you just type st 
+// this would be very useful for log --graph --decorate --oneline --all | create an alias of logg for this 
+
+// CONCLUSION: LESSON X.4 - USING GIT
+step 0: udnerstand working directory -> indexing stage -> commit | to start tracking files you need to do git add , this git add is also used to convert working directory to indexing stage | everytime you do edits, you need to put it into indexing stage again 
+step 1: initialize a git with the folder/project you wanted to make a repository from: git init | 
+step 2: create a gitignore with touch .gitignore | add files you wanted to ignore in .gitignore then after all is done do git add . to start trackign them and now commit them with message "initial commit"
+step 3: creating a remote repo in github:  git remote add origin https.github/linkoffile -> git push -u origin master 
+step 4: have a look if you're at the correct branch | create branch and switch : git checkout -b new_branch | swithc branch: git checkout master
+step 5: make some edit like remove,modify,add then stage them,  git rm, git mv, etc. | to know the status if a file is in working or stage, use git status 
+step 6(optional) : look at edits or changes, if it's in working directory git diff, if it's in stage git diff --staged | use --color-words if you're looking only at inline changes
+step 7: stage then commit them at the same time with: git commit -am "message" | to do them individually use git add for staging and git commit for committing | make sure to use atomic commits as it is very useful
+step 8: view commits with: git log | to compare commits use git diff 1casdfa...1231asdf
+step 9(optional) : undo commit: git revert SHA123 | unstage file: git reset HEAD | undo working directory: git checkout -- | remove untracked file: git clean -f 
+step 10: push changes to remote repo 
+
+// USING GIT EVERYDAY
+- fetch from remote server every single day so you would know what changed 
+- before merging, or committing, make it a habit to use git diff to double check differences 
+
+important mention: press q to quit git log, this is very annoying 
+
+// LESSON X.5 - The file will have its original line endings in your working directory. warning: LF will be replaced by CRLF in Gemfile. | you'll most likely encounter this when using node module, to prevent endless warnings type the line below
+git config --global core.safecrlf false

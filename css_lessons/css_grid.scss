@@ -1,0 +1,114 @@
+// LESSON 1.1 - TERMINOLOGY 
+/*
+grid container - element containing a grid
+grid item - element that is a direct descendant of the container
+grid line - lines of the grid?!?!??!!
+grid cell - same as table cell
+grid track - cell that spans horizontally or vertically
+grid area - rectangular area 
+grid gap - empty space between grid tracks | also knows as gutter
+*/ 
+
+// LESSON 1.3 - GRID UNITS
+.container {
+    display:grid;
+    // fr
+    grid-template-columns: 1fr 1fr; // equivalent to writing 50% 50%
+
+    // minmax- declare the minimum or maximum width 
+    grid-template-columns: 1fr minmax(10em, 20em) 1fr;
+
+    // repeat
+    grid-template-columns: repeat(2,1fr); // equivalent to writing 1fr 1fr
+}
+
+// LESSON 1.5 - MANUAL GRID ITEM PLACEMENT 
+.container {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+}
+
+// grid-column, and grid-row is applied on grid item
+.item1 {
+    grid-column:1/3; // item1 spans from column 1 to 3
+    grid-row:1/2; // item1 spans from row 1 to 2 
+}
+
+// implicit grids - grids are automatically created even if in our case there are only 3 columns and 3 rows
+.item4{
+    grid-column:1/3;
+    grid-row:4; // start at row 4, yes we can do this even tho from our container there are only 3 grid that are explicitly stated, this is the practical application of implicit grids
+}
+
+// LESSON 1.6 - GRID AREAS 
+// grid-template-areas: applied to grid container, text based grip map
+.container{
+    display:grid; // grid items becomes block with grid-template-areas, if grid-template-rows/columns only it does not 
+    grid-template-areas: // grid-template-areas must always be a square matrix | you can specify grid-template-area without using a grid-template-rows/columns | applying this would make the grid items become a block element, but it's a good practice to have grid items as block elements
+    "white white white"
+    "yellow yellow blue"
+    "yellow yellow blue";
+}
+
+// if you want to use grid-template-areas leaving some grid cells as empty, put a period (.)
+.container{
+    display:grid;
+    grid-template-areas:
+    "white white ."
+    "blue . .";
+}
+
+// don't forget to specify grid-area name for each grid items
+.white {
+    grid-area:white;
+}
+.blue{
+    grid-area:blue;
+}
+
+// LESSON 1.7 - GRID GAP - gutter between grid cells | if you apply it, it would only apply to the inside of the grid container
+//applied at grid container
+.container {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem; 
+
+    // just a track
+    grid-row-gap: 1rem; // could also be column
+
+    // shorthand for 1 direction gap
+    grid-gap:1rem 2rem; // row column
+}
+
+// LESSON 2.1 - CSS GRID MEANS RETHINKING WEB LAYOUTS 
+// direct first level descendant of the grid container is the grid items
+// second level descendants need their own grid
+// embrace nested grids
+
+// LESSON 3 - MULTI COLUMN LAYOUT
+
+
+
+// LESSON X.1 - grid-template-columns, grid-template-rows
+.container {
+    display:grid;
+    grid-template-columns: 33% 33% 33%; // with this you are essentially changing the width of the grid items, remember that you cannot change the width of an inline element
+    // this grid-template-columns and rows would only work if the grid item is a block
+}
+
+// conclusion: if using grid-template-columns/row make the grid item a block element
+
+// LESSON X.2 - CREATING RESPONSIVE WEBSITE USING CSS GRID
+/*
+step 1: create grid container and items 
+step 2: start with mobile
+    .container {
+        display:grid;
+        
+
+
+    .site { //.site is a body class name | this restricts the site from growing when it reaches 50em
+        max-width: 50em;
+        margin: 0 auto;
+    }

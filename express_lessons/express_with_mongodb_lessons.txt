@@ -1,0 +1,24 @@
+// LESSON 1.1 - DB SETUP 
+const express = require("express");
+const mongoose = require("mongoose");
+const url = "mongodb://localHost/databaseNameInsideMongoDB
+
+const app = express();
+
+// connecting to database 
+mongoose.connect(url, {useNewUrlParser:true}); // useNewUrlParser is just to avoid the warning, dont mind this
+
+// now you can use this connection to do whatever you want with the database 
+const con = mongoose.connection;
+
+// let you know that you have connected to the database 
+con.on("open", () => {
+    console.log(`you are connected to the database`);
+})
+
+
+
+
+// LESSON X.1 - db.collection.find() vs db.collection.findOne()
+- find returns a cursor 
+- findOne returns a document 
